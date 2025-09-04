@@ -1,3 +1,5 @@
+import Login from "@/features/auth/page/Login";
+import Register from "@/features/auth/page/Register";
 import { lazy } from "react";
 import { createBrowserRouter } from "react-router";
 import App from "../App";
@@ -25,5 +27,13 @@ export const router = createBrowserRouter([
         path: "/service",
       },
     ],
+  },
+  {
+    Component: Login,
+    path: "/login",
+  },
+  {
+    Component: Register,
+    path: "/register",
   },
 ]);
