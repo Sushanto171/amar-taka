@@ -2,8 +2,10 @@ import { axiosInstance } from "@/lib/axios";
 import type { BaseQueryFn } from "@reduxjs/toolkit/query";
 import type { AxiosError, AxiosRequestConfig } from "axios";
 
-export const axiosBaseQuery =(): 
-BaseQueryFn<{ url: string;
+export const axiosBaseQuery =
+  (): BaseQueryFn<
+    {
+      url: string;
       method?: AxiosRequestConfig["method"];
       data?: AxiosRequestConfig["data"];
       params?: AxiosRequestConfig["params"];
@@ -15,7 +17,7 @@ BaseQueryFn<{ url: string;
   async ({ url, method, data, params, headers }) => {
     try {
       const result = await axiosInstance({
-         url,
+        url,
         method,
         data,
         params,

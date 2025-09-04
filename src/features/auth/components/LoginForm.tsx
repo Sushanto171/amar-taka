@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -19,7 +20,9 @@ import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router";
+import { toast } from "sonner";
 import { z } from "zod";
+import { useLoginMutation } from "../api/auth.api";
 import { zodResolver } from "./../../../../node_modules/@hookform/resolvers/zod/src/zod";
 import PasswordFiled from "./PasswordFiled";
 
@@ -44,13 +47,19 @@ export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+  const [login] = useLoginMutation();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: { phone: "", password: "" },
+    defaultValues: { phone: "01791407583", password: "123456" },
   });
 
-  const submitHandler = (data: z.infer<typeof formSchema>) => {
-    console.log(data);
+  const submitHandler = async (data: z.infer<typeof formSchema>) => {
+    try {
+      const res = await login(data).unwrap();
+      toast.success(res.message);
+    } catch (error: any) {
+      toast.error(error.data.message);
+    }
   };
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
