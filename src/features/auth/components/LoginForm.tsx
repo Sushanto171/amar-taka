@@ -6,15 +6,52 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
+import { useForm } from "react-hook-form";
 import { Link } from "react-router";
+import { z } from "zod";
+import { zodResolver } from "./../../../../node_modules/@hookform/resolvers/zod/src/zod";
+import PasswordFiled from "./PasswordFiled";
+
+// Bangladesh phone regex: +8801XXXXXXXXX, 8801XXXXXXXXX, 01XXXXXXXXX
+const bdPhoneRegex = /^(?:\+8801|8801|01)[3-9]\d{8}$/;
+
+const formSchema = z.object({
+  phone: z
+    .string({
+      error: "Phone number is required",
+    })
+    .regex(bdPhoneRegex, { message: "Invalid Bangladesh phone number format" }),
+
+  password: z
+    .string({
+      error: "Password is required",
+    })
+    .regex(/^\d{6}$/, { message: "Password must be 6 digits." }),
+});
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: { phone: "", password: "" },
+  });
+
+  const submitHandler = (data: z.infer<typeof formSchema>) => {
+    console.log(data);
+  };
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
@@ -23,40 +60,53 @@ export function LoginForm({
           <CardDescription>Login with your Credential</CardDescription>
         </CardHeader>
         <CardContent>
-          <form>
-            <div className="grid gap-6">
-              <div className="grid gap-3">
-                <Label htmlFor="phone">Phone</Label>
-                <Input
-                  id="phone"
-                  type="text"
-                  placeholder="+88017********"
-                  required
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(submitHandler)}>
+              <div className="grid gap-6">
+                <FormField
+                  control={form.control}
+                  name="phone"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Phone</FormLabel>
+                      <FormControl>
+                        <Input placeholder="+8801XXXXXXXXX" {...field} />
+                      </FormControl>
+                      <FormDescription className="sr-only">
+                        This is your Phone Field.
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
                 />
+                <FormField
+                  control={form.control}
+                  name="password"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Password</FormLabel>
+                      <FormControl>
+                        <PasswordFiled field={field} />
+                      </FormControl>
+                      <FormDescription className="sr-only">
+                        This is your Phone Field.
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <Button type="submit" className="w-full">
+                  Login
+                </Button>
               </div>
-              <div className="grid gap-3">
-                <div className="flex items-center">
-                  <Label htmlFor="password">Password</Label>
-                  <Link
-                    to="#"
-                    className="ml-auto text-sm underline-offset-4 hover:underline"
-                  >
-                    Forgot your password?
-                  </Link>
-                </div>
-                <Input id="password" type="password" placeholder="******" required />
+              <div className="text-center text-sm mt-6">
+                Don&apos;t have an account?{" "}
+                <Link to="/register" className="underline underline-offset-4">
+                  Register
+                </Link>
               </div>
-              <Button type="submit" className="w-full">
-                Login
-              </Button>
-            </div>
-            <div className="text-center text-sm mt-6">
-              Don&apos;t have an account?{" "}
-              <Link to="/register" className="underline underline-offset-4">
-                Register
-              </Link>
-            </div>
-          </form>
+            </form>
+          </Form>
         </CardContent>
       </Card>
       <div className="text-muted-foreground *:[a]:hover:text-primary text-center text-xs text-balance *:[a]:underline *:[a]:underline-offset-4">
