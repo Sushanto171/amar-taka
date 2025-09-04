@@ -8,9 +8,9 @@ type TProps = {
 
 export default function CommonLayout({ children }: TProps) {
   return (
-    <div>
+    <div className="min-h-screen flex flex-col ">
       <Navbar />
-      <div>{children}</div>
+      <div className="container mx-auto px-4 grow">{children}</div>
       <Footer />
     </div>
   );
