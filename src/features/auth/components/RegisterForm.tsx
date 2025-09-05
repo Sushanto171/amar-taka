@@ -19,7 +19,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { toast } from "sonner";
 import { z } from "zod";
 import { useRegisterMutation } from "../api/auth.api";
@@ -48,6 +48,7 @@ export function RegisterForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+  const navigate = useNavigate();
   const [register] = useRegisterMutation();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -59,9 +60,12 @@ export function RegisterForm({
     try {
       const res = await register(data).unwrap();
       toast.success(res.message);
+      if (res.success) {
+        navigate("/verify", { state: data.phone });
+      }
     } catch (error: any) {
       console.log(error);
-      toast.success(error.data.message);
+      toast.error(error.data.message);
     }
   };
   return (

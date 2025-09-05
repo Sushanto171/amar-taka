@@ -32,6 +32,7 @@ import { toast } from "sonner";
 import z from "zod";
 import { useSendOTPMutation, useVerifyOTPMutation } from "../api/auth.api";
 import Remaining from "../components/Remaining";
+import { useToast } from "../hook/useToast";
 
 const otpSchema = z.object({
   otp: z.string().min(6, {
@@ -50,6 +51,7 @@ export default function Verify() {
     resolver: zodResolver(otpSchema),
     defaultValues: { otp: "" },
   });
+  const { showToast } = useToast();
 
   useEffect(() => {
     if (!state) {
@@ -59,6 +61,7 @@ export default function Verify() {
 
   const handleConfirmed = async () => {
     const toasterId = toast.loading("Sending OTP");
+    showToast("Use Default OPT: 123456");
     try {
       form.reset();
       const result = await sendOtp({ phone: state }).unwrap();
@@ -104,9 +107,7 @@ export default function Verify() {
             </div>
             <CardDescription>
               Enter the 6‑digit code sent to{" "}
-              <span className="font-medium text-foreground">
-                {state?.email}
-              </span>
+              <span className="font-medium text-foreground">{state}</span>
             </CardDescription>
           </CardHeader>
 
@@ -180,16 +181,14 @@ export default function Verify() {
             <div className="flex items-center justify-between">
               <div className="inline-flex items-center gap-2">
                 <CardTitle className="text-xl truncate">
-                  Verify your Email Address
+                  Verify your phone number
                 </CardTitle>
               </div>
               <ShieldCheck className="h-5 w-5 text-emerald-500" />
             </div>
             <CardDescription>
               We will send you an OTP at : <br />
-              <span className="font-medium text-foreground">
-                {state?.email}
-              </span>
+              <span className="font-medium text-foreground">{state}</span>
             </CardDescription>
           </CardHeader>
           <CardFooter className="justify-center text-xs text-muted-foreground">

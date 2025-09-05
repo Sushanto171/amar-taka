@@ -9,6 +9,11 @@ export const authApi = baseApi.injectEndpoints({
         data: userData,
       }),
     }),
+    logout: builder.query({
+      query: () => ({
+        url: "/auth/logout",
+      }),
+    }),
     register: builder.mutation({
       query: (userData) => ({
         url: "/user",
@@ -18,14 +23,14 @@ export const authApi = baseApi.injectEndpoints({
     }),
     sendOTP: builder.mutation({
       query: (userData) => ({
-        url: "/user/send-verify-otp",
+        url: "/otp/send",
         method: "POST",
         data: userData,
       }),
     }),
     verifyOTP: builder.mutation({
       query: (userData) => ({
-        url: "/user/verify-otp",
+        url: "/otp/verify",
         method: "POST",
         data: userData,
       }),
@@ -38,4 +43,5 @@ export const {
   useRegisterMutation,
   useSendOTPMutation,
   useVerifyOTPMutation,
+  useLogoutQuery,
 } = authApi;
