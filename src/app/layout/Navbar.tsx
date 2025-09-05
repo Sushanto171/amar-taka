@@ -24,7 +24,7 @@ const navigationLinks = [
 
 export default function Navbar() {
   const { pathname } = useLocation();
-  console.log(pathname);
+
   return (
     <header className="border-b ">
       <div className="container mx-auto px-4 flex h-16 justify-between gap-4">

@@ -59,6 +59,10 @@ export function LoginForm({
       toast.success(res.message);
     } catch (error: any) {
       toast.error(error.data.message);
+      if (error.status === 400 && error.data.message === "User is't verified") {
+        console.log(error.status);
+        window.open("/verify", "_self");
+      }
     }
   };
   return (

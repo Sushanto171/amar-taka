@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -19,7 +20,9 @@ import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router";
+import { toast } from "sonner";
 import { z } from "zod";
+import { useRegisterMutation } from "../api/auth.api";
 import { zodResolver } from "./../../../../node_modules/@hookform/resolvers/zod/src/zod";
 import PasswordFiled from "./PasswordFiled";
 
@@ -45,13 +48,21 @@ export function RegisterForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+  const [register] = useRegisterMutation();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: { phone: "", password: "" },
+    defaultValues: { name: "", phone: "", password: "" },
   });
 
-  const submitHandler = (data: z.infer<typeof formSchema>) => {
+  const submitHandler = async (data: z.infer<typeof formSchema>) => {
     console.log(data);
+    try {
+      const res = await register(data).unwrap();
+      toast.success(res.message);
+    } catch (error: any) {
+      console.log(error);
+      toast.success(error.data.message);
+    }
   };
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
