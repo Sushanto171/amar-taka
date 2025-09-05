@@ -19,7 +19,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { toast } from "sonner";
 import { z } from "zod";
 import { useLoginMutation } from "../api/auth.api";
@@ -47,6 +47,7 @@ export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+  const navigate = useNavigate();
   const [login] = useLoginMutation();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -60,8 +61,7 @@ export function LoginForm({
     } catch (error: any) {
       toast.error(error.data.message);
       if (error.status === 400 && error.data.message === "User is't verified") {
-        console.log(error.status);
-        window.open("/verify", "_self");
+        navigate("/verify", { state: data.phone });
       }
     }
   };
