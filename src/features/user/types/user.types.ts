@@ -1,11 +1,11 @@
-
+import type { TRole } from "@/types/global.types";
 
 export interface IUser {
   _id: string;
   name: string;
   phone: string;
   email: string;
-  role: string;
+  role: TRole;
   failedLoginAttempts: number;
   lockUntil: string;
   isDeleted: boolean;

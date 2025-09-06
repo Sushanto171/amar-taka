@@ -1,6 +1,7 @@
 import Login from "@/features/auth/page/Login";
 import Register from "@/features/auth/page/Register";
 import Verify from "@/features/auth/page/Verify";
+import { withAuth } from "@/utils/WithAuth";
 import { lazy } from "react";
 import { createBrowserRouter } from "react-router";
 import App from "../App";
@@ -43,7 +44,7 @@ export const router = createBrowserRouter([
     path: "/verify",
   },
   {
-    Component: DashboardLayout,
+    Component: withAuth(DashboardLayout),
     path: "/dashboard",
   },
 ]);
