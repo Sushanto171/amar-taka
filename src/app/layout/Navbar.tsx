@@ -25,6 +25,7 @@ const navigationLinks = [
   { href: "/", label: "Home" },
   { href: "/about", label: "About" },
   { href: "/service", label: "Service" },
+  { href: "/dashboard", label: "Dashboard" },
   // { href: "/features", label: "Features" },
 ];
 

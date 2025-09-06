@@ -4,6 +4,7 @@ import Verify from "@/features/auth/page/Verify";
 import { lazy } from "react";
 import { createBrowserRouter } from "react-router";
 import App from "../App";
+import DashboardLayout from "../layout/DashboardLayout";
 import Homepage from "../pages/Homepage";
 
 //lazy import (public route)
@@ -40,5 +41,9 @@ export const router = createBrowserRouter([
   {
     Component: Verify,
     path: "/verify",
+  },
+  {
+    Component: DashboardLayout,
+    path: "/dashboard",
   },
 ]);
