@@ -1,10 +1,14 @@
-import CashOut from "@/features/auth/page/CashOut";
-import Settings from "@/features/dashboard/pages/Settings";
-import Transactions from "@/features/dashboard/pages/Transactions";
-import Wallet from "@/features/dashboard/pages/Wallet";
-import BillPay from "@/features/user/page/BillPay";
-import SendMoney from "@/features/user/page/SendMoney";
 import type { ISidebarItems } from "@/types/global.types";
+import { lazy } from "react";
+
+const CashOut = lazy(() => import("@/features/auth/page/CashOut"));
+const Settings = lazy(() => import("@/features/dashboard/pages/Settings"));
+const Transactions = lazy(
+  () => import("@/features/dashboard/pages/Transactions")
+);
+const Wallet = lazy(() => import("@/features/dashboard/pages/Wallet"));
+const BillPay = lazy(() => import("@/features/user/page/BillPay"));
+const SendMoney = lazy(() => import("@/features/user/page/SendMoney"));
 
 export const UserSidebarItems: ISidebarItems[] = [
   {

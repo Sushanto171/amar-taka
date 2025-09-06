@@ -1,11 +1,16 @@
-import Analytics from "@/features/dashboard/pages/Analytics";
-import Settings from "@/features/dashboard/pages/Settings";
-import Transactions from "@/features/dashboard/pages/Transactions";
 import type { ISidebarItems } from "@/types/global.types";
-import AuditLogs from "../page/AuditLogs";
-import SystemSettings from "../page/SystemSettings";
-import Users from "../page/Users";
-import Wallets from "../page/Wallets";
+import { lazy } from "react";
+
+// lazy imports
+const Analytics = lazy(() => import("@/features/dashboard/pages/Analytics"));
+const Settings = lazy(() => import("@/features/dashboard/pages/Settings"));
+const Transactions = lazy(
+  () => import("@/features/dashboard/pages/Transactions")
+);
+const AuditLogs = lazy(() => import("../page/AuditLogs"));
+const SystemSettings = lazy(() => import("../page/SystemSettings"));
+const Users = lazy(() => import("../page/Users"));
+const Wallets = lazy(() => import("../page/Wallets"));
 
 export const AdminSidebarItems: ISidebarItems[] = [
   {

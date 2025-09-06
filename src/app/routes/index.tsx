@@ -4,11 +4,12 @@ import Verify from "@/features/auth/page/Verify";
 
 import { generateRoute } from "@/utils/generateRoute";
 
+import LoadingSpinner from "@/components/Loading";
 import { AdminSidebarItems } from "@/features/admin/components/AdminSidebarItems";
 import { AgentSidebarItems } from "@/features/agent/components/AgentSidebarItems";
 import { UserSidebarItems } from "@/features/user/components/UserSidebarItem";
 import { withAuth } from "@/utils/withAuth";
-import { lazy } from "react";
+import { lazy, Suspense } from "react";
 import { createBrowserRouter, Navigate } from "react-router";
 import App from "../App";
 import DashboardLayout from "../layout/DashboardLayout";
@@ -29,11 +30,19 @@ export const router = createBrowserRouter([
         index: true,
       },
       {
-        Component: About,
+        Component: () => (
+          <Suspense fallback={<LoadingSpinner />}>
+            <About />
+          </Suspense>
+        ),
         path: "/about",
       },
       {
-        Component: Service,
+        Component: () => (
+          <Suspense fallback={<LoadingSpinner />}>
+            <Service />
+          </Suspense>
+        ),
         path: "/service",
       },
     ],

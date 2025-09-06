@@ -1,11 +1,16 @@
-import CashOut from "@/features/auth/page/CashOut";
-import Analytics from "@/features/dashboard/pages/Analytics";
-import Settings from "@/features/dashboard/pages/Settings";
-import Transactions from "@/features/dashboard/pages/Transactions";
-import Wallet from "@/features/dashboard/pages/Wallet";
+import { lazy } from "react";
+// lazy imports
+const CashOut = lazy(() => import("@/features/auth/page/CashOut"));
+const Analytics = lazy(() => import("@/features/dashboard/pages/Analytics"));
+const Settings = lazy(() => import("@/features/dashboard/pages/Settings"));
+const Transactions = lazy(
+  () => import("@/features/dashboard/pages/Transactions")
+);
+const Wallet = lazy(() => import("@/features/dashboard/pages/Wallet"));
+const Commission = lazy(() => import("../../dashboard/pages/Commission"));
+const CashIn = lazy(() => import("../pages/CashIn"));
+
 import type { ISidebarItems } from "@/types/global.types";
-import Commission from "../../dashboard/pages/Commission";
-import CashIn from "../pages/CashIn";
 
 export const AgentSidebarItems: ISidebarItems[] = [
   {
