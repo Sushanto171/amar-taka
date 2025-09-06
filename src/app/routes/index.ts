@@ -1,5 +1,6 @@
 import Login from "@/features/auth/page/Login";
 import Register from "@/features/auth/page/Register";
+import Verify from "@/features/auth/page/Verify";
 import { lazy } from "react";
 import { createBrowserRouter } from "react-router";
 import App from "../App";
@@ -35,5 +36,9 @@ export const router = createBrowserRouter([
   {
     Component: Register,
     path: "/register",
+  },
+  {
+    Component: Verify,
+    path: "/verify",
   },
 ]);
