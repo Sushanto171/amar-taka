@@ -1,4 +1,5 @@
 import Logo from "@/assets/icons/Logo";
+import LoadingSpinner from "@/components/Loading";
 import { ModeToggle } from "@/components/ModeToggle";
 import { Button } from "@/components/ui/button";
 import {
@@ -12,7 +13,12 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { authApi, useLogoutMutation } from "@/features/auth/api/auth.api";
+
+import { useGetMeQuery } from "@/features/user/api/user.api";
+import { useDispatch } from "react-redux";
 import { Link, useLocation } from "react-router";
+import { toast } from "sonner";
 
 // Navigation links array to be used in both desktop and mobile menus
 const navigationLinks = [
@@ -24,7 +30,23 @@ const navigationLinks = [
 
 export default function Navbar() {
   const { pathname } = useLocation();
+  const dispatch = useDispatch();
 
+  const { data, isLoading } = useGetMeQuery(undefined);
+  const [logout] = useLogoutMutation();
+  console.log(data?.data.role);
+  const handleLogout = async () => {
+    try {
+      const res = await logout(null).unwrap();
+      dispatch(authApi.util.resetApiState());
+      toast.success(res.message);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  if (isLoading) {
+    return <LoadingSpinner />;
+  }
   return (
     <header className="border-b ">
       <div className="container mx-auto px-4 flex h-16 justify-between gap-4">
@@ -109,12 +131,25 @@ export default function Navbar() {
         {/* Right side */}
         <div className="flex items-center gap-2">
           <ModeToggle />
-          <Button asChild variant="ghost" size="sm" className="text-sm">
-            <Link to="/login">login</Link>
-          </Button>
-          <Button asChild size="sm" className="text-sm">
-            <Link to="/register">Register</Link>
-          </Button>
+          {!isLoading && data ? (
+            <Button
+              onClick={handleLogout}
+              variant="outline"
+              size="sm"
+              className="text-sm"
+            >
+              Logout
+            </Button>
+          ) : (
+            <>
+              <Button asChild variant="ghost" size="sm" className="text-sm">
+                <Link to="/login">login</Link>
+              </Button>
+              <Button asChild size="sm" className="text-sm">
+                <Link to="/register">Register</Link>
+              </Button>
+            </>
+          )}
         </div>
       </div>
     </header>
