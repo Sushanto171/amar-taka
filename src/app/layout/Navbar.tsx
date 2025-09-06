@@ -12,6 +12,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { useGetMeQuery } from "@/features/user/api/user.api";
 import { Link, useLocation } from "react-router";
 
 // Navigation links array to be used in both desktop and mobile menus
@@ -25,6 +26,8 @@ const navigationLinks = [
 export default function Navbar() {
   const { pathname } = useLocation();
 
+  const { data } = useGetMeQuery(undefined);
+  console.log(data);
   return (
     <header className="border-b ">
       <div className="container mx-auto px-4 flex h-16 justify-between gap-4">

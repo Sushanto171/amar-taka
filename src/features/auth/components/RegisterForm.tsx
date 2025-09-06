@@ -22,9 +22,10 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router";
 import { toast } from "sonner";
 import { z } from "zod";
-import { useRegisterMutation } from "../api/auth.api";
+
 import { zodResolver } from "./../../../../node_modules/@hookform/resolvers/zod/src/zod";
 import PasswordFiled from "./PasswordFiled";
+import { useRegisterMutation } from "@/features/user/api/user.api";
 
 // Bangladesh phone regex: +8801XXXXXXXXX, 8801XXXXXXXXX, 01XXXXXXXXX
 const bdPhoneRegex = /^(?:\+8801|8801|01)[3-9]\d{8}$/;

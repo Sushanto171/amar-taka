@@ -58,6 +58,7 @@ export function LoginForm({
     try {
       const res = await login(data).unwrap();
       toast.success(res.message);
+      navigate("/");
     } catch (error: any) {
       toast.error(error.data.message);
       if (error.status === 400 && error.data.message === "User is't verified") {
