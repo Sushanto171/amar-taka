@@ -1,3 +1,5 @@
+import type { ComponentType } from "react";
+
 export interface IResponse<T> {
   success: boolean;
   statusCode: number;
@@ -5,4 +7,14 @@ export interface IResponse<T> {
   data: T;
 }
 
-export type TRole =  "ADMIN" | "AGENT" |"USER";
+export type TRole = "ADMIN" | "AGENT" | "USER";
+
+export interface ISidebarItems {
+  title: string;
+  url: string;
+  items: {
+    title: string;
+    url: string;
+    Component: ComponentType;
+  }[];
+}

@@ -88,21 +88,41 @@ export default function Navbar() {
                   </svg>
                 </Button>
               </PopoverTrigger>
-              <PopoverContent align="start" className="w-36 p-1 md:hidden">
+              <PopoverContent
+                align="start"
+                className="min-w-[calc(100vh-200px)]  p-1 md:hidden"
+              >
                 <NavigationMenu className="max-w-none *:w-full">
                   <NavigationMenuList className="flex-col items-start gap-0 md:gap-2">
                     {navigationLinks.map((link, index) => (
-                      <NavigationMenuItem key={index} className="w-full">
-                        <NavigationMenuLink
-                          asChild
-                          className="text-muted-foreground hover:text-primary border-b-primary hover:border-b-primary data-[active]:border-b-primary h-full justify-center rounded-none border-y-2 border-transparent py-1.5 font-medium hover:bg-transparent data-[active]:bg-transparent!"
-                          active={link.href === pathname}
-                        >
-                          <Link to={link.href} className="py-1.5">
-                            {link.label}
-                          </Link>
-                        </NavigationMenuLink>
-                      </NavigationMenuItem>
+                      <span key={index}>
+                        {link.role === "PUBLIC" && (
+                          <NavigationMenuItem key={index} className="w-full">
+                            <NavigationMenuLink
+                              asChild
+                              className="text-muted-foreground hover:text-primary border-b-primary hover:border-b-primary data-[active]:border-b-primary h-full justify-center rounded-none border-y-2 border-transparent py-1.5 font-medium hover:bg-transparent data-[active]:bg-transparent!"
+                              active={link.href === pathname}
+                            >
+                              <Link to={link.href} className="py-1.5">
+                                {link.label}
+                              </Link>
+                            </NavigationMenuLink>
+                          </NavigationMenuItem>
+                        )}
+                        {link.role === data?.data.role && (
+                          <NavigationMenuItem key={index} className="w-full">
+                            <NavigationMenuLink
+                              asChild
+                              className="text-muted-foreground hover:text-primary border-b-primary hover:border-b-primary data-[active]:border-b-primary h-full justify-center rounded-none border-y-2 border-transparent py-1.5 font-medium hover:bg-transparent data-[active]:bg-transparent!"
+                              active={link.href === pathname}
+                            >
+                              <Link to={link.href} className="py-1.5">
+                                {link.label}
+                              </Link>
+                            </NavigationMenuLink>
+                          </NavigationMenuItem>
+                        )}
+                      </span>
                     ))}
                   </NavigationMenuList>
                 </NavigationMenu>

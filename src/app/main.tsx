@@ -7,7 +7,8 @@ import { Toaster } from "sonner";
 import "../index.css";
 import { ToastProvider } from "./providers/CustomToastProvider.tsx";
 import { ThemeProvider } from "./providers/ThemeProvider.tsx";
-import { router } from "./routes/index.ts";
+import { router } from "./routes/index.tsx";
+
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>

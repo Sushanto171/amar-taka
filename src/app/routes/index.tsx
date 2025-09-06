@@ -1,9 +1,13 @@
 import Login from "@/features/auth/page/Login";
 import Register from "@/features/auth/page/Register";
 import Verify from "@/features/auth/page/Verify";
-import { withAuth } from "@/utils/WithAuth";
+
+import { generateRoute } from "@/utils/generateRoute";
+
+import { UserSidebarItems } from "@/utils/UserSidebarItem";
+import { withAuth } from "@/utils/withAuth";
 import { lazy } from "react";
-import { createBrowserRouter } from "react-router";
+import { createBrowserRouter, Navigate } from "react-router";
 import App from "../App";
 import DashboardLayout from "../layout/DashboardLayout";
 import Homepage from "../pages/Homepage";
@@ -59,5 +63,9 @@ export const router = createBrowserRouter([
   {
     Component: withAuth(DashboardLayout, "USER"),
     path: "/user",
+    children: [
+      { index: true, element: <Navigate to="/user/my-wallet" /> },
+      ...generateRoute(UserSidebarItems),
+    ],
   },
 ]);
