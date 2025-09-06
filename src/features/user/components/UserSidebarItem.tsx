@@ -1,8 +1,8 @@
+import CashOut from "@/features/auth/page/CashOut";
 import Settings from "@/features/dashboard/pages/Settings";
 import Transactions from "@/features/dashboard/pages/Transactions";
 import Wallet from "@/features/dashboard/pages/Wallet";
 import BillPay from "@/features/user/page/BillPay";
-import CashOut from "@/features/user/page/CashOut";
 import SendMoney from "@/features/user/page/SendMoney";
 import type { ISidebarItems } from "@/types/global.types";
 

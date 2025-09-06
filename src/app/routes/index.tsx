@@ -4,7 +4,9 @@ import Verify from "@/features/auth/page/Verify";
 
 import { generateRoute } from "@/utils/generateRoute";
 
-import { UserSidebarItems } from "@/utils/UserSidebarItem";
+import { AdminSidebarItems } from "@/features/admin/components/AdminSidebarItems";
+import { AgentSidebarItems } from "@/features/agent/components/AgentSidebarItems";
+import { UserSidebarItems } from "@/features/user/components/UserSidebarItem";
 import { withAuth } from "@/utils/withAuth";
 import { lazy } from "react";
 import { createBrowserRouter, Navigate } from "react-router";
@@ -55,10 +57,24 @@ export const router = createBrowserRouter([
   {
     Component: withAuth(DashboardLayout, "ADMIN"),
     path: "/admin",
+    children: [
+      {
+        index: true,
+        element: <Navigate to="/admin/analytics" />,
+      },
+      ...generateRoute(AdminSidebarItems),
+    ],
   },
   {
     Component: withAuth(DashboardLayout, "AGENT"),
     path: "/agent",
+    children: [
+      {
+        index: true,
+        element: <Navigate to="/agent/analytics" />,
+      },
+      ...generateRoute(AgentSidebarItems),
+    ],
   },
   {
     Component: withAuth(DashboardLayout, "USER"),

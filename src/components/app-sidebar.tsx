@@ -20,15 +20,15 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar";
 
-import { UserSidebarItems } from "@/utils/UserSidebarItem";
+import { useGetMeQuery } from "@/features/user/api/user.api";
+import { getSidebarItems } from "@/utils/getSidebarItems";
 import { Link, useLocation } from "react-router";
 
-// This is sample data.
-const data = {
-  navMain: UserSidebarItems,
-};
-
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const { data: userData } = useGetMeQuery(undefined);
+  const data = {
+    navMain: getSidebarItems(userData!.data.role),
+  };
   const { pathname } = useLocation();
   return (
     <Sidebar {...props}>
@@ -42,7 +42,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarHeader>
       <SidebarContent className="gap-0">
         {/* We create a collapsible SidebarGroup for each parent. */}
-        {data.navMain.map((item) => (
+        {data!.navMain.map((item) => (
           <Collapsible
             key={item.title}
             title={item.title}
