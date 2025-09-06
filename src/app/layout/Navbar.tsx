@@ -1,5 +1,6 @@
 import Logo from "@/assets/icons/Logo";
 import LoadingSpinner from "@/components/Loading";
+import Logout from "@/components/Logout";
 import { ModeToggle } from "@/components/ModeToggle";
 import { Button } from "@/components/ui/button";
 import {
@@ -14,12 +15,9 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { role } from "@/constant/role";
-import { authApi, useLogoutMutation } from "@/features/auth/api/auth.api";
 
 import { useGetMeQuery } from "@/features/user/api/user.api";
-import { useDispatch } from "react-redux";
 import { Link, useLocation } from "react-router";
-import { toast } from "sonner";
 
 // Navigation links array to be used in both desktop and mobile menus
 const navigationLinks = [
@@ -34,20 +32,9 @@ const navigationLinks = [
 
 export default function Navbar() {
   const { pathname } = useLocation();
-  const dispatch = useDispatch();
 
   const { data, isLoading } = useGetMeQuery(undefined);
-  const [logout] = useLogoutMutation();
-  console.log(data?.data.role);
-  const handleLogout = async () => {
-    try {
-      const res = await logout(null).unwrap();
-      dispatch(authApi.util.resetApiState());
-      toast.success(res.message);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+
   if (isLoading) {
     return <LoadingSpinner />;
   }
@@ -171,14 +158,7 @@ export default function Navbar() {
         <div className="flex items-center gap-2">
           <ModeToggle />
           {!isLoading && data ? (
-            <Button
-              onClick={handleLogout}
-              variant="outline"
-              size="sm"
-              className="text-sm"
-            >
-              Logout
-            </Button>
+            <Logout width={""} />
           ) : (
             <>
               <Button asChild variant="ghost" size="sm" className="text-sm">

@@ -23,9 +23,11 @@ import {
 import { useGetMeQuery } from "@/features/user/api/user.api";
 import { getSidebarItems } from "@/utils/getSidebarItems";
 import { Link, useLocation } from "react-router";
+import Logout from "./Logout";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { data: userData } = useGetMeQuery(undefined);
+
   const data = {
     navMain: getSidebarItems(userData!.data.role),
   };
@@ -80,6 +82,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         ))}
       </SidebarContent>
       <SidebarRail />
+      <div className="p-1">
+        <Logout width="full" />
+      </div>
     </Sidebar>
   );
 }

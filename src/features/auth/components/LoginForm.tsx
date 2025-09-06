@@ -17,7 +17,9 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useGetMeQuery } from "@/features/user/api/user.api";
 import { cn } from "@/lib/utils";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router";
 import { toast } from "sonner";
@@ -47,18 +49,24 @@ export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+  const [execute, setExecute] = useState(false);
   const navigate = useNavigate();
   const [login] = useLoginMutation();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: { phone: "01791407583", password: "123456" },
   });
+  const { isLoading } = useGetMeQuery(undefined, { skip: !execute });
 
   const submitHandler = async (data: z.infer<typeof formSchema>) => {
+    setExecute(false);
     try {
       const res = await login(data).unwrap();
       toast.success(res.message);
-      navigate("/");
+      setExecute(true);
+      if (!isLoading) {
+        navigate(`/${res.data.user.role.toLowerCase()}`);
+      }
     } catch (error: any) {
       toast.error(error.data.message);
       if (error.status === 400 && error.data.message === "User is't verified") {
