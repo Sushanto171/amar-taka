@@ -1,5 +1,6 @@
 import Logo from "@/assets/icons/Logo";
 import LoadingSpinner from "@/components/Loading";
+import Logout from "@/components/Logout";
 import { ModeToggle } from "@/components/ModeToggle";
 import { Button } from "@/components/ui/button";
 import {
@@ -13,38 +14,27 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { authApi, useLogoutMutation } from "@/features/auth/api/auth.api";
+import { role } from "@/constant/role";
 
 import { useGetMeQuery } from "@/features/user/api/user.api";
-import { useDispatch } from "react-redux";
 import { Link, useLocation } from "react-router";
-import { toast } from "sonner";
 
 // Navigation links array to be used in both desktop and mobile menus
 const navigationLinks = [
-  { href: "/", label: "Home" },
-  { href: "/about", label: "About" },
-  { href: "/service", label: "Service" },
-  { href: "/dashboard", label: "Dashboard" },
+  { href: "/", label: "Home", role: "PUBLIC" },
+  { href: "/about", label: "About", role: "PUBLIC" },
+  { href: "/service", label: "Service", role: "PUBLIC" },
+  { href: "/admin", label: "Dashboard", role: role.admin },
+  { href: "/agent", label: "Dashboard", role: role.agent },
+  { href: "/user", label: "Dashboard", role: role.user },
   // { href: "/features", label: "Features" },
 ];
 
 export default function Navbar() {
   const { pathname } = useLocation();
-  const dispatch = useDispatch();
 
   const { data, isLoading } = useGetMeQuery(undefined);
-  const [logout] = useLogoutMutation();
-  console.log(data?.data.role);
-  const handleLogout = async () => {
-    try {
-      const res = await logout(null).unwrap();
-      dispatch(authApi.util.resetApiState());
-      toast.success(res.message);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+
   if (isLoading) {
     return <LoadingSpinner />;
   }
@@ -85,21 +75,41 @@ export default function Navbar() {
                   </svg>
                 </Button>
               </PopoverTrigger>
-              <PopoverContent align="start" className="w-36 p-1 md:hidden">
+              <PopoverContent
+                align="start"
+                className="min-w-[calc(100vh-200px)]  p-1 md:hidden"
+              >
                 <NavigationMenu className="max-w-none *:w-full">
                   <NavigationMenuList className="flex-col items-start gap-0 md:gap-2">
                     {navigationLinks.map((link, index) => (
-                      <NavigationMenuItem key={index} className="w-full">
-                        <NavigationMenuLink
-                          asChild
-                          className="text-muted-foreground hover:text-primary border-b-primary hover:border-b-primary data-[active]:border-b-primary h-full justify-center rounded-none border-y-2 border-transparent py-1.5 font-medium hover:bg-transparent data-[active]:bg-transparent!"
-                          active={link.href === pathname}
-                        >
-                          <Link to={link.href} className="py-1.5">
-                            {link.label}
-                          </Link>
-                        </NavigationMenuLink>
-                      </NavigationMenuItem>
+                      <span key={index}>
+                        {link.role === "PUBLIC" && (
+                          <NavigationMenuItem key={index} className="w-full">
+                            <NavigationMenuLink
+                              asChild
+                              className="text-muted-foreground hover:text-primary border-b-primary hover:border-b-primary data-[active]:border-b-primary h-full justify-center rounded-none border-y-2 border-transparent py-1.5 font-medium hover:bg-transparent data-[active]:bg-transparent!"
+                              active={link.href === pathname}
+                            >
+                              <Link to={link.href} className="py-1.5">
+                                {link.label}
+                              </Link>
+                            </NavigationMenuLink>
+                          </NavigationMenuItem>
+                        )}
+                        {link.role === data?.data.role && (
+                          <NavigationMenuItem key={index} className="w-full">
+                            <NavigationMenuLink
+                              asChild
+                              className="text-muted-foreground hover:text-primary border-b-primary hover:border-b-primary data-[active]:border-b-primary h-full justify-center rounded-none border-y-2 border-transparent py-1.5 font-medium hover:bg-transparent data-[active]:bg-transparent!"
+                              active={link.href === pathname}
+                            >
+                              <Link to={link.href} className="py-1.5">
+                                {link.label}
+                              </Link>
+                            </NavigationMenuLink>
+                          </NavigationMenuItem>
+                        )}
+                      </span>
                     ))}
                   </NavigationMenuList>
                 </NavigationMenu>
@@ -115,15 +125,30 @@ export default function Navbar() {
             <NavigationMenu className="h-full *:h-full max-md:hidden">
               <NavigationMenuList className="h-full gap-2">
                 {navigationLinks.map((link, index) => (
-                  <NavigationMenuItem key={index} className="h-full">
-                    <NavigationMenuLink
-                      asChild
-                      active={link.href === pathname}
-                      className="text-muted-foreground hover:text-primary border-b-primary hover:border-b-primary data-[active]:border-b-primary h-full justify-center rounded-none border-y-2 border-transparent py-1.5 font-medium hover:bg-transparent data-[active]:bg-transparent!"
-                    >
-                      <Link to={link.href}>{link.label}</Link>
-                    </NavigationMenuLink>
-                  </NavigationMenuItem>
+                  <span key={index}>
+                    {link.role === "PUBLIC" && (
+                      <NavigationMenuItem key={index} className="h-full">
+                        <NavigationMenuLink
+                          asChild
+                          active={link.href === pathname}
+                          className="text-muted-foreground hover:text-primary border-b-primary hover:border-b-primary data-[active]:border-b-primary h-full justify-center rounded-none border-y-2 border-transparent py-1.5 font-medium hover:bg-transparent data-[active]:bg-transparent!"
+                        >
+                          <Link to={link.href}>{link.label}</Link>
+                        </NavigationMenuLink>
+                      </NavigationMenuItem>
+                    )}
+                    {link.role === data?.data.role && (
+                      <NavigationMenuItem key={index} className="h-full">
+                        <NavigationMenuLink
+                          asChild
+                          active={link.href === pathname}
+                          className="text-muted-foreground hover:text-primary border-b-primary hover:border-b-primary data-[active]:border-b-primary h-full justify-center rounded-none border-y-2 border-transparent py-1.5 font-medium hover:bg-transparent data-[active]:bg-transparent!"
+                        >
+                          <Link to={link.href}>{link.label}</Link>
+                        </NavigationMenuLink>
+                      </NavigationMenuItem>
+                    )}
+                  </span>
                 ))}
               </NavigationMenuList>
             </NavigationMenu>
@@ -133,14 +158,7 @@ export default function Navbar() {
         <div className="flex items-center gap-2">
           <ModeToggle />
           {!isLoading && data ? (
-            <Button
-              onClick={handleLogout}
-              variant="outline"
-              size="sm"
-              className="text-sm"
-            >
-              Logout
-            </Button>
+            <Logout width={""} />
           ) : (
             <>
               <Button asChild variant="ghost" size="sm" className="text-sm">
