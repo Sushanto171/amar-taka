@@ -7,6 +7,7 @@ import { createBrowserRouter } from "react-router";
 import App from "../App";
 import DashboardLayout from "../layout/DashboardLayout";
 import Homepage from "../pages/Homepage";
+import UnAuthorized from "../pages/UnAuthorized";
 
 //lazy import (public route)
 const About = lazy(() => import("../pages/About"));
@@ -44,7 +45,19 @@ export const router = createBrowserRouter([
     path: "/verify",
   },
   {
-    Component: withAuth(DashboardLayout),
-    path: "/dashboard",
+    Component: UnAuthorized,
+    path: "/unauthorized",
+  },
+  {
+    Component: withAuth(DashboardLayout, "ADMIN"),
+    path: "/admin",
+  },
+  {
+    Component: withAuth(DashboardLayout, "AGENT"),
+    path: "/agent",
+  },
+  {
+    Component: withAuth(DashboardLayout, "USER"),
+    path: "/user",
   },
 ]);
