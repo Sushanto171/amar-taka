@@ -110,7 +110,6 @@
   --sidebar-ring: oklch(0.646 0.222 41.116);
 }
 
-
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -119,7 +118,6 @@
     @apply bg-background text-foreground;
   }
 }
-
 
 .loader {
   width: 48px;
@@ -149,7 +147,7 @@
   animation: rotationBack 1s linear infinite;
   transform-origin: center center;
 }
-    
+
 @keyframes rotation {
   0% {
     transform: rotate(0deg);
