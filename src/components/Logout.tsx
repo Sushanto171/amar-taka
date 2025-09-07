@@ -1,4 +1,4 @@
-import { authApi, useLogoutMutation } from "@/features/auth/api/auth.api";
+import { authApi, useLogoutMutation } from "@/redux/features/auth/auth.api";
 import { useDispatch } from "react-redux";
 import { toast } from "sonner";
 import { Button } from "./ui/button";

@@ -1,6 +1,7 @@
+import type { IUser } from "@/features/user/types/user.types";
 import { baseApi } from "@/redux/baseApi";
 import type { IResponse } from "@/types/global.types";
-import type { IUser } from "../types/user.types";
+
 
 export const userApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({

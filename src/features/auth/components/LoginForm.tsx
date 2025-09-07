@@ -17,14 +17,15 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useGetMeQuery } from "@/features/user/api/user.api";
+
 import { cn } from "@/lib/utils";
+import { useGetMeQuery } from "@/redux/features/user/user.api";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router";
 import { toast } from "sonner";
 import { z } from "zod";
-import { useLoginMutation } from "../api/auth.api";
+import { useLoginMutation } from "../../../redux/features/auth/auth.api";
 import { zodResolver } from "./../../../../node_modules/@hookform/resolvers/zod/src/zod";
 import PasswordFiled from "./PasswordFiled";
 

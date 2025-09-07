@@ -20,10 +20,11 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar";
 
-import { useGetMeQuery } from "@/features/user/api/user.api";
+
 import { getSidebarItems } from "@/utils/getSidebarItems";
 import { Link, useLocation } from "react-router";
 import Logout from "./Logout";
+import { useGetMeQuery } from "@/redux/features/user/user.api";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { data: userData } = useGetMeQuery(undefined);

@@ -15,8 +15,8 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { role } from "@/constant/role";
+import { useGetMeQuery } from "@/redux/features/user/user.api";
 
-import { useGetMeQuery } from "@/features/user/api/user.api";
 import { Link, useLocation } from "react-router";
 
 // Navigation links array to be used in both desktop and mobile menus
