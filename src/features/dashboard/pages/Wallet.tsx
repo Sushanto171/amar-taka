@@ -3,11 +3,12 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { role } from "@/constant/role";
+import CashOutModal from "@/features/user/components/CashOutModal";
 import SendMoneyModal from "@/features/user/components/SendMoneyModal";
 import { useGetMeQuery } from "@/redux/features/user/user.api";
 import { useGetMyWalletQuery } from "@/redux/features/wallet/wallet.api";
 import { convertTaka } from "@/utils/convertTaka";
-import { useState } from "react";
+import React, { useState } from "react";
 
 export default function Wallet() {
   const { data: wallet, isLoading } = useGetMyWalletQuery(undefined);
@@ -80,9 +81,6 @@ export default function Wallet() {
               <Button variant="secondary" className="flex-1 hover:bg-red-400">
                 View Transactions
               </Button>
-              <Button variant="secondary" className="flex-1 hover:bg-red-400">
-                Cash Out
-              </Button>
               {userData?.data.role === role.agent ? (
                 <>
                   <Button
@@ -93,7 +91,10 @@ export default function Wallet() {
                   </Button>
                 </>
               ) : (
-                <SendMoneyModal />
+                <React.Fragment>
+                <CashOutModal />
+                  <SendMoneyModal />
+                </React.Fragment>
               )}
             </div>
           </CardContent>

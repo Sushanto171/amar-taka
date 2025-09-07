@@ -28,7 +28,7 @@ import PasswordFiled from "@/features/auth/components/PasswordFiled";
 import { cn } from "@/lib/utils";
 import { useInitTransactionMutation } from "@/redux/features/transaction/transaction.api";
 import { useGetAllUserQuery } from "@/redux/features/user/user.api";
-import { useSendMoneyMutation } from "@/redux/features/wallet/wallet.api";
+import { useCashOutMutation } from "@/redux/features/wallet/wallet.api";
 import type { ITransactionInit } from "@/types/transaction.types";
 import { convertPaisa } from "@/utils/convertPaisa";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -60,15 +60,15 @@ const formSchema = z.object({
 export type FormValues = z.infer<typeof formSchema>;
 
 const totalSteps = 2;
-export default function SendMoneyModal() {
+export default function CashOutModal() {
   const [open, setOpen] = useState(false);
   const [disable, setDisable] = useState(false);
   const [step, setStep] = useState(1);
   const [searchParams, setSearchParams] = useSearchParams();
   const [initTransaction] = useInitTransactionMutation();
-  const [sendMoney] = useSendMoneyMutation();
+  const [cashOut] = useCashOutMutation();
   const { data: usersData, isLoading } = useGetAllUserQuery({
-    role: role.user,
+    role: role.agent,
     field: "phone",
     limit: 10000,
   });
@@ -91,20 +91,20 @@ export default function SendMoneyModal() {
   const handleSendMoney = async (data: FormValues) => {
     const transactionData: ITransactionInit = {
       phone: data.phone,
-      type: "P2P_TRANSFER",
+      type: "CASH_OUT",
       amount: convertPaisa(data.amount),
       reference: data.reference,
     };
-    const toastId = toast.loading("Sending Money");
+    const toastId = toast.loading("Cash Out...");
     try {
       const res = await initTransaction(transactionData).unwrap();
       if (res.success) {
-        const sendMoneyData = {
+        const cashOutData = {
           transactionId: res.data._id,
           password: data.password,
         };
         setDisable(true);
-        const sendRes = await sendMoney(sendMoneyData).unwrap();
+        const sendRes = await cashOut(cashOutData).unwrap();
         const params = new URLSearchParams(searchParams);
         toast.success(sendRes.message, { id: toastId });
         params.delete("action");
@@ -129,22 +129,22 @@ export default function SendMoneyModal() {
       <DialogTrigger asChild>
         <Button
           onClick={() => [
-            setSearchParams({ action: "send-money" }),
+            setSearchParams({ action: "cash-out" }),
             setOpen(true),
           ]}
           variant="secondary"
           className="flex-1 hover:bg-red-400"
         >
-          Send Money
+          Cash Out
         </Button>
       </DialogTrigger>
       <DialogContent className="gap-0 p-0 [&>button:last-child]:text-white">
         <div className="p-2">
           <DialogTitle className="text-center font-semibold text-lg mt-2">
-            Send Money
+            Cash Out
           </DialogTitle>
           <DialogDescription className="sr-only">
-            This is send money box
+            This is Cash out box
           </DialogDescription>
         </div>
         <div className="space-y-6 px-6 pt-3 pb-6">
@@ -263,11 +263,7 @@ export default function SendMoneyModal() {
                 </div>
               ) : (
                 <DialogClose asChild>
-                  <Button
-                    type="button"
-                    variant="outline"
-                    className="opacity-70"
-                  >
+                  <Button type="button" variant="outline" className="opacity-70">
                     Cancel
                   </Button>
                 </DialogClose>
@@ -298,7 +294,7 @@ export default function SendMoneyModal() {
                     form="sendMoneyForm"
                     type="submit"
                   >
-                    Send Money
+                    Cash Out
                   </Button>
                 </>
               )}

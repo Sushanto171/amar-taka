@@ -9,7 +9,7 @@ export function Summary({
   form: UseFormReturn<FormValues>;
 }) {
   return (
-    <Card className="w-full border-none p-0 bg-transparent">
+    <Card className="w-full border-none bg-transparent">
       <CardHeader className="sr-only">
         <CardTitle className="text-lg font-semibold sr-only">Summary</CardTitle>
       </CardHeader>
