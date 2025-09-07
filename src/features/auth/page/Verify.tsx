@@ -30,7 +30,10 @@ import { useForm } from "react-hook-form";
 import { useLocation, useNavigate } from "react-router";
 import { toast } from "sonner";
 import z from "zod";
-import { useSendOTPMutation, useVerifyOTPMutation } from "../api/auth.api";
+import {
+  useSendOTPMutation,
+  useVerifyOTPMutation,
+} from "../../../redux/features/auth/auth.api";
 import Remaining from "../components/Remaining";
 import { useToast } from "../hook/useToast";
 

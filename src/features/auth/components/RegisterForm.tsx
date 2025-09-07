@@ -25,7 +25,8 @@ import { z } from "zod";
 
 import { zodResolver } from "./../../../../node_modules/@hookform/resolvers/zod/src/zod";
 import PasswordFiled from "./PasswordFiled";
-import { useRegisterMutation } from "@/features/user/api/user.api";
+import { useRegisterMutation } from "@/redux/features/user/user.api";
+
 
 // Bangladesh phone regex: +8801XXXXXXXXX, 8801XXXXXXXXX, 01XXXXXXXXX
 const bdPhoneRegex = /^(?:\+8801|8801|01)[3-9]\d{8}$/;
