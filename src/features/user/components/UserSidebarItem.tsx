@@ -1,14 +1,12 @@
 import type { ISidebarItems } from "@/types/global.types";
 import { lazy } from "react";
 
-const CashOut = lazy(() => import("@/features/auth/page/CashOut"));
 const Settings = lazy(() => import("@/features/dashboard/pages/Settings"));
 const Transactions = lazy(
   () => import("@/features/dashboard/pages/Transactions")
 );
 const Wallet = lazy(() => import("@/features/dashboard/pages/Wallet"));
 const BillPay = lazy(() => import("@/features/user/page/BillPay"));
-const SendMoney = lazy(() => import("@/features/user/page/SendMoney"));
 
 export const UserSidebarItems: ISidebarItems[] = [
   {
@@ -25,16 +23,7 @@ export const UserSidebarItems: ISidebarItems[] = [
         url: "/user/transactions",
         Component: Transactions,
       },
-      {
-        title: "Send Money",
-        url: "/user/send-money",
-        Component: SendMoney,
-      },
-      {
-        title: "Cash Out",
-        url: "/user/cash-out",
-        Component: CashOut,
-      },
+
       {
         title: "Bill Pay",
         url: "/user/bill-pay",

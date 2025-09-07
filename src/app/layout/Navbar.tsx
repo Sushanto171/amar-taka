@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/popover";
 import { role } from "@/constant/role";
 import { useGetMeQuery } from "@/redux/features/user/user.api";
+import React from "react";
 
 import { Link, useLocation } from "react-router";
 
@@ -125,7 +126,7 @@ export default function Navbar() {
             <NavigationMenu className="h-full *:h-full max-md:hidden">
               <NavigationMenuList className="h-full gap-2">
                 {navigationLinks.map((link, index) => (
-                  <span key={index}>
+                  <React.Fragment key={index}>
                     {link.role === "PUBLIC" && (
                       <NavigationMenuItem key={index} className="h-full">
                         <NavigationMenuLink
@@ -148,7 +149,7 @@ export default function Navbar() {
                         </NavigationMenuLink>
                       </NavigationMenuItem>
                     )}
-                  </span>
+                  </React.Fragment>
                 ))}
               </NavigationMenuList>
             </NavigationMenu>
