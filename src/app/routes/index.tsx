@@ -12,7 +12,7 @@ import { withAuth } from "@/utils/withAuth";
 import { lazy, Suspense } from "react";
 import { createBrowserRouter, Navigate } from "react-router";
 import App from "../App";
-import DashboardLayout from "../layout/DashboardLayout";
+import DashboardLayout from "../../features/dashboard/layout/DashboardLayout";
 import Homepage from "../pages/Homepage";
 import UnAuthorized from "../pages/UnAuthorized";
 
