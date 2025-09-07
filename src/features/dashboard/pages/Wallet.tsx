@@ -3,9 +3,10 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { role } from "@/constant/role";
+import SendMoneyModal from "@/features/user/components/SendMoneyModal";
 import { useGetMeQuery } from "@/redux/features/user/user.api";
 import { useGetMyWalletQuery } from "@/redux/features/wallet/wallet.api";
-import { convertTaka } from "@/utils/converTaka";
+import { convertTaka } from "@/utils/convertTaka";
 import { useState } from "react";
 
 export default function Wallet() {
@@ -92,14 +93,7 @@ export default function Wallet() {
                   </Button>
                 </>
               ) : (
-                <>
-                  <Button
-                    variant="secondary"
-                    className="flex-1 hover:bg-red-400"
-                  >
-                    Send Money
-                  </Button>
-                </>
+                <SendMoneyModal />
               )}
             </div>
           </CardContent>
