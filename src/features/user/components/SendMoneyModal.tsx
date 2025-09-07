@@ -122,6 +122,8 @@ export default function SendMoneyModal() {
     form.reset();
     if (open) {
       setStep(1);
+    } else {
+      setSearchParams("");
     }
   }, [open]);
   return (
@@ -133,7 +135,7 @@ export default function SendMoneyModal() {
             setOpen(true),
           ]}
           variant="secondary"
-          className="flex-1 hover:bg-red-400"
+          className="flex-1 hover:bg-primary"
         >
           Send Money
         </Button>

@@ -15,7 +15,7 @@ export type TransactionType =
 export interface ITransaction {
   fromWallet: string;
   amount: number;
-  type: string;
+  type: TransactionType;
   status: string;
   toWallet: string;
   phone: string;

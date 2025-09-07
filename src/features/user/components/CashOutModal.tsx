@@ -122,6 +122,8 @@ export default function CashOutModal() {
     form.reset();
     if (open) {
       setStep(1);
+    } else {
+      setSearchParams("");
     }
   }, [open]);
   return (
@@ -133,7 +135,7 @@ export default function CashOutModal() {
             setOpen(true),
           ]}
           variant="secondary"
-          className="flex-1 hover:bg-red-400"
+          className="flex-1 hover:bg-primary"
         >
           Cash Out
         </Button>
@@ -263,7 +265,11 @@ export default function CashOutModal() {
                 </div>
               ) : (
                 <DialogClose asChild>
-                  <Button type="button" variant="outline" className="opacity-70">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    className="opacity-70"
+                  >
                     Cancel
                   </Button>
                 </DialogClose>

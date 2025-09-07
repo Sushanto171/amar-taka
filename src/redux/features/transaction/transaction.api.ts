@@ -14,7 +14,15 @@ export const transactionApi = baseApi.injectEndpoints({
         data: transData,
       }),
     }),
+    getMyTransactions: builder.query<ITransaction[], unknown>({
+      query: (params) => ({
+        url: "/transaction",
+        params,
+      }),
+      transformResponse: (response: IResponse<ITransaction[]>) => response.data,
+    }),
   }),
 });
 
-export const { useInitTransactionMutation } = transactionApi;
+export const { useInitTransactionMutation, useGetMyTransactionsQuery } =
+  transactionApi;

@@ -9,6 +9,7 @@ import { useGetMeQuery } from "@/redux/features/user/user.api";
 import { useGetMyWalletQuery } from "@/redux/features/wallet/wallet.api";
 import { convertTaka } from "@/utils/convertTaka";
 import React, { useState } from "react";
+import { Link } from "react-router";
 
 export default function Wallet() {
   const { data: wallet, isLoading } = useGetMyWalletQuery(undefined);
@@ -78,8 +79,13 @@ export default function Wallet() {
 
             {/* 3: Service Actions */}
             <div className="flex flex-wrap gap-3 pt-4">
-              <Button variant="secondary" className="flex-1 hover:bg-red-400">
-                View Transactions
+              <Button asChild variant="secondary" className="flex-1 hover:bg-primary">
+                <Link
+                  className="w-full"
+                  to={`/${userData?.data.role.toLowerCase()}/transactions`}
+                >
+                  View Transactions
+                </Link>
               </Button>
               {userData?.data.role === role.agent ? (
                 <>
@@ -92,7 +98,7 @@ export default function Wallet() {
                 </>
               ) : (
                 <React.Fragment>
-                <CashOutModal />
+                  <CashOutModal />
                   <SendMoneyModal />
                 </React.Fragment>
               )}
