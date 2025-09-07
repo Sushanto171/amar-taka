@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { CheckIcon, ChevronDownIcon } from "lucide-react";
 import { useEffect, useId, useState } from "react";
 
@@ -16,24 +17,16 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import type { FormValues } from "@/features/user/components/SendMoneyModal";
+import type { IUser } from "@/features/user/types/user.types";
 import { cn } from "@/lib/utils";
 import type { ControllerRenderProps } from "react-hook-form";
 
-const phones = [
-  {
-    value: "originui",
-    label: "Origin UI",
-  },
-  {
-    value: "cruip",
-    label: "Cruip",
-  },
-];
-
 export default function SearchPhone({
   onChange,
+  userData,
 }: {
   onChange: ControllerRenderProps<FormValues>;
+  userData: Partial<IUser[]>;
 }) {
   const id = useId();
   const [open, setOpen] = useState<boolean>(false);
@@ -57,8 +50,7 @@ export default function SearchPhone({
           >
             <span className={cn("truncate", !value && "text-muted-foreground")}>
               {value
-                ? phones.find((organization) => organization.value === value)
-                    ?.label
+                ? userData?.find((user) => user?.phone === value)?.phone
                 : "Select Phone"}
             </span>
             <ChevronDownIcon
@@ -77,17 +69,17 @@ export default function SearchPhone({
             <CommandList>
               <CommandEmpty>No Phone Number found.</CommandEmpty>
               <CommandGroup>
-                {phones.map((phone) => (
+                {userData?.map((user) => (
                   <CommandItem
-                    key={phone.value}
-                    value={phone.value}
+                    key={user?._id}
+                    value={user?.phone}
                     onSelect={(currentValue) => {
                       setValue(currentValue === value ? "" : currentValue);
                       setOpen(false);
                     }}
                   >
-                    {phone.label}
-                    {value === phone.value && (
+                    {user?.phone}
+                    {value === user?.phone && (
                       <CheckIcon size={16} className="ml-auto" />
                     )}
                   </CommandItem>

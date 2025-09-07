@@ -1,11 +1,11 @@
 export interface ITransactionInit {
   phone: string;
   amount: number;
-  reference: string;
-  type: transactionType;
+  reference?: string;
+  type: TransactionType;
 }
 
-export type transactionType =
+export type TransactionType =
   | "CASH_IN"
   | "CASH_OUT"
   | "P2P_TRANSFER"
