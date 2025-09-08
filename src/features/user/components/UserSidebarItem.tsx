@@ -1,5 +1,6 @@
 import type { ISidebarItems } from "@/types/global.types";
 import { lazy } from "react";
+import ApplyForAgent from "../page/ApplyForAgent";
 
 const Profile = lazy(() => import("@/features/dashboard/pages/Profile"));
 const Transactions = lazy(
@@ -39,6 +40,11 @@ export const UserSidebarItems: ISidebarItems[] = [
         title: "Profile",
         url: "/user/profile",
         Component: Profile,
+      },
+      {
+        title: "Apply For Agent",
+        url: "/user/apply-for-agent",
+        Component: ApplyForAgent,
       },
     ],
   },
