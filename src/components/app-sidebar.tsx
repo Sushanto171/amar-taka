@@ -83,7 +83,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         ))}
       </SidebarContent>
       <SidebarRail />
-      <div className="p-1">
+      <div className="p-1 mb-2">
         <Logout width="full" />
       </div>
     </Sidebar>
