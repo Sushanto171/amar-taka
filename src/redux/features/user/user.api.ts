@@ -11,17 +11,19 @@ export const userApi = baseApi.injectEndpoints({
         data: userData,
       }),
     }),
-    getMe: builder.query<IResponse<IUser>, unknown>({
+    getMe: builder.query<IUser, unknown>({
       query: () => ({
         url: "/user/me",
       }),
+      transformResponse: (response: IResponse<IUser>) => response.data,
+      providesTags: ["USER"],
     }),
     getAllUser: builder.query<IUser[], unknown>({
       query: (params) => ({
         url: "/user",
         params,
       }),
-      transformResponse: (response: IResponse<IUser[]>)=>response.data
+      transformResponse: (response: IResponse<IUser[]>) => response.data,
     }),
   }),
 });

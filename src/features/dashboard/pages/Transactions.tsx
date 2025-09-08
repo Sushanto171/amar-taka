@@ -28,35 +28,30 @@ export default function Transactions() {
     page,
   });
   const transactions = transactionsData?.data ?? [];
-  console.log({ page });
+
   return (
     <Card className="p-6 shadow-md border rounded-xl">
       <h2 className="text-xl font-semibold mb-4">📊 Transactions</h2>
 
       <div className="overflow-x-auto rounded-md border">
-        <Table>
-          <TableHeader className="bg-muted/50">
-            <TableRow>
-              <TableHead className="min-w-[140px]">Date</TableHead>
-              <TableHead className="min-w-[120px]">
-                <TypeFiltering onChange={setType} />
-              </TableHead>
-              <TableHead className="min-w-[100px]">Status</TableHead>
-              <TableHead className="min-w-[140px]">Phone</TableHead>
-              <TableHead className="min-w-[120px]">Amount</TableHead>
-              <TableHead className="min-w-[100px]">Fee</TableHead>
-              <TableHead className="min-w-[160px]">Reference</TableHead>
-            </TableRow>
-          </TableHeader>
-          {isLoading &&
-            Array.from({ length: 5 }).map((_, idx) => (
-              <TransactionSkeleton key={idx} />
-            ))}
-          <TableBody>
-            {!isLoading &&
-              transactions &&
-              transactions.length > 0 &&
-              transactions?.map((tx) => (
+        {isLoading && <TransactionSkeleton key={1} />}
+        {!isLoading && transactions && transactions.length > 0 && (
+          <Table>
+            <TableHeader className="bg-muted/50">
+              <TableRow>
+                <TableHead className="min-w-[140px]">Date</TableHead>
+                <TableHead className="min-w-[120px]">
+                  <TypeFiltering onChange={setType} />
+                </TableHead>
+                <TableHead className="min-w-[100px]">Status</TableHead>
+                <TableHead className="min-w-[140px]">Phone</TableHead>
+                <TableHead className="min-w-[120px]">Amount</TableHead>
+                <TableHead className="min-w-[100px]">Fee</TableHead>
+                <TableHead className="min-w-[160px]">Reference</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {transactions?.map((tx) => (
                 <TableRow key={tx._id} className="hover:bg-muted/40">
                   <TableCell className="min-w-[140px] text-sm">
                     {new Date(tx.createdAt).toLocaleString()}
@@ -100,8 +95,9 @@ export default function Transactions() {
                   </TableCell>
                 </TableRow>
               ))}
-          </TableBody>
-        </Table>
+            </TableBody>
+          </Table>
+        )}
         {!isLoading && !transactions?.length && (
           <div className="text-center py-1">
             <span>No Data Found.</span>

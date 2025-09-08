@@ -1,0 +1,17 @@
+export interface IAgentData {
+  _id: string;
+  user: string;
+  wallet: string;
+  agentCode: string;
+  licenseNumber: string;
+  nidNumber: string;
+  serviceAreas: string[];
+  kycStatus: string;
+  status: string;
+  createdAt: string;
+  updatedAt: string;
+  nidPhotoUrl?: {
+    backend: string;
+    frontend: string;
+  };
+}

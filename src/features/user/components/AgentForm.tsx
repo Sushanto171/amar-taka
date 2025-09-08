@@ -11,6 +11,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useRegistrationForAgentMutation } from "@/redux/features/agent/agent.api";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -32,9 +33,16 @@ export default function AgentForm() {
       serviceAreas: [""],
     },
   });
-
-  const onSubmit = (values: AgentFormValues) => {
-    console.log("Form Submitted:", values);
+  const [register] = useRegistrationForAgentMutation();
+  const onSubmit = async (data: AgentFormValues) => {
+    console.log("Form Submitted:", data);
+    data = { ...data, nidPhotoUrl: undefined };
+    try {
+      const res = await register(data).unwrap();
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

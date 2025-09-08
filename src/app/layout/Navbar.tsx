@@ -97,7 +97,7 @@ export default function Navbar() {
                             </NavigationMenuLink>
                           </NavigationMenuItem>
                         )}
-                        {link.role === data?.data.role && (
+                        {link.role === data?.role && (
                           <NavigationMenuItem key={index} className="w-full">
                             <NavigationMenuLink
                               asChild
@@ -138,7 +138,7 @@ export default function Navbar() {
                         </NavigationMenuLink>
                       </NavigationMenuItem>
                     )}
-                    {link.role === data?.data.role && (
+                    {link.role === data?.role && (
                       <NavigationMenuItem key={index} className="h-full">
                         <NavigationMenuLink
                           asChild
