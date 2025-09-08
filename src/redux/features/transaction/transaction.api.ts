@@ -14,12 +14,11 @@ export const transactionApi = baseApi.injectEndpoints({
         data: transData,
       }),
     }),
-    getMyTransactions: builder.query<ITransaction[], unknown>({
+    getMyTransactions: builder.query<IResponse<ITransaction[]>, unknown>({
       query: (params) => ({
         url: "/transaction",
         params,
       }),
-      transformResponse: (response: IResponse<ITransaction[]>) => response.data,
     }),
   }),
 });

@@ -14,4 +14,5 @@ export interface IUser {
   createdAt: string;
   updatedAt: string;
   wallet: string;
+  agent?: string;
 }

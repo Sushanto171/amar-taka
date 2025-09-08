@@ -58,7 +58,7 @@ export default function Wallet() {
               <div className="flex justify-between">
                 <span className="text-muted-foreground">User</span>
                 <span className="font-medium">
-                  {userData!.data.name.slice(0, 8)}...
+                  {userData!.name.slice(0, 8)}...
                 </span>
               </div>
               <div className="flex justify-between">
@@ -82,12 +82,12 @@ export default function Wallet() {
               <Button asChild variant="secondary" className="flex-1 hover:bg-primary">
                 <Link
                   className="w-full"
-                  to={`/${userData?.data.role.toLowerCase()}/transactions`}
+                  to={`/${userData?.role.toLowerCase()}/transactions`}
                 >
                   View Transactions
                 </Link>
               </Button>
-              {userData?.data.role === role.agent ? (
+              {userData?.role === role.agent ? (
                 <>
                   <Button
                     variant="secondary"

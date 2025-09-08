@@ -8,7 +8,7 @@ export interface ITransactionInit {
 export type TransactionType =
   | "CASH_IN"
   | "CASH_OUT"
-  | "P2P_TRANSFER"
+  | "SEND_MONEY"
   | "MERCHANT_PAYMENT"
   | "BILL_PAYMENT";
 
