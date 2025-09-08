@@ -1,7 +1,7 @@
 import type { ISidebarItems } from "@/types/global.types";
 import { lazy } from "react";
 
-const Settings = lazy(() => import("@/features/dashboard/pages/Settings"));
+const Profile = lazy(() => import("@/features/dashboard/pages/Profile"));
 const Transactions = lazy(
   () => import("@/features/dashboard/pages/Transactions")
 );
@@ -32,13 +32,13 @@ export const UserSidebarItems: ISidebarItems[] = [
     ],
   },
   {
-    title: "Profile",
+    title: "Settings",
     url: "#",
     items: [
       {
-        title: "Settings",
-        url: "/user/settings",
-        Component: Settings,
+        title: "Profile",
+        url: "/user/profile",
+        Component: Profile,
       },
     ],
   },
