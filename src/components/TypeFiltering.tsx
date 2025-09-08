@@ -1,7 +1,7 @@
 "use client";
 
 import { ListChevronsDownUpIcon } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState, type Dispatch } from "react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -12,13 +12,25 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { transactionType } from "@/constant/transactionType";
-const typesArray = Array.from(Object.entries(transactionType),([key,value])=>({key,value}))
-
-
-
-export default function TypeFiltering() {
+import type { TransactionType } from "@/types/transaction.types";
+let typesArray = Array.from(
+  Object.entries(transactionType),
+  ([label, value]) => ({ label, value })
+);
+typesArray = [{ label: "All", value: "" }, ...typesArray];
+export default function TypeFiltering<T extends TransactionType | null>({
+  onChange,
+}: {
+  onChange: Dispatch<React.SetStateAction<T>>;
+}) {
   const [type, setType] = useState("");
-
+  useEffect(() => {
+    if (type) {
+      onChange(type as T);
+    } else {
+      onChange(null as T);
+    }
+  }, [type, onChange]);
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -33,12 +45,11 @@ export default function TypeFiltering() {
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuRadioGroup value={type} onValueChange={setType}>
-          <DropdownMenuRadioItem value="nextjs">Next.js</DropdownMenuRadioItem>
-          <DropdownMenuRadioItem value="sveltekit" disabled>
-            SvelteKit
-          </DropdownMenuRadioItem>
-          <DropdownMenuRadioItem value="remix">Remix</DropdownMenuRadioItem>
-          <DropdownMenuRadioItem value="astro">Astro</DropdownMenuRadioItem>
+          {typesArray.map((type, i) => (
+            <DropdownMenuRadioItem key={i} value={type.value}>
+              {type.label}
+            </DropdownMenuRadioItem>
+          ))}
         </DropdownMenuRadioGroup>
       </DropdownMenuContent>
     </DropdownMenu>
