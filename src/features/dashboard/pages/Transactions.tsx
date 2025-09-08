@@ -35,7 +35,7 @@ export default function Transactions() {
 
       <div className="overflow-x-auto rounded-md border">
         {isLoading && <TransactionSkeleton key={1} />}
-        {!isLoading && transactions && transactions.length > 0 && (
+        {!isLoading && transactions && (
           <Table>
             <TableHeader className="bg-muted/50">
               <TableRow>
@@ -51,50 +51,51 @@ export default function Transactions() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {transactions?.map((tx) => (
-                <TableRow key={tx._id} className="hover:bg-muted/40">
-                  <TableCell className="min-w-[140px] text-sm">
-                    {new Date(tx.createdAt).toLocaleString()}
-                  </TableCell>
-                  <TableCell className="min-w-[120px]">
-                    <Badge
-                      variant="outline"
-                      className={
-                        tx.type === "CASH_OUT"
-                          ? "bg-red-100 text-red-600"
-                          : "bg-blue-100 text-blue-600"
-                      }
-                    >
-                      {tx.type}
-                    </Badge>
-                  </TableCell>
-                  <TableCell className="min-w-[100px]">
-                    <Badge
-                      variant={
-                        tx.status === "SUCCESS"
-                          ? "default"
-                          : tx.status === "PENDING"
-                          ? "secondary"
-                          : "destructive"
-                      }
-                    >
-                      {tx.status}
-                    </Badge>
-                  </TableCell>
-                  <TableCell className="min-w-[140px]">{tx.phone}</TableCell>
-                  <TableCell className="min-w-[120px] font-medium">
-                    ৳ {convertTaka(tx.amount)}
-                  </TableCell>
-                  <TableCell className="min-w-[100px]">
-                    ৳ {convertTaka(tx.fee)}
-                  </TableCell>
-                  <TableCell title={tx.reference} className="min-w-[160px] ">
-                    {(tx.reference?.length > 15
-                      ? `${tx.reference.slice(0, 15)}...`
-                      : tx.reference) || "-"}
-                  </TableCell>
-                </TableRow>
-              ))}
+              {transactions.length > 0 &&
+                transactions?.map((tx) => (
+                  <TableRow key={tx._id} className="hover:bg-muted/40">
+                    <TableCell className="min-w-[140px] text-sm">
+                      {new Date(tx.createdAt).toLocaleString()}
+                    </TableCell>
+                    <TableCell className="min-w-[120px]">
+                      <Badge
+                        variant="outline"
+                        className={
+                          tx.type === "CASH_OUT"
+                            ? "bg-red-100 text-red-600"
+                            : "bg-blue-100 text-blue-600"
+                        }
+                      >
+                        {tx.type}
+                      </Badge>
+                    </TableCell>
+                    <TableCell className="min-w-[100px]">
+                      <Badge
+                        variant={
+                          tx.status === "SUCCESS"
+                            ? "default"
+                            : tx.status === "PENDING"
+                            ? "secondary"
+                            : "destructive"
+                        }
+                      >
+                        {tx.status}
+                      </Badge>
+                    </TableCell>
+                    <TableCell className="min-w-[140px]">{tx.phone}</TableCell>
+                    <TableCell className="min-w-[120px] font-medium">
+                      ৳ {convertTaka(tx.amount)}
+                    </TableCell>
+                    <TableCell className="min-w-[100px]">
+                      ৳ {convertTaka(tx.fee)}
+                    </TableCell>
+                    <TableCell title={tx.reference} className="min-w-[160px] ">
+                      {(tx.reference?.length > 15
+                        ? `${tx.reference.slice(0, 15)}...`
+                        : tx.reference) || "-"}
+                    </TableCell>
+                  </TableRow>
+                ))}
             </TableBody>
           </Table>
         )}
