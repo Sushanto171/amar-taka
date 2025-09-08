@@ -1,3 +1,5 @@
+import Paginate from "@/components/Pagination";
+import { TransactionSkeleton } from "@/components/TransactionSkeleton";
 import TypeFiltering from "@/components/TypeFiltering";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
@@ -13,13 +15,20 @@ import { useGetMyTransactionsQuery } from "@/redux/features/transaction/transact
 import type { TransactionType } from "@/types/transaction.types";
 import { convertTaka } from "@/utils/convertTaka";
 import { useState } from "react";
+import { useSearchParams } from "react-router";
 
 export default function Transactions() {
   const [type, setType] = useState<TransactionType | null>(null);
-  const { data: transactions } = useGetMyTransactionsQuery({
-    type: type,
-  });
 
+  const [searchParams] = useSearchParams("");
+  const page = searchParams.get("page");
+
+  const { data: transactionsData, isLoading } = useGetMyTransactionsQuery({
+    type,
+    page,
+  });
+  const transactions = transactionsData?.data ?? [];
+  console.log({ page });
   return (
     <Card className="p-6 shadow-md border rounded-xl">
       <h2 className="text-xl font-semibold mb-4">📊 Transactions</h2>
@@ -39,9 +48,13 @@ export default function Transactions() {
               <TableHead className="min-w-[160px]">Reference</TableHead>
             </TableRow>
           </TableHeader>
-
+          {isLoading &&
+            Array.from({ length: 5 }).map((_, idx) => (
+              <TransactionSkeleton key={idx} />
+            ))}
           <TableBody>
-            {transactions &&
+            {!isLoading &&
+              transactions &&
               transactions.length > 0 &&
               transactions?.map((tx) => (
                 <TableRow key={tx._id} className="hover:bg-muted/40">
@@ -89,12 +102,18 @@ export default function Transactions() {
               ))}
           </TableBody>
         </Table>
-        {!transactions?.length && (
+        {!isLoading && !transactions?.length && (
           <div className="text-center py-1">
             <span>No Data Found.</span>
           </div>
         )}
       </div>
+      {transactionsData && transactionsData.meta!.total > 10 && (
+        <Paginate
+          currentPage={Number(page) || 1}
+          totalPages={transactionsData.meta!.totalPages}
+        />
+      )}
     </Card>
   );
 }

@@ -5,6 +5,12 @@ export interface IResponse<T> {
   statusCode: number;
   message: string;
   data: T;
+  meta?: {
+    page: number;
+    limit: number;
+    total: number;
+    totalPages: number;
+}
 }
 
 export type TRole = "ADMIN" | "AGENT" | "USER";
@@ -18,3 +24,4 @@ export interface ISidebarItems {
     Component: ComponentType;
   }[];
 }
+
