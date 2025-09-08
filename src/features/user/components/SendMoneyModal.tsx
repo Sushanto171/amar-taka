@@ -91,7 +91,7 @@ export default function SendMoneyModal() {
   const handleSendMoney = async (data: FormValues) => {
     const transactionData: ITransactionInit = {
       phone: data.phone,
-      type: "P2P_TRANSFER",
+      type: "SEND_MONEY",
       amount: convertPaisa(data.amount),
       reference: data.reference,
     };
@@ -168,7 +168,7 @@ export default function SendMoneyModal() {
                           <FormLabel>Phone</FormLabel>
                           <FormControl>
                             <SearchPhone
-                              userData={usersData}
+                              userData={usersData.data}
                               onChange={field}
                             />
                           </FormControl>

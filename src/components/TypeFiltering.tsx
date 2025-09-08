@@ -11,31 +11,38 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { transactionType } from "@/constant/transactionType";
-import type { TransactionType } from "@/types/transaction.types";
-let typesArray = Array.from(
-  Object.entries(transactionType),
-  ([label, value]) => ({ label, value })
-);
-typesArray = [{ label: "All", value: "" }, ...typesArray];
-export default function TypeFiltering<T extends TransactionType | null>({
+interface IProps {
+  onChange: Dispatch<React.SetStateAction<string | null>>;
+  typesObject: Record<string, string>;
+  label: string;
+}
+
+export default function TypeFiltering({
   onChange,
-}: {
-  onChange: Dispatch<React.SetStateAction<T>>;
-}) {
+  typesObject,
+  label,
+}: IProps) {
+  let typesArray = Array.from(
+    Object.entries(typesObject),
+    ([label, value]) => ({ label, value })
+  );
+
+  typesArray = [{ label: "All", value: "" }, ...typesArray];
+
   const [type, setType] = useState("");
+
   useEffect(() => {
     if (type) {
-      onChange(type as T);
+      onChange(type);
     } else {
-      onChange(null as T);
+      onChange(null);
     }
   }, [type, onChange]);
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost">
-          Type
+          {label}{" "}
           <ListChevronsDownUpIcon
             className="-me-1 opacity-60 ml-4"
             size={16}
