@@ -1,3 +1,4 @@
+import TypeFiltering from "@/components/TypeFiltering";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import {
@@ -22,7 +23,9 @@ export default function Transactions() {
           <TableHeader className="bg-muted/50">
             <TableRow>
               <TableHead>Date</TableHead>
-              <TableHead>Type</TableHead>
+              <TableHead className="flex items-center">
+                <TypeFiltering />
+              </TableHead>
               <TableHead>Status</TableHead>
               <TableHead>Phone</TableHead>
               <TableHead>Amount</TableHead>
@@ -45,7 +48,7 @@ export default function Transactions() {
                         : "bg-blue-100 text-blue-600"
                     }
                   >
-                    {tx.type === "P2P_TRANSFER" ? "SEND MONEY" : tx.type}
+                    {tx.type}
                   </Badge>
                 </TableCell>
                 <TableCell>
