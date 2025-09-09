@@ -24,6 +24,12 @@ export const agentApi = baseApi.injectEndpoints({
         params,
       }),
     }),
+    getSingleAgents: builder.query<IAgentData, string>({
+      query: (params) => ({
+        url: `/agent/${params}`,
+      }),
+      transformResponse: (response: IResponse<IAgentData>) => response.data,
+    }),
   }),
 });
 
@@ -31,4 +37,5 @@ export const {
   useRegistrationForAgentMutation,
   useGetAgentQuery,
   useGetAllAgentsQuery,
+  useGetSingleAgentsQuery,
 } = agentApi;

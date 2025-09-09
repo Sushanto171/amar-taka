@@ -11,6 +11,8 @@ import {
 } from "@/components/ui/table";
 import { useGetAllAgentsQuery } from "@/redux/features/agent/agent.api";
 import { format } from "date-fns";
+import { Link } from "react-router";
+import AgentDetailsModal from "./AgentDetailsModal";
 export default function AgentsList() {
   const { data } = useGetAllAgentsQuery({ kycStatus: "VERIFIED" });
   const agents = data?.data ?? [];
@@ -80,9 +82,9 @@ export default function AgentsList() {
                 <Button size="sm" variant="outline">
                   Update status
                 </Button>
-                <Button size="sm" variant="destructive">
-                  view
-                </Button>
+                <Link to={`?id=${agent._id}`}>
+                  <AgentDetailsModal />
+                </Link>
               </TableCell>
             </TableRow>
           ))}
