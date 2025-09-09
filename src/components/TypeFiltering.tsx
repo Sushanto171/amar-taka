@@ -1,9 +1,8 @@
 "use client";
 
 import { ListChevronsDownUpIcon } from "lucide-react";
-import { useEffect, useState, type Dispatch } from "react";
+import React, { useEffect, useState, type Dispatch } from "react";
 
-import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,6 +10,7 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Button } from "./ui/button";
 interface IProps {
   onChange: Dispatch<React.SetStateAction<string | null>>;
   typesObject: Record<string, string>;
@@ -41,14 +41,16 @@ export default function TypeFiltering({
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost">
-          {label}{" "}
-          <ListChevronsDownUpIcon
-            className="-me-1 opacity-60 ml-4"
-            size={16}
-            aria-hidden="true"
-          />
-        </Button>
+        <td>
+          <Button variant="ghost">
+            {label}
+            <ListChevronsDownUpIcon
+              className="-me-1 opacity-60"
+              size={16}
+              aria-hidden="true"
+            />
+          </Button>
+        </td>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuRadioGroup value={type} onValueChange={setType}>

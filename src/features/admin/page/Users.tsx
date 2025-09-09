@@ -1,7 +1,9 @@
+import Action from "@/components/ActionsDropDown";
 import Paginate from "@/components/Pagination";
 import { TransactionSkeleton } from "@/components/TransactionSkeleton";
 import TypeFiltering from "@/components/TypeFiltering";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import {
   Table,
@@ -14,6 +16,7 @@ import {
 import { role } from "@/constant/role";
 import { useGetAllUserQuery } from "@/redux/features/user/user.api";
 import type { TransactionType } from "@/types/transaction.types";
+import { Trash2 } from "lucide-react";
 import { useState, type Dispatch, type SetStateAction } from "react";
 import { useSearchParams } from "react-router";
 
@@ -47,9 +50,13 @@ export default function Users() {
                   typesObject={role}
                   onChange={setType as Dispatch<SetStateAction<string | null>>}
                 />
+                {/* <TableHead className="min-w-[120px]">Role</TableHead> */}
                 <TableHead className="min-w-[120px]">Suspended</TableHead>
                 <TableHead className="min-w-[160px]">Wallet</TableHead>
                 <TableHead className="min-w-[200px]">Email</TableHead>
+                <TableHead className="min-w-[200px]">
+                  <Action />
+                </TableHead>
               </TableRow>
             </TableHeader>
 
@@ -103,6 +110,37 @@ export default function Users() {
                       title={user.email || "N/A"}
                     >
                       {user.email || "N/A"}
+                    </TableCell>
+                    {/* Action */}
+                    <TableCell className="flex items-center gap-2">
+                      <Button
+                        size="icon"
+                        className="hover:bg-primary"
+                        variant="secondary"
+                      >
+                        <Trash2 />
+                      </Button>
+                      <Button
+                        size="sm"
+                        variant="secondary"
+                        className="hover:bg-primary"
+                      >
+                        Suspend
+                      </Button>
+                      <Button
+                        size="sm"
+                        variant="secondary"
+                        className="hover:bg-primary"
+                      >
+                        Transactions
+                      </Button>
+                      <Button
+                        size="sm"
+                        variant="secondary"
+                        className="hover:bg-primary"
+                      >
+                        Activities
+                      </Button>
                     </TableCell>
                   </TableRow>
                 ))}

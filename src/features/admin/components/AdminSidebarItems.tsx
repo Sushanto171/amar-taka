@@ -10,7 +10,7 @@ const Transactions = lazy(
 const AuditLogs = lazy(() => import("../page/AuditLogs"));
 const SystemSettings = lazy(() => import("../page/SystemSettings"));
 const Users = lazy(() => import("../page/Users"));
-const Wallets = lazy(() => import("../page/Wallets"));
+const Agents = lazy(() => import("../page/Agents"));
 
 export const AdminSidebarItems: ISidebarItems[] = [
   {
@@ -30,7 +30,7 @@ export const AdminSidebarItems: ISidebarItems[] = [
       {
         title: "Agents",
         url: "/admin/agents",
-        Component: Wallets,
+        Component: Agents,
       },
       {
         title: "Transactions",
