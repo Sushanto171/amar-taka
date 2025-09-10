@@ -9,7 +9,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { format } from "date-fns";
-import type { IAgentData } from "./agent.types";
+import type { IAgentData } from "../types/agent.types";
 
 export default function AgentProfileCard({ data }: { data: IAgentData }) {
   return (

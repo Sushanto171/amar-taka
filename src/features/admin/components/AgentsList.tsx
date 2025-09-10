@@ -1,5 +1,4 @@
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import {
   Table,
   TableBody,
@@ -13,6 +12,7 @@ import { useGetAllAgentsQuery } from "@/redux/features/agent/agent.api";
 import { format } from "date-fns";
 import { Link } from "react-router";
 import AgentDetailsModal from "./AgentDetailsModal";
+import AgentStatusUpdateModal from "./AgentStatusUpdateModal";
 export default function AgentsList() {
   const { data } = useGetAllAgentsQuery({ kycStatus: "VERIFIED" });
   const agents = data?.data ?? [];
@@ -79,9 +79,7 @@ export default function AgentsList() {
 
               {/* Action Buttons */}
               <TableCell className="text-right space-x-2">
-                <Button size="sm" variant="outline">
-                  Update status
-                </Button>
+                <AgentStatusUpdateModal />
                 <Link to={`?id=${agent._id}`}>
                   <AgentDetailsModal />
                 </Link>

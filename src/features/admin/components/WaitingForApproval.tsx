@@ -12,8 +12,11 @@ import { useGetAllAgentsQuery } from "@/redux/features/agent/agent.api";
 import { format } from "date-fns";
 import { Link } from "react-router";
 import AgentDetailsModal from "./AgentDetailsModal";
+import AgentVerifyModal from "./AgentVerifyModal";
 export default function WaitingForApproval() {
-  const { data } = useGetAllAgentsQuery({ kycStatus: "PENDING" });
+  const { data } = useGetAllAgentsQuery({
+    searchTerm: "PENDING,REJECTED",
+  });
   const agents = data?.data ?? [];
   return (
     <div className="overflow-x-auto border rounded-lg shadow-md">
@@ -78,6 +81,9 @@ export default function WaitingForApproval() {
 
               {/* Action Buttons */}
               <TableCell className="text-right space-x-2">
+                <Link to={`?id=${agent._id}`}>
+                  <AgentVerifyModal />
+                </Link>
                 <Link to={`?id=${agent._id}`}>
                   <AgentDetailsModal />
                 </Link>
