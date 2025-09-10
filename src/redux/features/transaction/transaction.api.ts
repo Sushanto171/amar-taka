@@ -19,6 +19,7 @@ export const transactionApi = baseApi.injectEndpoints({
         url: "/transaction",
         params,
       }),
+      providesTags: ["TRANSACTION", "WALLET"],
     }),
   }),
 });

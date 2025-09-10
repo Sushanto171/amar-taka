@@ -24,9 +24,11 @@ import type { ControllerRenderProps } from "react-hook-form";
 export default function SearchPhone({
   onChange,
   userData,
+  placeholder,
 }: {
   onChange: ControllerRenderProps<FormValues>;
   userData: Partial<IUser[]>;
+  placeholder: string;
 }) {
   const id = useId();
   const [open, setOpen] = useState<boolean>(false);
@@ -51,7 +53,7 @@ export default function SearchPhone({
             <span className={cn("truncate", !value && "text-muted-foreground")}>
               {value
                 ? userData?.find((user) => user?.phone === value)?.phone
-                : "Select Phone"}
+                : `Select ${placeholder} Phone`}
             </span>
             <ChevronDownIcon
               size={16}
@@ -65,7 +67,7 @@ export default function SearchPhone({
           align="start"
         >
           <Command>
-            <CommandInput placeholder="Find Phone Number" />
+            <CommandInput placeholder={`Find ${placeholder} Phone Number `} />
             <CommandList>
               <CommandEmpty>No Phone Number found.</CommandEmpty>
               <CommandGroup>

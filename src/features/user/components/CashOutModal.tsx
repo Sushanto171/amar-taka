@@ -66,7 +66,7 @@ export default function CashOutModal() {
   const [step, setStep] = useState(1);
   const [searchParams, setSearchParams] = useSearchParams();
   const [initTransaction] = useInitTransactionMutation();
-  const [cashOut] = useCashOutMutation();
+  const [cashOut, { isLoading: cashOutLoading }] = useCashOutMutation();
   const { data: usersData, isLoading } = useGetAllUserQuery({
     role: role.agent,
     field: "phone",
@@ -170,6 +170,7 @@ export default function CashOutModal() {
                             <SearchPhone
                               userData={usersData.data}
                               onChange={field}
+                              placeholder="Agent"
                             />
                           </FormControl>
                           <FormMessage />
@@ -294,7 +295,11 @@ export default function CashOutModal() {
               ) : (
                 <>
                   <Button
-                    disabled={disable || !form.formState.dirtyFields.password}
+                    disabled={
+                      disable ||
+                      !form.formState.dirtyFields.password ||
+                      cashOutLoading
+                    }
                     variant={disable ? "destructive" : "default"}
                     className="disabled:cursor-not-allowed"
                     form="sendMoneyForm"

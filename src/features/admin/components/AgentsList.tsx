@@ -19,7 +19,13 @@ export default function AgentsList() {
   return (
     <div className="overflow-x-auto border rounded-lg shadow-md">
       <Table>
-        <TableCaption>List of all verified agents</TableCaption>
+        {!agents.length ? (
+          <TableCaption className="text-center font-semibold text-lg py-2 w-full ">
+            No Agents Found.
+          </TableCaption>
+        ) : (
+          <TableCaption>List of all verified agents</TableCaption>
+        )}
 
         {/* Header */}
         <TableHeader className="bg-muted/50">

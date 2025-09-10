@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { role } from "@/constant/role";
+import CashInModal from "@/features/agent/components/CashInModal";
 import CashOutModal from "@/features/user/components/CashOutModal";
 import SendMoneyModal from "@/features/user/components/SendMoneyModal";
 import { useGetMeQuery } from "@/redux/features/user/user.api";
@@ -79,7 +80,11 @@ export default function Wallet() {
 
             {/* 3: Service Actions */}
             <div className="flex flex-wrap gap-3 pt-4">
-              <Button asChild variant="secondary" className="flex-1 hover:bg-primary">
+              <Button
+                asChild
+                variant="secondary"
+                className="flex-1 hover:bg-primary"
+              >
                 <Link
                   className="w-full"
                   to={`/${userData?.role.toLowerCase()}/transactions`}
@@ -89,12 +94,13 @@ export default function Wallet() {
               </Button>
               {userData?.role === role.agent ? (
                 <>
-                  <Button
+                  <CashInModal />
+                  {/* <Button
                     variant="secondary"
                     className="flex-1 hover:bg-red-400"
                   >
                     Cash In
-                  </Button>
+                  </Button> */}
                 </>
               ) : (
                 <React.Fragment>
