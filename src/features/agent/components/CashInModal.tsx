@@ -29,7 +29,7 @@ import PasswordFiled from "@/features/auth/components/PasswordFiled";
 import { cn } from "@/lib/utils";
 import { useInitTransactionMutation } from "@/redux/features/transaction/transaction.api";
 import { useGetAllUserQuery } from "@/redux/features/user/user.api";
-import { useSendMoneyMutation } from "@/redux/features/wallet/wallet.api";
+import { useCashInMutation } from "@/redux/features/wallet/wallet.api";
 import type { ITransactionInit } from "@/types/transaction.types";
 import { formSchema, type FormValues } from "@/types/transactionForm.types";
 import { convertPaisa } from "@/utils/convertPaisa";
@@ -39,12 +39,12 @@ import { useForm } from "react-hook-form";
 import { useSearchParams } from "react-router";
 import { toast } from "sonner";
 
-export default function SendMoneyModal() {
+export default function CashInModal() {
   const [open, setOpen] = useState(false);
   const [step, setStep] = useState(1);
   const [searchParams, setSearchParams] = useSearchParams();
   const [initTransaction] = useInitTransactionMutation();
-  const [sendMoney, { isLoading: sendMoneyLoading }] = useSendMoneyMutation();
+  const [cashIn, { isLoading: cashInLoading }] = useCashInMutation();
   const { data: usersData, isLoading } = useGetAllUserQuery({
     role: role.user,
     field: "phone",
@@ -60,29 +60,31 @@ export default function SendMoneyModal() {
       reference: "",
     },
   });
+
   const handleContinue = () => {
     if (step < totalSteps) {
       setStep(step + 1);
     }
   };
 
-  const handleSendMoney = async (data: FormValues) => {
+  const handleCashIn = async (data: FormValues) => {
     const transactionData: ITransactionInit = {
       phone: data.phone,
-      type: "SEND_MONEY",
+      type: "CASH_IN",
       amount: convertPaisa(data.amount),
       reference: data.reference,
     };
-    const toastId = toast.loading("Sending Money");
+
+    const toastId = toast.loading("Cash in.");
+
     try {
       const res = await initTransaction(transactionData).unwrap();
       if (res.success) {
-        const sendMoneyData = {
+        const cashInData = {
           transactionId: res.data._id,
           password: data.password,
         };
-
-        const sendRes = await sendMoney(sendMoneyData).unwrap();
+        const sendRes = await cashIn(cashInData).unwrap();
         const params = new URLSearchParams(searchParams);
         toast.success(sendRes.message, { id: toastId });
         params.delete("action");
@@ -108,19 +110,19 @@ export default function SendMoneyModal() {
       <DialogTrigger asChild>
         <Button
           onClick={() => [
-            setSearchParams({ action: "send-money" }),
+            setSearchParams({ action: "cash-in" }),
             setOpen(true),
           ]}
           variant="secondary"
           className="flex-1 hover:bg-primary"
         >
-          Send Money
+          Cash In
         </Button>
       </DialogTrigger>
       <DialogContent className="gap-0 p-0 [&>button:last-child]:text-white">
         <div className="p-2">
           <DialogTitle className="text-center font-semibold text-lg mt-2">
-            Send Money
+            Cash In
           </DialogTitle>
           <DialogDescription className="sr-only">
             This is send money box
@@ -129,8 +131,8 @@ export default function SendMoneyModal() {
         <div className="space-y-6 px-6 pt-3 pb-6">
           <Form {...form}>
             <form
-              id="sendMoneyForm"
-              onSubmit={form.handleSubmit(handleSendMoney)}
+              id="cashInForm"
+              onSubmit={form.handleSubmit(handleCashIn)}
               className="space-y-4"
             >
               {step === 1 && (
@@ -196,6 +198,7 @@ export default function SendMoneyModal() {
               {step === 2 && (
                 <React.Fragment key={step}>
                   <Summary form={form} />
+                  {/* password */}
                   <FormField
                     control={form.control}
                     name="password"
@@ -273,14 +276,14 @@ export default function SendMoneyModal() {
                 <>
                   <Button
                     disabled={
-                      sendMoneyLoading || !form.formState.dirtyFields.password
+                      !form.formState.dirtyFields.password || cashInLoading
                     }
-                    variant={sendMoneyLoading ? "destructive" : "default"}
+                    variant={cashInLoading ? "destructive" : "default"}
                     className="disabled:cursor-not-allowed"
-                    form="sendMoneyForm"
+                    form="cashInForm"
                     type="submit"
                   >
-                    Send Money
+                    Cash In
                   </Button>
                 </>
               )}

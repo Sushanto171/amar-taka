@@ -21,8 +21,6 @@ export default function WaitingForApproval() {
   return (
     <div className="overflow-x-auto border rounded-lg shadow-md">
       <Table>
-        <TableCaption>List of all registered agents</TableCaption>
-
         {/* Header */}
         <TableHeader className="bg-muted/50">
           <TableRow>
@@ -91,6 +89,13 @@ export default function WaitingForApproval() {
             </TableRow>
           ))}
         </TableBody>
+        {!agents.length ? (
+          <TableCaption className="text-center font-semibold text-lg py-2 w-full ">
+            No Registration Found.
+          </TableCaption>
+        ) : (
+          <TableCaption>List of all registered agents</TableCaption>
+        )}
       </Table>
     </div>
   );

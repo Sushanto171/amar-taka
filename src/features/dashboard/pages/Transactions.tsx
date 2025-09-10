@@ -51,7 +51,8 @@ export default function Transactions() {
                   />
                 </TableHead>
                 <TableHead className="min-w-[100px]">Status</TableHead>
-                <TableHead className="min-w-[140px]">Phone</TableHead>
+                <TableHead className="min-w-[140px]">Sender</TableHead>
+                <TableHead className="min-w-[140px]">Receiver</TableHead>
                 <TableHead className="min-w-[120px]">Amount</TableHead>
                 <TableHead className="min-w-[100px]">Fee</TableHead>
                 <TableHead className="min-w-[160px]">Reference</TableHead>
@@ -89,7 +90,10 @@ export default function Transactions() {
                         {tx.status}
                       </Badge>
                     </TableCell>
-                    <TableCell className="min-w-[140px]">{tx.phone}</TableCell>
+                    <TableCell className="min-w-[140px]">{tx.sender}</TableCell>
+                    <TableCell className="min-w-[140px]">
+                      {tx.receiver}
+                    </TableCell>
                     <TableCell className="min-w-[120px] font-medium">
                       ৳ {convertTaka(tx.amount)}
                     </TableCell>
