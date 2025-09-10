@@ -11,10 +11,11 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { transactionType } from "@/constant/transactionType";
 import { useGetMyTransactionsQuery } from "@/redux/features/transaction/transaction.api";
 import type { TransactionType } from "@/types/transaction.types";
 import { convertTaka } from "@/utils/convertTaka";
-import { useState } from "react";
+import { useState, type Dispatch, type SetStateAction } from "react";
 import { useSearchParams } from "react-router";
 
 export default function Transactions() {
@@ -41,7 +42,13 @@ export default function Transactions() {
               <TableRow>
                 <TableHead className="min-w-[140px]">Date</TableHead>
                 <TableHead className="min-w-[120px]">
-                  <TypeFiltering onChange={setType} />
+                  <TypeFiltering
+                    label="Types"
+                    typesObject={transactionType}
+                    onChange={
+                      setType as Dispatch<SetStateAction<string | null>>
+                    }
+                  />
                 </TableHead>
                 <TableHead className="min-w-[100px]">Status</TableHead>
                 <TableHead className="min-w-[140px]">Phone</TableHead>

@@ -168,7 +168,7 @@ export default function CashOutModal() {
                           <FormLabel>Phone</FormLabel>
                           <FormControl>
                             <SearchPhone
-                              userData={usersData}
+                              userData={usersData.data}
                               onChange={field}
                             />
                           </FormControl>

@@ -15,3 +15,6 @@ export interface IAgentData {
     frontend: string;
   };
 }
+export type IKYCStatus = "PENDING" | "VERIFIED" | "REJECTED";
+
+export type IAgentStatus = "ACTIVE" | "INACTIVE";

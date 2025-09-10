@@ -52,7 +52,7 @@ export function LoginForm({
 }: React.ComponentProps<"div">) {
   const [execute, setExecute] = useState(false);
   const navigate = useNavigate();
-  const [login] = useLoginMutation();
+  const [login, { isLoading: isLoginLoading }] = useLoginMutation();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: { phone: "01791407583", password: "123456" },
@@ -118,7 +118,11 @@ export function LoginForm({
                     </FormItem>
                   )}
                 />
-                <Button type="submit" className="w-full">
+                <Button
+                  disabled={isLoginLoading}
+                  type="submit"
+                  className="w-full"
+                >
                   Login
                 </Button>
               </div>

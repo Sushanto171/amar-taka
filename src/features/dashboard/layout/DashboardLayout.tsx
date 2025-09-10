@@ -16,12 +16,12 @@ import {
 import { Outlet, useLocation } from "react-router";
 
 export default function DashboardLayout() {
-  const {pathname} = useLocation()
-  const menus = pathname.split("/")
+  const { pathname } = useLocation();
+  const menus = pathname.split("/");
   return (
     <SidebarProvider>
       <AppSidebar />
-      <SidebarInset>
+      <SidebarInset className="overflow-auto">
         <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">
           <SidebarTrigger className="-ml-1" />
           <Separator
@@ -31,9 +31,7 @@ export default function DashboardLayout() {
           <Breadcrumb>
             <BreadcrumbList>
               <BreadcrumbItem className="hidden md:block">
-                <BreadcrumbLink href="#">
-                  {menus[1]}
-                </BreadcrumbLink>
+                <BreadcrumbLink href="#">{menus[1]}</BreadcrumbLink>
               </BreadcrumbItem>
               <BreadcrumbSeparator className="hidden md:block" />
               <BreadcrumbItem>
