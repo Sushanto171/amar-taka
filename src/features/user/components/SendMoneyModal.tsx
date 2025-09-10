@@ -24,49 +24,27 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { role } from "@/constant/role";
+import { totalSteps } from "@/constant/trasactionForm";
 import PasswordFiled from "@/features/auth/components/PasswordFiled";
 import { cn } from "@/lib/utils";
 import { useInitTransactionMutation } from "@/redux/features/transaction/transaction.api";
 import { useGetAllUserQuery } from "@/redux/features/user/user.api";
 import { useSendMoneyMutation } from "@/redux/features/wallet/wallet.api";
 import type { ITransactionInit } from "@/types/transaction.types";
+import { formSchema, type FormValues } from "@/types/transactionForm.types";
 import { convertPaisa } from "@/utils/convertPaisa";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { DialogDescription, DialogTitle } from "@radix-ui/react-dialog";
 import { useForm } from "react-hook-form";
 import { useSearchParams } from "react-router";
 import { toast } from "sonner";
-import z from "zod";
 
-const bdPhoneRegex = /^(?:\+8801|8801|01)[3-9]\d{8}$/;
-
-const formSchema = z.object({
-  phone: z
-    .string({
-      error: "Phone number is required",
-    })
-    .regex(bdPhoneRegex, { message: "Invalid Bangladesh phone number format" }),
-  amount: z
-    .string({ error: "Amount must be required" })
-    .min(1, { error: "Minimum send money amount 20 tk" }),
-  reference: z.string().optional(),
-  password: z
-    .string({
-      error: "Password is required",
-    })
-    .regex(/^\d{6}$/, { message: "Password must be 6 digits." }),
-});
-
-export type FormValues = z.infer<typeof formSchema>;
-
-const totalSteps = 2;
 export default function SendMoneyModal() {
   const [open, setOpen] = useState(false);
-  const [disable, setDisable] = useState(false);
   const [step, setStep] = useState(1);
   const [searchParams, setSearchParams] = useSearchParams();
   const [initTransaction] = useInitTransactionMutation();
-  const [sendMoney] = useSendMoneyMutation();
+  const [sendMoney, { isLoading: sendMoneyLoading }] = useSendMoneyMutation();
   const { data: usersData, isLoading } = useGetAllUserQuery({
     role: role.user,
     field: "phone",
@@ -103,7 +81,7 @@ export default function SendMoneyModal() {
           transactionId: res.data._id,
           password: data.password,
         };
-        setDisable(true);
+
         const sendRes = await sendMoney(sendMoneyData).unwrap();
         const params = new URLSearchParams(searchParams);
         toast.success(sendRes.message, { id: toastId });
@@ -113,8 +91,6 @@ export default function SendMoneyModal() {
       }
     } catch (error: any) {
       toast.error(error.data.message, { id: toastId });
-    } finally {
-      setDisable(false);
     }
   };
 
@@ -126,6 +102,7 @@ export default function SendMoneyModal() {
       setSearchParams("");
     }
   }, [open]);
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
@@ -295,8 +272,10 @@ export default function SendMoneyModal() {
               ) : (
                 <>
                   <Button
-                    disabled={disable || !form.formState.dirtyFields.password}
-                    variant={disable ? "destructive" : "default"}
+                    disabled={
+                      sendMoneyLoading || !form.formState.dirtyFields.password
+                    }
+                    variant={sendMoneyLoading ? "destructive" : "default"}
                     className="disabled:cursor-not-allowed"
                     form="sendMoneyForm"
                     type="submit"

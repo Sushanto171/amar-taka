@@ -18,7 +18,8 @@ export interface ITransaction {
   type: TransactionType;
   status: string;
   toWallet: string;
-  phone: string;
+  receiver: string;
+sender: string;
   reference: string;
   fee: number;
   _id: string;
