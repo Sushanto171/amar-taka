@@ -28,7 +28,10 @@ import { totalSteps } from "@/constant/trasactionForm";
 import PasswordFiled from "@/features/auth/components/PasswordFiled";
 import { cn } from "@/lib/utils";
 import { useInitTransactionMutation } from "@/redux/features/transaction/transaction.api";
-import { useGetAllUserQuery } from "@/redux/features/user/user.api";
+import {
+  useGetAllUserQuery,
+  useGetMeQuery,
+} from "@/redux/features/user/user.api";
 import { useCashOutMutation } from "@/redux/features/wallet/wallet.api";
 import type { ITransactionInit } from "@/types/transaction.types";
 import { formSchema, type FormValues } from "@/types/transactionForm.types";
@@ -46,6 +49,7 @@ export default function CashOutModal() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [initTransaction] = useInitTransactionMutation();
   const [cashOut, { isLoading: cashOutLoading }] = useCashOutMutation();
+  const { data: me } = useGetMeQuery(undefined);
   const { data: usersData, isLoading } = useGetAllUserQuery({
     role: role.agent,
     field: "phone",
@@ -69,7 +73,8 @@ export default function CashOutModal() {
 
   const handleSendMoney = async (data: FormValues) => {
     const transactionData: ITransactionInit = {
-      phone: data.phone,
+      receiver: data.phone,
+      sender: me!.phone,
       type: "CASH_OUT",
       amount: convertPaisa(data.amount),
       reference: data.reference,

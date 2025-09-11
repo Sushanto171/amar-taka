@@ -41,16 +41,14 @@ export default function TypeFiltering({
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <td>
-          <Button variant="ghost">
-            {label}
-            <ListChevronsDownUpIcon
-              className="-me-1 opacity-60"
-              size={16}
-              aria-hidden="true"
-            />
-          </Button>
-        </td>
+        <Button variant="ghost">
+          {label}
+          <ListChevronsDownUpIcon
+            className="-me-1 opacity-60"
+            size={16}
+            aria-hidden="true"
+          />
+        </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuRadioGroup value={type} onValueChange={setType}>

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import SinglePhotoUploader from "@/components/SiglePhotoUploader";
@@ -14,6 +15,7 @@ import { Input } from "@/components/ui/input";
 import { useRegistrationForAgentMutation } from "@/redux/features/agent/agent.api";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { z } from "zod";
 import { agentCoreZodSchema } from "../types/agentForm.types";
 
@@ -35,13 +37,13 @@ export default function AgentForm() {
   });
   const [register] = useRegistrationForAgentMutation();
   const onSubmit = async (data: AgentFormValues) => {
-    console.log("Form Submitted:", data);
+    const toastId = toast.loading("Applying...");
     data = { ...data, nidPhotoUrl: undefined };
     try {
       const res = await register(data).unwrap();
-      console.log(res);
-    } catch (error) {
-      console.log(error);
+      toast.success(res.message, { id: toastId });
+    } catch (error: any) {
+      toast.error(error.data.message, { id: toastId });
     }
   };
 

@@ -16,9 +16,9 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import type { FormValues } from "@/features/user/components/SendMoneyModal";
 import type { IUser } from "@/features/user/types/user.types";
 import { cn } from "@/lib/utils";
+import type { FormValues } from "@/types/transactionForm.types";
 import type { ControllerRenderProps } from "react-hook-form";
 
 export default function SearchPhone({

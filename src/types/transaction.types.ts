@@ -1,5 +1,6 @@
 export interface ITransactionInit {
-  phone: string;
+  sender: string;
+  receiver: string;
   amount: number;
   reference?: string;
   type: TransactionType;
@@ -19,7 +20,7 @@ export interface ITransaction {
   status: string;
   toWallet: string;
   receiver: string;
-sender: string;
+  sender: string;
   reference: string;
   fee: number;
   _id: string;

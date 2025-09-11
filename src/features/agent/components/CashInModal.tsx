@@ -28,7 +28,10 @@ import { totalSteps } from "@/constant/trasactionForm";
 import PasswordFiled from "@/features/auth/components/PasswordFiled";
 import { cn } from "@/lib/utils";
 import { useInitTransactionMutation } from "@/redux/features/transaction/transaction.api";
-import { useGetAllUserQuery } from "@/redux/features/user/user.api";
+import {
+  useGetAllUserQuery,
+  useGetMeQuery,
+} from "@/redux/features/user/user.api";
 import { useCashInMutation } from "@/redux/features/wallet/wallet.api";
 import type { ITransactionInit } from "@/types/transaction.types";
 import { formSchema, type FormValues } from "@/types/transactionForm.types";
@@ -45,6 +48,7 @@ export default function CashInModal() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [initTransaction] = useInitTransactionMutation();
   const [cashIn, { isLoading: cashInLoading }] = useCashInMutation();
+  const { data: me } = useGetMeQuery(undefined);
   const { data: usersData, isLoading } = useGetAllUserQuery({
     role: role.user,
     field: "phone",
@@ -69,7 +73,8 @@ export default function CashInModal() {
 
   const handleCashIn = async (data: FormValues) => {
     const transactionData: ITransactionInit = {
-      phone: data.phone,
+      receiver: data.phone,
+      sender: me!.phone,
       type: "CASH_IN",
       amount: convertPaisa(data.amount),
       reference: data.reference,
