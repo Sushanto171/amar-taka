@@ -85,7 +85,9 @@ export default function AgentsList() {
 
               {/* Action Buttons */}
               <TableCell className="text-right space-x-2">
-                <AgentStatusUpdateModal />
+                <Link to={`?id=${agent._id}`}>
+                  <AgentStatusUpdateModal />
+                </Link>
                 <Link to={`?id=${agent._id}`}>
                   <AgentDetailsModal />
                 </Link>

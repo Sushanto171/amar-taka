@@ -21,7 +21,7 @@ export default function UserByTransactions() {
   const { transactions, totalTnx, totalPages } = getTotalTnxWithPages(data);
   return (
     <Card className="p-6 shadow-md border rounded-xl">
-      <h2 className="text-xl font-semibold mb-4">📊 Transactions</h2>
+      <h2 className="text-xl font-semibold mb-4">📊 Transactions: {phone}</h2>
 
       <div className="overflow-x-auto rounded-md border">
         {isLoading && <TransactionSkeleton key={1} />}

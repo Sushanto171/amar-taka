@@ -45,11 +45,15 @@ export default function Users() {
               <TableRow>
                 <TableHead className="min-w-[140px]">Name</TableHead>
                 <TableHead className="min-w-[140px]">Phone</TableHead>
-                <TypeFiltering
-                  label="Role"
-                  typesObject={role}
-                  onChange={setType as Dispatch<SetStateAction<string | null>>}
-                />
+                <td>
+                  <TypeFiltering
+                    label="Role"
+                    typesObject={role}
+                    onChange={
+                      setType as Dispatch<SetStateAction<string | null>>
+                    }
+                  />
+                </td>
                 {/* <TableHead className="min-w-[120px]">Role</TableHead> */}
                 <TableHead className="min-w-[120px]">Suspended</TableHead>
                 <TableHead className="min-w-[160px]">Wallet</TableHead>
@@ -132,7 +136,9 @@ export default function Users() {
                         variant="secondary"
                         className="hover:bg-primary"
                       >
-                        <Link to={`/admin/users/transactions/${user.phone}`}>Transactions</Link>
+                        <Link to={`/admin/users/transactions/${user.phone}`}>
+                          Transactions
+                        </Link>
                       </Button>
                       <Button
                         size="sm"

@@ -18,7 +18,7 @@ export const agentApi = baseApi.injectEndpoints({
     }),
     verifyAgent: builder.mutation<
       IResponse<string>,
-      { id: string; kycStatus: IKYCStatus; status: IAgentStatus }
+      { id: string; kycStatus?: IKYCStatus; status: IAgentStatus }
     >({
       query: (data) => ({
         url: `/agent/verify-status/${data.id}`,
