@@ -18,7 +18,7 @@ import { useGetAllUserQuery } from "@/redux/features/user/user.api";
 import type { TransactionType } from "@/types/transaction.types";
 import { Trash2 } from "lucide-react";
 import { useState, type Dispatch, type SetStateAction } from "react";
-import { useSearchParams } from "react-router";
+import { Link, useSearchParams } from "react-router";
 
 export default function Users() {
   const [type, setType] = useState<TransactionType | null>(null);
@@ -132,7 +132,7 @@ export default function Users() {
                         variant="secondary"
                         className="hover:bg-primary"
                       >
-                        Transactions
+                        <Link to={`/admin/users/transactions/${user.phone}`}>Transactions</Link>
                       </Button>
                       <Button
                         size="sm"

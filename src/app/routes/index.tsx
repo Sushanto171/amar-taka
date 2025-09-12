@@ -6,13 +6,14 @@ import { generateRoute } from "@/utils/generateRoute";
 
 import LoadingSpinner from "@/components/Loading";
 import { AdminSidebarItems } from "@/features/admin/components/AdminSidebarItems";
+import UserByTransactions from "@/features/admin/page/UserByTransactions";
 import { AgentSidebarItems } from "@/features/agent/components/AgentSidebarItems";
 import { UserSidebarItems } from "@/features/user/components/UserSidebarItem";
 import { withAuth } from "@/utils/withAuth";
 import { lazy, Suspense } from "react";
 import { createBrowserRouter, Navigate } from "react-router";
-import App from "../App";
 import DashboardLayout from "../../features/dashboard/layout/DashboardLayout";
+import App from "../App";
 import Homepage from "../pages/Homepage";
 import UnAuthorized from "../pages/UnAuthorized";
 
@@ -72,6 +73,10 @@ export const router = createBrowserRouter([
         element: <Navigate to="/admin/analytics" />,
       },
       ...generateRoute(AdminSidebarItems),
+      {
+        Component: UserByTransactions,
+        path: "/admin/users/transactions/:phone",
+      },
     ],
   },
   {

@@ -21,8 +21,18 @@ export const transactionApi = baseApi.injectEndpoints({
       }),
       providesTags: ["TRANSACTION", "WALLET"],
     }),
+    getAllTransactions: builder.query<IResponse<ITransaction[]>, unknown>({
+      query: (params) => ({
+        url: "/transaction/all-transactions",
+        params,
+      }),
+      providesTags: ["TRANSACTION", "WALLET"],
+    }),
   }),
 });
 
-export const { useInitTransactionMutation, useGetMyTransactionsQuery } =
-  transactionApi;
+export const {
+  useInitTransactionMutation,
+  useGetMyTransactionsQuery,
+  useGetAllTransactionsQuery,
+} = transactionApi;
