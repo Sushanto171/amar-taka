@@ -1,3 +1,4 @@
+import Paginate from "@/components/Pagination";
 import { Badge } from "@/components/ui/badge";
 import {
   Table,
@@ -10,10 +11,12 @@ import {
 } from "@/components/ui/table";
 import { useGetAllAgentsQuery } from "@/redux/features/agent/agent.api";
 import { format } from "date-fns";
-import { Link } from "react-router";
+import { Link, useSearchParams } from "react-router";
 import AgentDetailsModal from "./AgentDetailsModal";
 import AgentVerifyModal from "./AgentVerifyModal";
 export default function WaitingForApproval() {
+  const [searchParams] = useSearchParams("");
+  const page = searchParams.get("page");
   const { data } = useGetAllAgentsQuery({
     searchTerm: "PENDING,REJECTED",
   });
@@ -97,6 +100,13 @@ export default function WaitingForApproval() {
           <TableCaption>List of all registered agents</TableCaption>
         )}
       </Table>
+      {/* Pagination */}
+      {data && data.meta!.total > 10 && (
+        <Paginate
+          currentPage={Number(page) || 1}
+          totalPages={data.meta!.totalPages}
+        />
+      )}
     </div>
   );
 }

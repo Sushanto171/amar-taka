@@ -23,9 +23,25 @@ export const userApi = baseApi.injectEndpoints({
         url: "/user",
         params,
       }),
+      providesTags: ["USER"],
+    }),
+    takeAction: builder.mutation<
+      IResponse<IUser[]>,
+      { userId: string; isSuspended?: boolean; isDeleted?: boolean }
+    >({
+      query: (actionData) => ({
+        url: "/user/action",
+        method: "PATCH",
+        data: actionData,
+      }),
+      invalidatesTags: ["USER"],
     }),
   }),
 });
 
-export const { useRegisterMutation, useGetMeQuery, useGetAllUserQuery } =
-  userApi;
+export const {
+  useRegisterMutation,
+  useGetMeQuery,
+  useGetAllUserQuery,
+  useTakeActionMutation,
+} = userApi;
