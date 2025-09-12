@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Action from "@/components/ActionsDropDown";
 import Paginate from "@/components/Pagination";
 import { TransactionSkeleton } from "@/components/TransactionSkeleton";
@@ -14,15 +15,22 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { role } from "@/constant/role";
-import { useGetAllUserQuery } from "@/redux/features/user/user.api";
+import {
+  useGetAllUserQuery,
+  useTakeActionMutation,
+} from "@/redux/features/user/user.api";
 import type { TransactionType } from "@/types/transaction.types";
 import { Trash2 } from "lucide-react";
 import { useState, type Dispatch, type SetStateAction } from "react";
 import { Link, useSearchParams } from "react-router";
+import { toast } from "sonner";
+import { UserActionModal } from "../components/UserActionModal";
 
 export default function Users() {
   const [type, setType] = useState<TransactionType | null>(null);
-
+  const [id, setId] = useState("");
+  const [takeAction, { isSuccess, isLoading: actionLoading }] =
+    useTakeActionMutation();
   const [searchParams] = useSearchParams("");
   const page = searchParams.get("page");
 
@@ -31,6 +39,23 @@ export default function Users() {
     page,
   });
   const users = usersData?.data ?? [];
+
+  const handleDelete = async (value: boolean) => {
+    try {
+      const res = await takeAction({ userId: id, isDeleted: value }).unwrap();
+      toast.success(res.message);
+    } catch (error: any) {
+      toast.error(error.data.message);
+    }
+  };
+  const handleSuspend = async (value: boolean) => {
+    try {
+      const res = await takeAction({ userId: id, isSuspended: value }).unwrap();
+      toast.success(res.message);
+    } catch (error: any) {
+      toast.error(error.data.message);
+    }
+  };
 
   return (
     <Card className="p-6 shadow-md border rounded-xl">
@@ -56,6 +81,7 @@ export default function Users() {
                 </td>
                 {/* <TableHead className="min-w-[120px]">Role</TableHead> */}
                 <TableHead className="min-w-[120px]">Suspended</TableHead>
+                <TableHead className="min-w-[120px]">Deleted</TableHead>
                 <TableHead className="min-w-[160px]">Wallet</TableHead>
                 <TableHead className="min-w-[200px]">Email</TableHead>
                 <TableHead className="min-w-[200px]">
@@ -99,7 +125,15 @@ export default function Users() {
                       <Badge
                         variant={user.isSuspended ? "destructive" : "secondary"}
                       >
-                        {String(user.isSuspended)}
+                        {user.isSuspended ? "Suspended" : "Active"}
+                      </Badge>
+                    </TableCell>
+                    {/* Delete */}
+                    <TableCell className="min-w-[120px]">
+                      <Badge
+                        variant={user.isDeleted ? "destructive" : "secondary"}
+                      >
+                        {user.isDeleted ? "Deleted" : "Available"}
                       </Badge>
                     </TableCell>
 
@@ -117,20 +151,37 @@ export default function Users() {
                     </TableCell>
                     {/* Action */}
                     <TableCell className="flex items-center gap-2">
-                      <Button
-                        size="icon"
-                        className="hover:bg-primary"
-                        variant="secondary"
+                      <UserActionModal
+                        close={isSuccess}
+                        disable={actionLoading}
+                        values={["Delete", "Recover"]}
+                        onChange={handleDelete}
                       >
-                        <Trash2 />
-                      </Button>
-                      <Button
-                        size="sm"
-                        variant="secondary"
-                        className="hover:bg-primary"
+                        <Button
+                          size="icon"
+                          className="hover:bg-primary"
+                          variant="secondary"
+                          onClick={() => setId(user._id)}
+                        >
+                          <Trash2 />
+                        </Button>
+                      </UserActionModal>
+
+                      <UserActionModal
+                        close={isSuccess}
+                        disable={actionLoading}
+                        values={["Suspend", "Activate"]}
+                        onChange={handleSuspend}
                       >
-                        Suspend
-                      </Button>
+                        <Button
+                          size="sm"
+                          variant="secondary"
+                          className="hover:bg-primary"
+                          onClick={() => setId(user._id)}
+                        >
+                          Suspend
+                        </Button>
+                      </UserActionModal>
                       <Button
                         size="sm"
                         variant="secondary"
