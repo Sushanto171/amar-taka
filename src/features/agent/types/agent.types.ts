@@ -1,7 +1,10 @@
 export interface IAgentData {
   _id: string;
   user: string;
-  wallet: string;
+  wallet: {
+    id: string;
+    revenue: number;
+  };
   agentCode: string;
   licenseNumber: string;
   nidNumber: string;

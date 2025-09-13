@@ -13,7 +13,7 @@ import UpdateProfile from "./UpdateProfile";
 
 export default function ProfileCard({ user }: { user: IUser }) {
   return (
-    <Card className="mx-auto max-w-lg w-full shadow-lg rounded-xl">
+    <Card className="w-full shadow-lg rounded-xl">
       <CardHeader className="flex flex-col items-center space-y-3">
         <Avatar className="h-16 w-16">
           <AvatarFallback>{user.name.slice(0, 2).toUpperCase()}</AvatarFallback>

@@ -9,6 +9,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { transactionType } from "@/constant/transactionType";
+import { useGetMeQuery } from "@/redux/features/user/user.api";
 import type { ITransaction, TransactionType } from "@/types/transaction.types";
 import { convertTaka } from "@/utils/convertTaka";
 import type { Dispatch, SetStateAction } from "react";
@@ -17,6 +18,8 @@ interface IProps {
   onChange: Dispatch<SetStateAction<TransactionType | null>>;
 }
 export default function TransactionLists({ transactions, onChange }: IProps) {
+  const { data } = useGetMeQuery(undefined);
+  const myNumber = data?.phone;
   return (
     <div>
       {" "}
@@ -71,8 +74,12 @@ export default function TransactionLists({ transactions, onChange }: IProps) {
                     {tx.status}
                   </Badge>
                 </TableCell>
-                <TableCell className="min-w-[140px]">{tx.sender}</TableCell>
-                <TableCell className="min-w-[140px]">{tx.receiver}</TableCell>
+                <TableCell className="min-w-[140px]">
+                  {tx.sender === myNumber ? "You" : tx.sender}
+                </TableCell>
+                <TableCell className="min-w-[140px]">
+                  {tx.receiver === myNumber ? "You" : tx.receiver}
+                </TableCell>
                 <TableCell className="min-w-[120px] font-medium">
                   ৳ {convertTaka(tx.amount)}
                 </TableCell>

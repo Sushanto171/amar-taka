@@ -1,11 +1,13 @@
+import Activities from "@/features/dashboard/commonPages/Activities";
 import type { ISidebarItems } from "@/types/global.types";
 import { lazy } from "react";
 
 // lazy imports
-const Analytics = lazy(() => import("@/features/dashboard/pages/Analytics"));
-const Settings = lazy(() => import("@/features/dashboard/pages/Settings"));
+const Analytics = lazy(
+  () => import("@/features/dashboard/commonPages/Analytics")
+);
 const Transactions = lazy(
-  () => import("@/features/dashboard/pages/Transactions")
+  () => import("@/features/dashboard/commonPages/Transactions")
 );
 const AuditLogs = lazy(() => import("../page/AuditLogs"));
 const SystemSettings = lazy(() => import("../page/SystemSettings"));
@@ -42,21 +44,21 @@ export const AdminSidebarItems: ISidebarItems[] = [
         url: "/admin/audit-logs",
         Component: AuditLogs,
       },
+    ],
+  },
+  {
+    title: "Settings",
+    url: "#",
+    items: [
+      {
+        title: "Activities",
+        url: "/admin/activities",
+        Component: Activities,
+      },
       {
         title: "System Settings",
         url: "/admin/system-settings",
         Component: SystemSettings,
-      },
-    ],
-  },
-  {
-    title: "Profile",
-    url: "#",
-    items: [
-      {
-        title: "Settings",
-        url: "/admin/settings",
-        Component: Settings,
       },
     ],
   },

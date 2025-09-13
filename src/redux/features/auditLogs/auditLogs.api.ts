@@ -9,6 +9,7 @@ export const auditLogsApi = baseApi.injectEndpoints({
         url: "/audit-logs",
         params,
       }),
+      providesTags: ["WALLET", "TRANSACTION"],
     }),
   }),
 });

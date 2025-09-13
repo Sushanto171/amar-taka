@@ -1,16 +1,20 @@
 import Paginate from "@/components/Pagination";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { DashboardSkeleton } from "@/features/dashboard/components/DashboardSkeleton";
+import AuditLogList from "@/features/dashboard/components/LogsList";
 import { useGetLogsQuery } from "@/redux/features/auditLogs/auditLogs.api";
+import { useGetMeQuery } from "@/redux/features/user/user.api";
 import { useSearchParams } from "react-router";
-import AuditLogList from "../../dashboard/components/LogsList";
 
-export default function AuditLogs() {
+export default function Activities() {
   const [searchParams] = useSearchParams();
   const page = searchParams.get("page") || 1;
-  const actorId = searchParams.get("id");
-  const name = searchParams.get("name") || "";
-  const { data, isLoading } = useGetLogsQuery({ page, actor: actorId });
+  const { data: me } = useGetMeQuery(undefined);
+
+  const { data, isLoading } = useGetLogsQuery(
+    { page, actor: me?._id },
+    { skip: !me }
+  );
   const auditLogs = data?.data ?? [];
   const totalLogs = data?.meta!.total;
   const totalPages = data?.meta!.totalPages ?? 1;
@@ -19,24 +23,16 @@ export default function AuditLogs() {
     <>
       <Card>
         <CardHeader>
-          <CardTitle className="text-xl">
-            Audit Logs{name && `/${name}`}
-          </CardTitle>
-          <CardContent>
+          <CardTitle className="text-xl">Activities</CardTitle>
+          <CardContent className="overflow-auto">
             {isLoading && (
               <DashboardSkeleton
-                labels={[
-                  "ID",
-                  "Actor",
-                  "Action",
-                  "Status",
-                  "Device",
-                  "Date",
-                  "Actions",
-                ]}
+                labels={["ID", "Action", "Status", "Device", "Date", "Actions"]}
               />
             )}
-            {!isLoading && auditLogs && <AuditLogList logs={auditLogs} />}
+            {!isLoading && auditLogs && (
+              <AuditLogList showActor={false} logs={auditLogs} />
+            )}
           </CardContent>
         </CardHeader>
       </Card>

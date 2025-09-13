@@ -1,12 +1,13 @@
+import Activities from "@/features/dashboard/commonPages/Activities";
 import type { ISidebarItems } from "@/types/global.types";
 import { lazy } from "react";
 import ApplyForAgent from "../page/ApplyForAgent";
 
-const Profile = lazy(() => import("@/features/dashboard/pages/Profile"));
+const Profile = lazy(() => import("@/features/dashboard/commonPages/Profile"));
 const Transactions = lazy(
-  () => import("@/features/dashboard/pages/Transactions")
+  () => import("@/features/dashboard/commonPages/Transactions")
 );
-const Wallet = lazy(() => import("@/features/dashboard/pages/Wallet"));
+const Wallet = lazy(() => import("@/features/dashboard/commonPages/Wallet"));
 const BillPay = lazy(() => import("@/features/user/page/BillPay"));
 
 export const UserSidebarItems: ISidebarItems[] = [
@@ -40,6 +41,11 @@ export const UserSidebarItems: ISidebarItems[] = [
         title: "Profile",
         url: "/user/profile",
         Component: Profile,
+      },
+      {
+        title: "Activities",
+        url: "/user/activities",
+        Component: Activities,
       },
       {
         title: "Apply For Agent",

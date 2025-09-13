@@ -1,6 +1,5 @@
 import Logo from "@/assets/icons/Logo";
 import LoadingSpinner from "@/components/Loading";
-import Logout from "@/components/Logout";
 import { ModeToggle } from "@/components/ModeToggle";
 import { Button } from "@/components/ui/button";
 import {
@@ -15,6 +14,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { role } from "@/constant/role";
+import Logout from "@/features/auth/components/Logout";
 import { useGetMeQuery } from "@/redux/features/user/user.api";
 import React from "react";
 

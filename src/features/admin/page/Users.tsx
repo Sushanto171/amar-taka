@@ -1,6 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import Action from "@/components/ActionsDropDown";
-import { DashboardSkeleton } from "@/components/DashboardSkeleton";
 import Paginate from "@/components/Pagination";
 import TypeFiltering from "@/components/TypeFiltering";
 import { Badge } from "@/components/ui/badge";
@@ -15,11 +13,14 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { role } from "@/constant/role";
+import { DashboardSkeleton } from "@/features/dashboard/components/DashboardSkeleton";
+import type { IUser } from "@/features/user/types/user.types";
 import {
   useGetAllUserQuery,
   useTakeActionMutation,
 } from "@/redux/features/user/user.api";
 import type { TransactionType } from "@/types/transaction.types";
+import { getTotalDataWithPages } from "@/utils/getTotalDataWithPages";
 import { Trash2 } from "lucide-react";
 import { useState, type Dispatch, type SetStateAction } from "react";
 import { Link, useSearchParams } from "react-router";
@@ -38,7 +39,8 @@ export default function Users() {
     role: type,
     page,
   });
-  const users = usersData?.data ?? [];
+  const [users, totalUser, totalPages] =
+    getTotalDataWithPages<IUser>(usersData);
 
   const handleDelete = async (value: boolean) => {
     try {
@@ -75,7 +77,7 @@ export default function Users() {
             key={1}
           />
         )}
-        ,
+
         {!isLoading && users && (
           <Table>
             <TableHeader className="bg-muted/50">
@@ -96,9 +98,7 @@ export default function Users() {
                 <TableHead className="min-w-[120px]">Deleted</TableHead>
                 <TableHead className="min-w-[160px]">Wallet</TableHead>
                 <TableHead className="min-w-[200px]">Email</TableHead>
-                <TableHead className="min-w-[200px]">
-                  <Action />
-                </TableHead>
+                <TableHead className="min-w-[200px]">Action</TableHead>
               </TableRow>
             </TableHeader>
 
@@ -226,11 +226,8 @@ export default function Users() {
       </div>
 
       {/* Pagination */}
-      {usersData && usersData.meta!.total > 10 && (
-        <Paginate
-          currentPage={Number(page) || 1}
-          totalPages={usersData.meta!.totalPages}
-        />
+      {users && totalUser > 10 && (
+        <Paginate currentPage={Number(page) || 1} totalPages={totalPages} />
       )}
     </Card>
   );

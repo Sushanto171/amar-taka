@@ -1,14 +1,17 @@
 import { lazy } from "react";
 // lazy imports
 
-const Analytics = lazy(() => import("@/features/dashboard/pages/Analytics"));
-const Settings = lazy(() => import("@/features/dashboard/pages/Settings"));
-const Transactions = lazy(
-  () => import("@/features/dashboard/pages/Transactions")
+const Analytics = lazy(
+  () => import("@/features/dashboard/commonPages/Analytics")
 );
-const Wallet = lazy(() => import("@/features/dashboard/pages/Wallet"));
-const Commission = lazy(() => import("../../dashboard/pages/Commission"));
+const Transactions = lazy(
+  () => import("@/features/dashboard/commonPages/Transactions")
+);
+const Wallet = lazy(() => import("@/features/dashboard/commonPages/Wallet"));
+const Commission = lazy(() => import("../../dashboard/commonPages/Commission"));
 
+import Activities from "@/features/dashboard/commonPages/Activities";
+import Profile from "@/features/dashboard/commonPages/Profile";
 import type { ISidebarItems } from "@/types/global.types";
 
 export const AgentSidebarItems: ISidebarItems[] = [
@@ -40,13 +43,18 @@ export const AgentSidebarItems: ISidebarItems[] = [
     ],
   },
   {
-    title: "Profile",
+    title: "Settings",
     url: "#",
     items: [
       {
-        title: "Settings",
-        url: "/agent/settings",
-        Component: Settings,
+        title: "Profile",
+        url: "/agent/profile",
+        Component: Profile,
+      },
+      {
+        title: "Activities",
+        url: "/agent/activities",
+        Component: Activities,
       },
     ],
   },

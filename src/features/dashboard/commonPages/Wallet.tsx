@@ -1,7 +1,6 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
 import { role } from "@/constant/role";
 import CashInModal from "@/features/agent/components/CashInModal";
 import CashOutModal from "@/features/user/components/CashOutModal";
@@ -11,6 +10,7 @@ import { useGetMyWalletQuery } from "@/redux/features/wallet/wallet.api";
 import { convertTaka } from "@/utils/convertTaka";
 import React, { useState } from "react";
 import { Link } from "react-router";
+import WalletSkeleton from "../components/WalletSkeleton";
 
 export default function Wallet() {
   const { data: wallet, isLoading } = useGetMyWalletQuery(undefined);
@@ -19,11 +19,7 @@ export default function Wallet() {
 
   return (
     <>
-      {isLoading && (
-        <>
-          <Skeleton />
-        </>
-      )}
+      {isLoading && <WalletSkeleton />}
       {!isLoading && wallet && (
         <Card className="w-full h-full shadow-lg border rounded-xl overflow-hidden py-0 flex flex-col justify-between">
           {/* 1: Balance + Wallet Type Banner */}
@@ -95,12 +91,6 @@ export default function Wallet() {
               {userData?.role === role.agent ? (
                 <>
                   <CashInModal />
-                  {/* <Button
-                    variant="secondary"
-                    className="flex-1 hover:bg-red-400"
-                  >
-                    Cash In
-                  </Button> */}
                 </>
               ) : (
                 <React.Fragment>
