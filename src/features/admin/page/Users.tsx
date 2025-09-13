@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Action from "@/components/ActionsDropDown";
+import { DashboardSkeleton } from "@/components/DashboardSkeleton";
 import Paginate from "@/components/Pagination";
-import { TransactionSkeleton } from "@/components/TransactionSkeleton";
 import TypeFiltering from "@/components/TypeFiltering";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -62,8 +62,20 @@ export default function Users() {
       <h2 className="text-xl font-semibold mb-4">📊 Users</h2>
 
       <div className="overflow-x-auto rounded-md border">
-        {isLoading && <TransactionSkeleton key={1} />}
-
+        {isLoading && (
+          <DashboardSkeleton
+            labels={[
+              "Name",
+              "Phone",
+              "Suspended",
+              "Deleted",
+              "Wallet",
+              "Email",
+            ]}
+            key={1}
+          />
+        )}
+        ,
         {!isLoading && users && (
           <Table>
             <TableHeader className="bg-muted/50">
@@ -196,7 +208,11 @@ export default function Users() {
                         variant="secondary"
                         className="hover:bg-primary"
                       >
-                        Activities
+                        <Link
+                          to={`/admin/audit-logs?id=${user._id}&name=${user.name}`}
+                        >
+                          Activities
+                        </Link>
                       </Button>
                     </TableCell>
                   </TableRow>
@@ -204,7 +220,6 @@ export default function Users() {
             </TableBody>
           </Table>
         )}
-
         {!isLoading && !users?.length && (
           <div className="text-center py-2 text-gray-500">No Data Found.</div>
         )}

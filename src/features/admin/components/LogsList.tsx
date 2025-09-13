@@ -13,16 +13,36 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import type { IAuditLog } from "@/types/logs.types";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-export default function AuditLogList({ logs }: { logs: IAuditLog[] }) {
+export default function AuditLogList({
+  logs,
+  name,
+}: {
+  logs: IAuditLog[];
+  name: string;
+}) {
   const [selected, setSelected] = useState<any | null>(null);
-
+  useEffect(() => {
+    if (selected) {
+      const contentEl = document.getElementById("content");
+      if (contentEl) {
+        contentEl.scrollIntoView({ behavior: "smooth" });
+      }
+    } else {
+      scrollTo({
+        behavior: "smooth",
+        top: 0,
+      });
+    }
+  }, [selected]);
   return (
     <div className="space-y-6">
       <Card>
         <CardHeader>
-          <CardTitle className="text-xl">Audit Logs</CardTitle>
+          <CardTitle className="text-xl">
+            Audit Logs{name && `/${name}`}
+          </CardTitle>
         </CardHeader>
         <CardContent>
           <Table>
@@ -43,7 +63,7 @@ export default function AuditLogList({ logs }: { logs: IAuditLog[] }) {
                   <TableCell className="font-mono text-xs">
                     {log._id.slice(-6)}
                   </TableCell>
-                  <TableCell>{log.actor}</TableCell>
+                  <TableCell>{log.actor?.name}</TableCell>
                   <TableCell>{log.action}</TableCell>
                   <TableCell>
                     <Badge
@@ -83,12 +103,19 @@ export default function AuditLogList({ logs }: { logs: IAuditLog[] }) {
         </CardContent>
       </Card>
 
+      {}
+
       {selected && (
         <Card>
           <CardHeader>
-            <CardTitle>Log Details</CardTitle>
+            <CardTitle className="flex justify-between items-center">
+              Log Details
+              <Button variant="outline" onClick={() => setSelected("")}>
+                Less
+              </Button>
+            </CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent id="content">
             <pre className="bg-muted p-3 rounded-md text-xs overflow-x-auto">
               {JSON.stringify(selected, null, 2)}
             </pre>

@@ -1,6 +1,6 @@
 export interface IAuditLog {
   _id: string;
-  actor: string;
+  actor: Actor;
   actorWallet: string;
   targetWallet: string;
   action: string;
@@ -8,6 +8,12 @@ export interface IAuditLog {
   ipAddress: string;
   device: Device;
   createdAt: string;
+}
+
+export interface Actor {
+  _id: string
+  name: string
+  phone: string
 }
 
 export interface Device {

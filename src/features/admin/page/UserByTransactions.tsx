@@ -1,10 +1,10 @@
 import Paginate from "@/components/Pagination";
-import { TransactionSkeleton } from "@/components/TransactionSkeleton";
 import { Card } from "@/components/ui/card";
 import { useGetAllTransactionsQuery } from "@/redux/features/transaction/transaction.api";
 import { getTotalTnxWithPages } from "@/utils/getTotalTnxWithPages";
 import { useParams, useSearchParams } from "react-router";
 
+import { DashboardSkeleton } from "@/components/DashboardSkeleton";
 import TransactionLists from "@/features/dashboard/components/TransactionLists";
 import type { TransactionType } from "@/types/transaction.types";
 import { useState } from "react";
@@ -24,7 +24,21 @@ export default function UserByTransactions() {
       <h2 className="text-xl font-semibold mb-4">📊 Transactions: {phone}</h2>
 
       <div className="overflow-x-auto rounded-md border">
-        {isLoading && <TransactionSkeleton key={1} />}
+        {isLoading && (
+          <DashboardSkeleton
+            labels={[
+              "Date",
+              "Status",
+              "Sender",
+              "Receiver",
+              "Amount",
+              "Fee",
+              "Reference",
+            ]}
+            key={1}
+          />
+        )}
+
         {!isLoading && transactions && (
           <TransactionLists onChange={setType} transactions={transactions} />
         )}

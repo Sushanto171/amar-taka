@@ -1,5 +1,5 @@
+import { DashboardSkeleton } from "@/components/DashboardSkeleton";
 import Paginate from "@/components/Pagination";
-import { TransactionSkeleton } from "@/components/TransactionSkeleton";
 import { Card } from "@/components/ui/card";
 import {
   useGetAllTransactionsQuery,
@@ -44,7 +44,20 @@ export default function Transactions() {
       <h2 className="text-xl font-semibold mb-4">📊 Transactions</h2>
 
       <div className="overflow-x-auto rounded-md border">
-        {(isLoading || isAllTaxLoading) && <TransactionSkeleton key={1} />}
+        {(isLoading || isAllTaxLoading) && (
+          <DashboardSkeleton
+            labels={[
+              "Date",
+              "Status",
+              "Sender",
+              "Receiver",
+              "Amount",
+              "Fee",
+              "Reference",
+            ]}
+            key={1}
+          />
+        )}
         {(!isLoading || !isAllTaxLoading) && transactions && (
           <TransactionLists onChange={setType} transactions={transactions} />
         )}

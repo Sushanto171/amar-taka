@@ -1,17 +1,18 @@
 import { Skeleton } from "@/components/ui/skeleton";
+interface IProps {
+  labels: string[];
+}
 
-export function TransactionSkeleton() {
+export function DashboardSkeleton({ labels }: IProps) {
   return (
     <div>
       <div className="bg-muted/50">
         <div className="flex">
-          <div className="min-w-[140px] py-2 px-1">Date</div>
-          <div className="min-w-[120px] py-2 px-1">Type</div>
-          <div className="min-w-[100px] py-2 px-1">Status</div>
-          <div className="min-w-[140px] py-2 px-1">Phone</div>
-          <div className="min-w-[120px] py-2 px-1">Amount</div>
-          <div className="min-w-[100px] py-2 px-1">Fee</div>
-          <div className="min-w-[160px] py-2 px-1">Reference</div>
+          {labels.map((label, i) => (
+            <div key={i} className="flex-1 py-2 px-1">
+              {label}
+            </div>
+          ))}
         </div>
       </div>
       {Array.from({ length: 10 }).map((_, i) => (
