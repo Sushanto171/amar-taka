@@ -1,5 +1,6 @@
 import Paginate from "@/components/Pagination";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   Table,
   TableBody,
@@ -99,6 +100,26 @@ export default function AgentsList() {
                 <Link to={`?id=${agent._id}`}>
                   <AgentDetailsModal />
                 </Link>
+                <Button
+                  size="sm"
+                  variant="secondary"
+                  className="hover:bg-primary"
+                >
+                  <Link to={`/admin/users/transactions/${agent.user.phone}`}>
+                    Transactions
+                  </Link>
+                </Button>
+                <Button
+                  size="sm"
+                  variant="secondary"
+                  className="hover:bg-primary"
+                >
+                  <Link
+                    to={`/admin/audit-logs?id=${agent.user._id}&name=${agent.user.name}`}
+                  >
+                    Activities
+                  </Link>
+                </Button>
               </TableCell>
             </TableRow>
           ))}

@@ -22,7 +22,7 @@ export default function AuditLogs() {
           <CardTitle className="text-xl">
             Audit Logs{name && `/${name}`}
           </CardTitle>
-          <CardContent>
+          <CardContent className="overflow-auto">
             {isLoading && (
               <DashboardSkeleton
                 labels={[

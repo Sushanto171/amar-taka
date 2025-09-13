@@ -31,11 +31,6 @@ export default function AuditLogList({
       if (contentEl) {
         contentEl.scrollIntoView({ behavior: "smooth" });
       }
-    } else {
-      scrollTo({
-        behavior: "smooth",
-        top: 100,
-      });
     }
   }, [selected]);
   return (
@@ -95,17 +90,27 @@ export default function AuditLogList({
           ))}
         </TableBody>
       </Table>
+
       {selected && (
-        <Card>
+        <Card id="content">
           <CardHeader>
             <CardTitle className="flex justify-between items-center">
               Log Details
-              <Button variant="outline" onClick={() => setSelected("")}>
+              <Button
+                variant="outline"
+                onClick={() => [
+                  setSelected(""),
+                  scrollTo({
+                    behavior: "smooth",
+                    top: 74,
+                  }),
+                ]}
+              >
                 Less
               </Button>
             </CardTitle>
           </CardHeader>
-          <CardContent id="content">
+          <CardContent>
             <pre className="bg-muted p-3 rounded-md text-xs overflow-x-auto">
               {JSON.stringify(selected, null, 2)}
             </pre>
