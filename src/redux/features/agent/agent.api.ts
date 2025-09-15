@@ -33,7 +33,7 @@ export const agentApi = baseApi.injectEndpoints({
         method: "PATCH",
         data,
       }),
-      invalidatesTags: ["USER", "AGENT"],
+      invalidatesTags: ["USER", "AGENT","WALLET","TRANSACTION"],
     }),
     getAgent: builder.query<IAgentData, { id: string }>({
       query: (query) => ({

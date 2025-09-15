@@ -11,7 +11,18 @@ export const settingsApi = baseApi.injectEndpoints({
       transformResponse: (res: IResponse<ISettings>) => res.data,
       providesTags: ["SETTINGS"],
     }),
+    updateSettings: builder.mutation<
+      IResponse<string>,
+      { data: ISettings; id: string }
+    >({
+      query: (data) => ({
+        url: `/settings/${data.id}`,
+        method: "PATCH",
+        data: data.data,
+      }),
+      invalidatesTags: ["SETTINGS"],
+    }),
   }),
 });
 
-export const { useGetSettingsQuery } = settingsApi;
+export const { useGetSettingsQuery, useUpdateSettingsMutation } = settingsApi;
