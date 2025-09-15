@@ -1,18 +1,14 @@
 import { lazy } from "react";
-// lazy imports
 
-const Analytics = lazy(
-  () => import("@/features/dashboard/commonPages/Analytics")
-);
-const Transactions = lazy(
-  () => import("@/features/dashboard/commonPages/Transactions")
-);
+
 const Wallet = lazy(() => import("@/features/dashboard/commonPages/Wallet"));
 const Commission = lazy(() => import("../../dashboard/commonPages/Commission"));
 
 import Activities from "@/features/dashboard/commonPages/Activities";
 import Profile from "@/features/dashboard/commonPages/Profile";
 import type { ISidebarItems } from "@/types/global.types";
+import Analytics from "@/features/dashboard/commonPages/Analytics";
+import Transactions from "@/features/dashboard/commonPages/Transactions";
 
 export const AgentSidebarItems: ISidebarItems[] = [
   {

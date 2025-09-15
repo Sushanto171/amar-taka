@@ -5,6 +5,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import {
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@/components/ui/chart";
 import AgentStats from "@/features/admin/components/AgentStats";
 import { Last7DaysTransactionsChart } from "@/features/admin/components/Last7DaysTnx";
 import { StatCard } from "@/features/admin/components/StatCard";
@@ -17,15 +22,7 @@ import {
   useGetUserStatsQuery,
 } from "@/redux/features/stats/stats.api";
 import { convertTaka } from "@/utils/convertTaka";
-import {
-  Bar,
-  BarChart,
-  CartesianGrid,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis,
-} from "recharts";
+import { Bar, BarChart, CartesianGrid, XAxis } from "recharts";
 
 export default function Analytics() {
   const { data: userStats } = useGetUserStatsQuery(undefined);
@@ -52,7 +49,7 @@ export default function Analytics() {
   const last7DaysTransactionsData = transactionStats?.last7DaysTransactions.map(
     (tx) => ({
       ...tx,
-      amount: (tx.amount / 100),
+      amount: tx.amount / 100,
     })
   );
 
@@ -95,15 +92,36 @@ export default function Analytics() {
             <CardDescription>Registrations in last 7 & 30 days</CardDescription>
           </CardHeader>
           <CardContent className="h-[300px]">
-            <ResponsiveContainer>
-              <BarChart data={newUsersData}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
-                <YAxis allowDecimals={false} />
-                <Tooltip />
-                <Bar dataKey="users" fill="#3B82F6" radius={[6, 6, 0, 0]} />
+            <ChartContainer config={{}} className="aspect-auto h-full w-full">
+              <BarChart
+                accessibilityLayer
+                data={newUsersData}
+                margin={{
+                  left: 12,
+                  right: 12,
+                }}
+              >
+                <CartesianGrid vertical={false} />
+                <XAxis
+                  dataKey="name"
+                  tickLine={false}
+                  axisLine={false}
+                  tickMargin={8}
+                  minTickGap={32}
+                />
+                <ChartTooltip
+                  content={
+                    <ChartTooltipContent
+                      className="w-[140px]"
+                      labelFormatter={(value) => {
+                        return `Users: ${value}`;
+                      }}
+                    />
+                  }
+                />
+                <Bar dataKey="users" fill="#4F46E5" />
               </BarChart>
-            </ResponsiveContainer>
+            </ChartContainer>
           </CardContent>
         </Card>
 
@@ -113,15 +131,36 @@ export default function Analytics() {
             <CardDescription>Registrations in last 7 & 30 days</CardDescription>
           </CardHeader>
           <CardContent className="h-[300px]">
-            <ResponsiveContainer>
-              <BarChart data={newAgentsData}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
-                <YAxis allowDecimals={false} />
-                <Tooltip />
-                <Bar dataKey="agents" fill="#10B981" radius={[6, 6, 0, 0]} />
+            <ChartContainer config={{}} className="aspect-auto h-full w-full">
+              <BarChart
+                accessibilityLayer
+                data={newAgentsData}
+                margin={{
+                  left: 12,
+                  right: 12,
+                }}
+              >
+                <CartesianGrid vertical={false} />
+                <XAxis
+                  dataKey="name"
+                  tickLine={false}
+                  axisLine={false}
+                  tickMargin={8}
+                  minTickGap={32}
+                />
+                <ChartTooltip
+                  content={
+                    <ChartTooltipContent
+                      className="w-[140px]"
+                      labelFormatter={(value) => {
+                        return `Agents: ${value}`;
+                      }}
+                    />
+                  }
+                />
+                <Bar dataKey="agents" fill="#10B981" />
               </BarChart>
-            </ResponsiveContainer>
+            </ChartContainer>
           </CardContent>
         </Card>
       </div>

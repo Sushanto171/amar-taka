@@ -6,11 +6,16 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import {
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@/components/ui/chart";
 import { COLORS } from "@/constant/stats";
 import type { ITransactionStats } from "@/types/stats.types";
 import { convertTaka } from "@/utils/convertTaka";
 
-import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
+import { Cell, Pie, PieChart } from "recharts";
 export default function TransactionStats({
   transactionStats,
 }: {
@@ -29,7 +34,7 @@ export default function TransactionStats({
         <CardDescription>Cash In / Cash Out / Send Money</CardDescription>
       </CardHeader>
       <CardContent className="h-[350px] md:h-[180px] relative p-0">
-        <ResponsiveContainer className="right-0" width="100%" height="100%">
+        <ChartContainer config={{}} className="aspect-auto h-full w-full">
           <PieChart>
             <Pie
               data={transactionPieData}
@@ -66,11 +71,17 @@ export default function TransactionStats({
                 <Cell key={index} fill={COLORS[index % COLORS.length]} />
               ))}
             </Pie>
-            <Tooltip
-              formatter={(value: number, name: string, props) => [
-                `${value} tx (${props.payload.percent}%)`,
-                name,
-              ]}
+
+            <ChartTooltip
+              content={
+                <ChartTooltipContent
+                  className="w-[140px]"
+                  labelFormatter={(_value, props) => {
+                    const name = props[0].payload.name;
+                    return `${name} tx (${props[0].payload.percent}%)`;
+                  }}
+                />
+              }
             />
             <text
               x="50%"
@@ -82,7 +93,7 @@ export default function TransactionStats({
               ৳{convertTaka(transactionStats.totalAmount)}
             </text>
           </PieChart>
-        </ResponsiveContainer>
+        </ChartContainer>
       </CardContent>
       <CardFooter>
         <p className="text-center w-full">
