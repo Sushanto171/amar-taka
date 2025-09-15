@@ -1,4 +1,6 @@
 export interface ISettings {
+  _id?: string;
+
   sysFund: number; // Initial system fund
 
   deposit: {

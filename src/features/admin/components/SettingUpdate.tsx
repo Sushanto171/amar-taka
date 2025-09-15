@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { Button } from "@/components/ui/button";
@@ -12,26 +13,34 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useUpdateSettingsMutation } from "@/redux/features/settings/settings.api";
 import type { ISettings } from "@/types/settings.types";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 
-const defaultValues = {
-  deposit: { min: 5000, feePct: 2, sysPct: 25, agentPct: 75 },
-  withdraw: { min: 0, feePct: 2, sysPct: 50, agentPct: 50 },
-  sendMoney: { perThousandFee: 500, min: 2000 },
-  user: { welcomeBonus: 5000, dailyLimit: 2500000, monthlyLimit: 5000000 },
-  agent: { initBal: 1000000, dailyLimit: 5000000, monthlyLimit: 20000000 },
-  sysFund: 1000000000,
-};
 const toTaka = (paisa: number) => paisa / 100;
 const toPaisa = (taka: number) => taka * 100;
 
-export default function AdminConfigTabs() {
+export default function AdminConfigTabs({
+  defaultValues,
+}: {
+  defaultValues: ISettings;
+}) {
   const form = useForm<ISettings>({ defaultValues });
   const { handleSubmit, control } = form;
+  const [updateSettings] = useUpdateSettingsMutation();
 
-  const onSubmit = (data: ISettings) => {
-    console.log("Updated Config:", data);
+  const onSubmit = async (data: ISettings) => {
+    try {
+      delete data._id;
+      const res = await updateSettings({
+        id: defaultValues._id as string,
+        data,
+      }).unwrap();
+      toast.success(res.message);
+    } catch (error: any) {
+      toast.error(error.data.message);
+    }
   };
 
   return (
@@ -62,7 +71,6 @@ export default function AdminConfigTabs() {
                       <FormLabel>Min</FormLabel>
                       <FormControl>
                         <Input
-                          type="number"
                           value={toTaka(field.value)} // display in Taka
                           onChange={(e) =>
                             field.onChange(toPaisa(Number(e.target.value)))
@@ -80,7 +88,12 @@ export default function AdminConfigTabs() {
                     <FormItem>
                       <FormLabel>Fee %</FormLabel>
                       <FormControl>
-                        <Input type="number" {...field} />
+                        <Input
+                          {...field}
+                          onChange={(e) =>
+                            field.onChange(Number(e.target.value))
+                          }
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -93,7 +106,12 @@ export default function AdminConfigTabs() {
                     <FormItem>
                       <FormLabel>System %</FormLabel>
                       <FormControl>
-                        <Input type="number" {...field} />
+                        <Input
+                          {...field}
+                          onChange={(e) =>
+                            field.onChange(Number(e.target.value))
+                          }
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -106,7 +124,12 @@ export default function AdminConfigTabs() {
                     <FormItem>
                       <FormLabel>Agent %</FormLabel>
                       <FormControl>
-                        <Input type="number" {...field} />
+                        <Input
+                          {...field}
+                          onChange={(e) =>
+                            field.onChange(Number(e.target.value))
+                          }
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -130,7 +153,13 @@ export default function AdminConfigTabs() {
                     <FormItem>
                       <FormLabel>Min</FormLabel>
                       <FormControl>
-                        <Input type="number" {...field} />
+                        <Input
+                          {...field}
+                          value={toTaka(field.value)}
+                          onChange={(e) =>
+                            field.onChange(toPaisa(Number(e.target.value)))
+                          }
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -143,7 +172,12 @@ export default function AdminConfigTabs() {
                     <FormItem>
                       <FormLabel>Fee %</FormLabel>
                       <FormControl>
-                        <Input type="number" {...field} />
+                        <Input
+                          {...field}
+                          onChange={(e) =>
+                            field.onChange(Number(e.target.value))
+                          }
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -156,7 +190,12 @@ export default function AdminConfigTabs() {
                     <FormItem>
                       <FormLabel>System %</FormLabel>
                       <FormControl>
-                        <Input type="number" {...field} />
+                        <Input
+                          {...field}
+                          onChange={(e) =>
+                            field.onChange(Number(e.target.value))
+                          }
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -169,7 +208,12 @@ export default function AdminConfigTabs() {
                     <FormItem>
                       <FormLabel>Agent %</FormLabel>
                       <FormControl>
-                        <Input type="number" {...field} />
+                        <Input
+                          {...field}
+                          onChange={(e) =>
+                            field.onChange(Number(e.target.value))
+                          }
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -194,7 +238,6 @@ export default function AdminConfigTabs() {
                       <FormLabel>Per Thousand Fee </FormLabel>
                       <FormControl>
                         <Input
-                          type="number"
                           value={toTaka(field.value)}
                           onChange={(e) =>
                             field.onChange(toPaisa(Number(e.target.value)))
@@ -213,7 +256,6 @@ export default function AdminConfigTabs() {
                       <FormLabel>Min</FormLabel>
                       <FormControl>
                         <Input
-                          type="number"
                           value={toTaka(field.value)}
                           onChange={(e) =>
                             field.onChange(toPaisa(Number(e.target.value)))
@@ -243,7 +285,6 @@ export default function AdminConfigTabs() {
                       <FormLabel>Welcome Bonus</FormLabel>
                       <FormControl>
                         <Input
-                          type="number"
                           value={toTaka(field.value)}
                           onChange={(e) =>
                             field.onChange(toPaisa(Number(e.target.value)))
@@ -262,7 +303,6 @@ export default function AdminConfigTabs() {
                       <FormLabel>Daily Limit</FormLabel>
                       <FormControl>
                         <Input
-                          type="number"
                           value={toTaka(field.value)}
                           onChange={(e) =>
                             field.onChange(toPaisa(Number(e.target.value)))
@@ -281,7 +321,6 @@ export default function AdminConfigTabs() {
                       <FormLabel>Monthly Limit</FormLabel>
                       <FormControl>
                         <Input
-                          type="number"
                           value={toTaka(field.value)}
                           onChange={(e) =>
                             field.onChange(toPaisa(Number(e.target.value)))
@@ -311,7 +350,6 @@ export default function AdminConfigTabs() {
                       <FormLabel>Initial Balance</FormLabel>
                       <FormControl>
                         <Input
-                          type="number"
                           value={toTaka(field.value)}
                           onChange={(e) =>
                             field.onChange(toPaisa(Number(e.target.value)))
@@ -330,7 +368,6 @@ export default function AdminConfigTabs() {
                       <FormLabel>Daily Limit</FormLabel>
                       <FormControl>
                         <Input
-                          type="number"
                           value={toTaka(field.value)}
                           onChange={(e) =>
                             field.onChange(toPaisa(Number(e.target.value)))
@@ -349,7 +386,6 @@ export default function AdminConfigTabs() {
                       <FormLabel>Monthly Limit</FormLabel>
                       <FormControl>
                         <Input
-                          type="number"
                           value={toTaka(field.value)}
                           onChange={(e) =>
                             field.onChange(toPaisa(Number(e.target.value)))
@@ -379,7 +415,6 @@ export default function AdminConfigTabs() {
                       <FormLabel>System Fund</FormLabel>
                       <FormControl>
                         <Input
-                          type="number"
                           value={toTaka(field.value)}
                           onChange={(e) =>
                             field.onChange(toPaisa(Number(e.target.value)))
