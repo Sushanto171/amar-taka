@@ -1,7 +1,7 @@
 import { authApi, useLogoutMutation } from "@/redux/features/auth/auth.api";
 import { useDispatch } from "react-redux";
 import { toast } from "sonner";
-import { Button } from "./ui/button";
+import { Button } from "../../../components/ui/button";
 
 export default function Logout({ width }: { width: "full" | "" }) {
   const dispatch = useDispatch();

@@ -1,5 +1,6 @@
 import Paginate from "@/components/Pagination";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   Table,
   TableBody,
@@ -9,7 +10,10 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import type { IAgentData } from "@/features/agent/types/agent.types";
 import { useGetAllAgentsQuery } from "@/redux/features/agent/agent.api";
+import { convertTaka } from "@/utils/convertTaka";
+import { getTotalDataWithPages } from "@/utils/getTotalDataWithPages";
 import { format } from "date-fns";
 import { Link, useSearchParams } from "react-router";
 import AgentDetailsModal from "./AgentDetailsModal";
@@ -18,7 +22,7 @@ export default function AgentsList() {
   const [searchParams] = useSearchParams("");
   const page = searchParams.get("page");
   const { data } = useGetAllAgentsQuery({ kycStatus: "VERIFIED" });
-  const agents = data?.data ?? [];
+  const [agents, total, totalPages] = getTotalDataWithPages<IAgentData>(data);
   return (
     <div className="overflow-x-auto border rounded-lg shadow-md">
       <Table>
@@ -36,6 +40,7 @@ export default function AgentsList() {
             <TableHead>Agent Code</TableHead>
             <TableHead>License No.</TableHead>
             <TableHead>NID</TableHead>
+            <TableHead>Revenue</TableHead>
             <TableHead>Service Areas</TableHead>
             <TableHead>Status</TableHead>
             <TableHead>KYC</TableHead>
@@ -51,6 +56,7 @@ export default function AgentsList() {
               <TableCell className="font-medium">{agent.agentCode}</TableCell>
               <TableCell>{agent.licenseNumber}</TableCell>
               <TableCell>{agent.nidNumber}</TableCell>
+              <TableCell>৳{convertTaka(agent.wallet.revenue)}</TableCell>
 
               <TableCell>
                 <div className="flex flex-wrap gap-1">
@@ -94,17 +100,34 @@ export default function AgentsList() {
                 <Link to={`?id=${agent._id}`}>
                   <AgentDetailsModal />
                 </Link>
+                <Button
+                  size="sm"
+                  variant="secondary"
+                  className="hover:bg-primary"
+                >
+                  <Link to={`/admin/users/transactions/${agent.user.phone}`}>
+                    Transactions
+                  </Link>
+                </Button>
+                <Button
+                  size="sm"
+                  variant="secondary"
+                  className="hover:bg-primary"
+                >
+                  <Link
+                    to={`/admin/audit-logs?id=${agent.user._id}&name=${agent.user.name}`}
+                  >
+                    Activities
+                  </Link>
+                </Button>
               </TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
       {/* Pagination */}
-      {data && data.meta!.total > 10 && (
-        <Paginate
-          currentPage={Number(page) || 1}
-          totalPages={data.meta!.totalPages}
-        />
+      {agents && total > 10 && (
+        <Paginate currentPage={Number(page) || 1} totalPages={totalPages} />
       )}
     </div>
   );

@@ -1,7 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import Action from "@/components/ActionsDropDown";
 import Paginate from "@/components/Pagination";
-import { TransactionSkeleton } from "@/components/TransactionSkeleton";
 import TypeFiltering from "@/components/TypeFiltering";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -15,11 +13,14 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { role } from "@/constant/role";
+import { DashboardSkeleton } from "@/features/dashboard/components/DashboardSkeleton";
+import type { IUser } from "@/features/user/types/user.types";
 import {
   useGetAllUserQuery,
   useTakeActionMutation,
 } from "@/redux/features/user/user.api";
 import type { TransactionType } from "@/types/transaction.types";
+import { getTotalDataWithPages } from "@/utils/getTotalDataWithPages";
 import { Trash2 } from "lucide-react";
 import { useState, type Dispatch, type SetStateAction } from "react";
 import { Link, useSearchParams } from "react-router";
@@ -38,7 +39,8 @@ export default function Users() {
     role: type,
     page,
   });
-  const users = usersData?.data ?? [];
+  const [users, totalUser, totalPages] =
+    getTotalDataWithPages<IUser>(usersData);
 
   const handleDelete = async (value: boolean) => {
     try {
@@ -62,7 +64,19 @@ export default function Users() {
       <h2 className="text-xl font-semibold mb-4">📊 Users</h2>
 
       <div className="overflow-x-auto rounded-md border">
-        {isLoading && <TransactionSkeleton key={1} />}
+        {isLoading && (
+          <DashboardSkeleton
+            labels={[
+              "Name",
+              "Phone",
+              "Suspended",
+              "Deleted",
+              "Wallet",
+              "Email",
+            ]}
+            key={1}
+          />
+        )}
 
         {!isLoading && users && (
           <Table>
@@ -84,9 +98,7 @@ export default function Users() {
                 <TableHead className="min-w-[120px]">Deleted</TableHead>
                 <TableHead className="min-w-[160px]">Wallet</TableHead>
                 <TableHead className="min-w-[200px]">Email</TableHead>
-                <TableHead className="min-w-[200px]">
-                  <Action />
-                </TableHead>
+                <TableHead className="min-w-[200px]">Action</TableHead>
               </TableRow>
             </TableHeader>
 
@@ -196,7 +208,11 @@ export default function Users() {
                         variant="secondary"
                         className="hover:bg-primary"
                       >
-                        Activities
+                        <Link
+                          to={`/admin/audit-logs?id=${user._id}&name=${user.name}`}
+                        >
+                          Activities
+                        </Link>
                       </Button>
                     </TableCell>
                   </TableRow>
@@ -204,18 +220,14 @@ export default function Users() {
             </TableBody>
           </Table>
         )}
-
         {!isLoading && !users?.length && (
           <div className="text-center py-2 text-gray-500">No Data Found.</div>
         )}
       </div>
 
       {/* Pagination */}
-      {usersData && usersData.meta!.total > 10 && (
-        <Paginate
-          currentPage={Number(page) || 1}
-          totalPages={usersData.meta!.totalPages}
-        />
+      {users && totalUser > 10 && (
+        <Paginate currentPage={Number(page) || 1} totalPages={totalPages} />
       )}
     </Card>
   );

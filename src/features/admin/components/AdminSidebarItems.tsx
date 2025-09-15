@@ -1,16 +1,11 @@
+import Activities from "@/features/dashboard/commonPages/Activities";
+import Analytics from "@/features/dashboard/commonPages/Analytics";
+import Transactions from "@/features/dashboard/commonPages/Transactions";
 import type { ISidebarItems } from "@/types/global.types";
-import { lazy } from "react";
-
-// lazy imports
-const Analytics = lazy(() => import("@/features/dashboard/pages/Analytics"));
-const Settings = lazy(() => import("@/features/dashboard/pages/Settings"));
-const Transactions = lazy(
-  () => import("@/features/dashboard/pages/Transactions")
-);
-const AuditLogs = lazy(() => import("../page/AuditLogs"));
-const SystemSettings = lazy(() => import("../page/SystemSettings"));
-const Users = lazy(() => import("../page/Users"));
-const Agents = lazy(() => import("../page/Agents"));
+import Agents from "../page/Agents";
+import AuditLogs from "../page/AuditLogs";
+import SystemSettings from "../page/SystemSettings";
+import Users from "../page/Users";
 
 export const AdminSidebarItems: ISidebarItems[] = [
   {
@@ -42,21 +37,21 @@ export const AdminSidebarItems: ISidebarItems[] = [
         url: "/admin/audit-logs",
         Component: AuditLogs,
       },
+    ],
+  },
+  {
+    title: "Settings",
+    url: "#",
+    items: [
+      {
+        title: "Activities",
+        url: "/admin/activities",
+        Component: Activities,
+      },
       {
         title: "System Settings",
         url: "/admin/system-settings",
         Component: SystemSettings,
-      },
-    ],
-  },
-  {
-    title: "Profile",
-    url: "#",
-    items: [
-      {
-        title: "Settings",
-        url: "/admin/settings",
-        Component: Settings,
       },
     ],
   },

@@ -1,3 +1,13 @@
+import { useGetSettingsQuery } from "@/redux/features/settings/settings.api";
+import AdminConfigPanel from "../components/SettingUpdate";
+
 export default function SystemSettings() {
-  return <div>This is SystemSettings Component.</div>;
+  const { data } = useGetSettingsQuery(undefined);
+  console.log(data);
+  return (
+    <div>
+      This is SystemSettings Component.
+      <AdminConfigPanel />
+    </div>
+  );
 }
