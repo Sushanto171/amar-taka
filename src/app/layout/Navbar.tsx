@@ -25,6 +25,9 @@ const navigationLinks = [
   { href: "/", label: "Home", role: "PUBLIC" },
   { href: "/about", label: "About", role: "PUBLIC" },
   { href: "/service", label: "Service", role: "PUBLIC" },
+  { href: "/contact", label: "Contact", role: "PUBLIC" },
+  { href: "/features", label: "Features", role: "PUBLIC" },
+  { href: "/faq", label: "FAQ", role: "PUBLIC" },
   { href: "/admin", label: "Dashboard", role: role.admin },
   { href: "/agent", label: "Dashboard", role: role.agent },
   { href: "/user", label: "Dashboard", role: role.user },
@@ -40,8 +43,8 @@ export default function Navbar() {
     return <LoadingSpinner />;
   }
   return (
-    <header className="border-b ">
-      <div className="container mx-auto px-4 flex h-16 justify-between gap-4">
+    <header className="sticky top-0 backdrop-blur-xl z-50">
+      <div className="container mx-auto px-4 flex h-20 justify-between gap-4">
         {/* Left side */}
         <div className="flex gap-2">
           <div className="flex items-center md:hidden">

@@ -13,14 +13,16 @@ import { withAuth } from "@/utils/withAuth";
 import { lazy, Suspense } from "react";
 import { createBrowserRouter, Navigate } from "react-router";
 import DashboardLayout from "../../features/dashboard/layout/DashboardLayout";
+import Homepage from "../../features/public/pages/Homepage";
+import UnAuthorized from "../../features/public/pages/UnAuthorized";
 import App from "../App";
-import Homepage from "../pages/Homepage";
-import UnAuthorized from "../pages/UnAuthorized";
 
 //lazy import (public route)
-const About = lazy(() => import("../pages/About"));
-const Service = lazy(() => import("../pages/Service"));
-
+const About = lazy(() => import("../../features/public/pages/About"));
+const Service = lazy(() => import("../../features/public/pages/Service"));
+const FAQ = lazy(() => import("@/features/public/pages/FAQ"));
+const Contact = lazy(()=>import("@/features/public/pages/Contact"))
+const Features = lazy(()=>import("@/features/public/pages/Features"))
 export const router = createBrowserRouter([
   {
     Component: App,
@@ -45,6 +47,30 @@ export const router = createBrowserRouter([
           </Suspense>
         ),
         path: "/service",
+      },
+      {
+        Component: () => (
+          <Suspense fallback={<LoadingSpinner />}>
+            <Features />
+          </Suspense>
+        ),
+        path: "/features",
+      },
+      {
+        Component: () => (
+          <Suspense fallback={<LoadingSpinner />}>
+            <Contact />
+          </Suspense>
+        ),
+        path: "/contact",
+      },
+      {
+        Component: () => (
+          <Suspense fallback={<LoadingSpinner />}>
+            <FAQ />
+          </Suspense>
+        ),
+        path: "/faq",
       },
     ],
   },
