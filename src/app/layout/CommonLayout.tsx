@@ -10,7 +10,7 @@ export default function CommonLayout({ children }: TProps) {
   return (
     <div className="min-h-screen flex flex-col ">
       <Navbar />
-      <div className="container mx-auto px-4 grow">{children}</div>
+      {children}
       <Footer />
     </div>
   );
