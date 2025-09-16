@@ -157,19 +157,6 @@ export default function AuditLogView({ data }: { data?: AuditLog | null }) {
     createdAt: data?.createdAt ?? "",
   };
 
-  const statusVariant = (s?: string) => {
-    switch ((s ?? "").toUpperCase()) {
-      case "SUCCESS":
-        return "primary";
-      case "FAILED":
-        return "destructive";
-      case "PENDING":
-        return "secondary";
-      default:
-        return "default";
-    }
-  };
-
   const formatDate = (iso?: string) => {
     if (!iso) return "-";
     try {
@@ -196,7 +183,7 @@ export default function AuditLogView({ data }: { data?: AuditLog | null }) {
         }
       }
       // optionally show toast
-    } catch (e) {
+    } catch {
       // ignore copy errors
       // console.warn('copy failed', e)
     }
@@ -212,9 +199,7 @@ export default function AuditLogView({ data }: { data?: AuditLog | null }) {
           </div>
 
           <div className="flex items-center gap-2">
-            <Badge variant={"default"}>
-              {safeData.status}
-            </Badge>
+            <Badge variant={"default"}>{safeData.status}</Badge>
             <Button
               variant="ghost"
               size="sm"

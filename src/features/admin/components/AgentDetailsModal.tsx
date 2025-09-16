@@ -59,11 +59,11 @@ export default function AgentDetailsModal() {
               </div>
               <div className="flex justify-between">
                 <span className="font-medium">Wallet:</span>
-                <span>{data.wallet}</span>
+                <span>{data.wallet._id}</span>
               </div>
               <div className="flex justify-between">
                 <span className="font-medium">User:</span>
-                <span>{data.user}</span>
+                <span>{data.user.name}</span>
               </div>
               <div className="flex justify-between">
                 <span className="font-medium">Service Areas:</span>

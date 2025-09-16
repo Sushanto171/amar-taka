@@ -1,13 +1,9 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import type { FormValues } from "@/features/user/components/SendMoneyModal";
+import type { FormValues } from "@/types/transactionForm.types";
 import type { UseFormReturn } from "react-hook-form";
 
-export function Summary({
-  form,
-}: {
-  form: UseFormReturn<FormValues>;
-}) {
+export function Summary({ form }: { form: UseFormReturn<FormValues> }) {
   return (
     <Card className="w-full border-none bg-transparent">
       <CardHeader className="sr-only">
