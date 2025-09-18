@@ -1,10 +1,8 @@
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
-  CardTitle,
 } from "@/components/ui/card";
 import {
   ChartContainer,
@@ -14,10 +12,17 @@ import {
 import { COLORS } from "@/constant/stats";
 import type { IUserStats } from "@/types/stats.types";
 import { convertTaka } from "@/utils/convertTaka";
+import { ReactNode } from "react";
 
 import { Cell, Pie, PieChart } from "recharts";
 
-export default function UserStats({ userStats }: { userStats: IUserStats }) {
+export default function UserStats({
+  userStats,
+  children,
+}: {
+  userStats: IUserStats;
+  children: ReactNode;
+}) {
   const userPieData = userStats.roleByUsers.map((role) => ({
     name: role._id,
     value: role.count,
@@ -26,10 +31,7 @@ export default function UserStats({ userStats }: { userStats: IUserStats }) {
 
   return (
     <Card>
-      <CardHeader>
-        <CardTitle>User Statistics</CardTitle>
-        <CardDescription>Breakdown by role</CardDescription>
-      </CardHeader>
+      <CardHeader>{children}</CardHeader>
       <CardContent className="h-[350px] md:h-[180px] relative p-0">
         <ChartContainer config={{}} className="aspect-auto h-full w-full">
           <PieChart>

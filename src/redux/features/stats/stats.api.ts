@@ -1,3 +1,4 @@
+import { ISingleAgentStats } from "@/features/agent/types/agent.stats.types";
 import { baseApi } from "@/redux/baseApi";
 import type { IResponse } from "@/types/global.types";
 import type {
@@ -37,6 +38,13 @@ export const statsApi = baseApi.injectEndpoints({
       }),
       transformResponse: (res: IResponse<ISystemStats>) => res.data,
     }),
+    getSingleAgentStats: builder.query<ISingleAgentStats, unknown>({
+      query: (params) => ({
+        url: "/stats/agent/me",
+        params,
+      }),
+      transformResponse: (res: IResponse<ISingleAgentStats>) => res.data,
+    }),
   }),
 });
 
@@ -45,4 +53,5 @@ export const {
   useGetAgentStatsQuery,
   useGetTransactionStatsQuery,
   useGetSystemStatsQuery,
+  useGetSingleAgentStatsQuery,
 } = statsApi;

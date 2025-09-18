@@ -3,6 +3,7 @@
 import { ArrowRightIcon, MoveLeft } from "lucide-react";
 import React, { useEffect, useState } from "react";
 
+import ButtonLoader from "@/components/ButtonLoader";
 import SearchPhone from "@/components/SearchPhone";
 import { Summary } from "@/components/Summary";
 import { Button } from "@/components/ui/button";
@@ -46,7 +47,8 @@ export default function SendMoneyModal() {
   const [open, setOpen] = useState(false);
   const [step, setStep] = useState(1);
   const [searchParams, setSearchParams] = useSearchParams();
-  const [initTransaction] = useInitTransactionMutation();
+  const [initTransaction, { isLoading: tnxLoading }] =
+    useInitTransactionMutation();
   const [sendMoney, { isLoading: sendMoneyLoading }] = useSendMoneyMutation();
   const { data: me } = useGetMeQuery(undefined);
   const { data: usersData, isLoading } = useGetAllUserQuery({
@@ -278,13 +280,16 @@ export default function SendMoneyModal() {
                 <>
                   <Button
                     disabled={
-                      sendMoneyLoading || !form.formState.dirtyFields.password
+                      sendMoneyLoading ||
+                      !form.formState.dirtyFields.password ||
+                      tnxLoading
                     }
                     variant={sendMoneyLoading ? "destructive" : "default"}
                     className="disabled:cursor-not-allowed"
                     form="sendMoneyForm"
                     type="submit"
                   >
+                    <ButtonLoader spin={sendMoneyLoading || tnxLoading} />
                     Send Money
                   </Button>
                 </>

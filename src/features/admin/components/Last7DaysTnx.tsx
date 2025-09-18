@@ -71,24 +71,29 @@ export function Last7DaysTransactionsChart({ chartData }: { chartData: any }) {
             <ChartTooltip
               content={
                 <ChartTooltipContent
-                  className="w-[140px]"
+                  className="w-auto"
                   labelFormatter={(_value, props) => {
                     const status = props[0].payload.status;
                     const type = props[0].payload.type;
-                    return `
-                    Type: ${type} \n
-                    Status: ${status} `;
+                    return (
+                      <div className="flex flex-col">
+                        <p>Type: {type}</p>
+                        <p>Status: {status}</p>
+                      </div>
+                    );
                   }}
                 />
               }
             />
             <Bar dataKey="amount">
-              {chartData.map((entry: { status: string | number; }, index: any) => (
-                <Cell
-                  key={`cell-${index}`}
-                  fill={STATUS_COLORS[entry.status] || "gray"}
-                />
-              ))}
+              {chartData.map(
+                (entry: { status: string | number }, index: any) => (
+                  <Cell
+                    key={`cell-${index}`}
+                    fill={STATUS_COLORS[entry.status] || "gray"}
+                  />
+                )
+              )}
             </Bar>
           </BarChart>
         </ChartContainer>

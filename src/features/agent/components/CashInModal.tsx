@@ -3,6 +3,7 @@
 import { ArrowRightIcon, MoveLeft } from "lucide-react";
 import React, { useEffect, useState } from "react";
 
+import ButtonLoader from "@/components/ButtonLoader";
 import SearchPhone from "@/components/SearchPhone";
 import { Summary } from "@/components/Summary";
 import { Button } from "@/components/ui/button";
@@ -46,7 +47,8 @@ export default function CashInModal() {
   const [open, setOpen] = useState(false);
   const [step, setStep] = useState(1);
   const [searchParams, setSearchParams] = useSearchParams();
-  const [initTransaction] = useInitTransactionMutation();
+  const [initTransaction, { isLoading: tnxLoading }] =
+    useInitTransactionMutation();
   const [cashIn, { isLoading: cashInLoading }] = useCashInMutation();
   const { data: me } = useGetMeQuery(undefined);
   const { data: usersData, isLoading } = useGetAllUserQuery({
@@ -266,7 +268,8 @@ export default function CashInModal() {
                   type="button"
                   disabled={
                     !form.formState.dirtyFields.phone ||
-                    !form.formState.dirtyFields.amount
+                    !form.formState.dirtyFields.amount ||
+                    tnxLoading
                   }
                   onClick={handleContinue}
                 >
@@ -288,6 +291,7 @@ export default function CashInModal() {
                     form="cashInForm"
                     type="submit"
                   >
+                    <ButtonLoader spin={cashInLoading || tnxLoading} />
                     Cash In
                   </Button>
                 </>

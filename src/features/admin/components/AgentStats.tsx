@@ -1,10 +1,8 @@
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
-  CardTitle,
 } from "@/components/ui/card";
 import {
   ChartContainer,
@@ -14,12 +12,15 @@ import {
 import { COLORS } from "@/constant/stats";
 import type { IAgentStats } from "@/types/stats.types";
 import { convertTaka } from "@/utils/convertTaka";
+import { ReactNode } from "react";
 import { Cell, Pie, PieChart } from "recharts";
 
 export default function AgentStats({
   agentStats,
+  children,
 }: {
   agentStats: IAgentStats;
+  children: ReactNode;
 }) {
   const agentPieData = agentStats.KYCStatus.map((role) => ({
     name: role._id,
@@ -28,10 +29,7 @@ export default function AgentStats({
   }));
   return (
     <Card>
-      <CardHeader>
-        <CardTitle>Agent Statistics</CardTitle>
-        <CardDescription> Pending/ Verified / Rejected</CardDescription>
-      </CardHeader>
+      <CardHeader>{children}</CardHeader>
       <CardContent className="h-[350px] md:h-[180px] relative p-0">
         <ChartContainer config={{}} className="aspect-auto h-full w-full">
           <PieChart>

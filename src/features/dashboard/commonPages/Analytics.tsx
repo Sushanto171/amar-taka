@@ -11,6 +11,7 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 import AgentStats from "@/features/admin/components/AgentStats";
+import { ChartSkeleton } from "@/features/admin/components/ChartSkeleton";
 import { Last7DaysTransactionsChart } from "@/features/admin/components/Last7DaysTnx";
 import { StatCard } from "@/features/admin/components/StatCard";
 import TransactionStats from "@/features/admin/components/TransactionStats";
@@ -24,10 +25,34 @@ import {
 import { convertTaka } from "@/utils/convertTaka";
 import { Bar, BarChart, CartesianGrid, XAxis } from "recharts";
 
+const userChildren = (
+  <>
+    <CardTitle>User Statistics</CardTitle>
+    <CardDescription>Breakdown by role</CardDescription>
+  </>
+);
+
+const agentChildren = (
+  <>
+    <CardTitle>Agent Statistics</CardTitle>
+    <CardDescription> Pending/ Verified / Rejected</CardDescription>
+  </>
+);
+
+const tnxChildren = (
+  <>
+    <CardTitle>Transaction Statistics</CardTitle>
+    <CardDescription>Cash In / Cash Out / Send Money</CardDescription>
+  </>
+);
+
 export default function Analytics() {
-  const { data: userStats } = useGetUserStatsQuery(undefined);
-  const { data: agentStats } = useGetAgentStatsQuery(undefined);
-  const { data: transactionStats } = useGetTransactionStatsQuery(undefined);
+  const { data: userStats, isLoading: userLoading } =
+    useGetUserStatsQuery(undefined);
+  const { data: agentStats, isLoading: agentLoading } =
+    useGetAgentStatsQuery(undefined);
+  const { data: transactionStats, isLoading: tnxLoading } =
+    useGetTransactionStatsQuery(undefined);
   const { data: systemStats } = useGetSystemStatsQuery(undefined);
 
   const newUsersData = [
@@ -77,10 +102,20 @@ export default function Analytics() {
 
       {/* Users & Agents Stats */}
       <div className="grid gap-6 md:grid-cols-3">
-        {userStats && <UserStats userStats={userStats} />}
-        {agentStats && <AgentStats agentStats={agentStats} />}
+        {userLoading && <ChartSkeleton children={userChildren} />}
+        {userStats && (
+          <UserStats userStats={userStats} children={userChildren} />
+        )}
+        {agentLoading && <ChartSkeleton children={agentChildren} />}
+        {agentStats && (
+          <AgentStats agentStats={agentStats} children={agentChildren} />
+        )}
+        {tnxLoading && <ChartSkeleton children={tnxChildren} />}
         {transactionStats && (
-          <TransactionStats transactionStats={transactionStats} />
+          <TransactionStats
+            transactionStats={transactionStats}
+            children={tnxChildren}
+          />
         )}
       </div>
 

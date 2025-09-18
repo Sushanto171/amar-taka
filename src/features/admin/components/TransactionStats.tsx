@@ -1,10 +1,8 @@
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
-  CardTitle,
 } from "@/components/ui/card";
 import {
   ChartContainer,
@@ -12,14 +10,19 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 import { COLORS } from "@/constant/stats";
+import { transactionStatus } from "@/constant/transactionType";
+import { ISingleAgentStats } from "@/features/agent/types/agent.stats.types";
 import type { ITransactionStats } from "@/types/stats.types";
 import { convertTaka } from "@/utils/convertTaka";
+import { ReactNode } from "react";
 
 import { Cell, Pie, PieChart } from "recharts";
 export default function TransactionStats({
   transactionStats,
+  children,
 }: {
-  transactionStats: ITransactionStats;
+  transactionStats: ITransactionStats | ISingleAgentStats;
+  children: ReactNode;
 }) {
   const transactionPieData = transactionStats.statusByTransaction.map((tx) => ({
     name: tx._id,
@@ -29,10 +32,7 @@ export default function TransactionStats({
 
   return (
     <Card>
-      <CardHeader>
-        <CardTitle>Transaction Statistics</CardTitle>
-        <CardDescription>Cash In / Cash Out / Send Money</CardDescription>
-      </CardHeader>
+      <CardHeader>{children}</CardHeader>
       <CardContent className="h-[350px] md:h-[180px] relative p-0">
         <ChartContainer config={{}} className="aspect-auto h-full w-full">
           <PieChart>
@@ -54,9 +54,6 @@ export default function TransactionStats({
                   <text
                     x={x}
                     y={y}
-                    fill={COLORS.find(
-                      (_, i) => transactionPieData[i].name === name
-                    )}
                     textAnchor={x > cx ? "start" : "end"}
                     dominantBaseline="central"
                     fontSize={10}
@@ -67,8 +64,17 @@ export default function TransactionStats({
                 );
               }}
             >
-              {transactionPieData.map((_entry, index) => (
-                <Cell key={index} fill={COLORS[index % COLORS.length]} />
+              {transactionPieData.map((entry, index) => (
+                <Cell
+                  key={index}
+                  fill={
+                    entry.name === transactionStatus.success
+                      ? COLORS[1]
+                      : entry.name === transactionStatus.pending
+                      ? COLORS[0]
+                      : COLORS[2]
+                  }
+                />
               ))}
             </Pie>
 

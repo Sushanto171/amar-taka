@@ -23,6 +23,7 @@ import { Link, useNavigate } from "react-router";
 import { toast } from "sonner";
 import { z } from "zod";
 
+import ButtonLoader from "@/components/ButtonLoader";
 import { useRegisterMutation } from "@/redux/features/user/user.api";
 import { zodResolver } from "./../../../../node_modules/@hookform/resolvers/zod/src/zod";
 import PasswordFiled from "./PasswordFiled";
@@ -50,7 +51,7 @@ export function RegisterForm({
   ...props
 }: React.ComponentProps<"div">) {
   const navigate = useNavigate();
-  const [register] = useRegisterMutation();
+  const [register, { isLoading }] = useRegisterMutation();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: { name: "", phone: "", password: "" },
@@ -129,6 +130,7 @@ export function RegisterForm({
                   )}
                 />
                 <Button type="submit" className="w-full ">
+                  <ButtonLoader spin={isLoading} />
                   Register Now
                 </Button>
               </div>

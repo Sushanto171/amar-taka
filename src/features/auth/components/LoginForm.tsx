@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
+import ButtonLoader from "@/components/ButtonLoader";
 import { cn } from "@/lib/utils";
 import { useGetMeQuery } from "@/redux/features/user/user.api";
 import { useState } from "react";
@@ -123,6 +124,7 @@ export function LoginForm({
                   type="submit"
                   className="w-full"
                 >
+                  <ButtonLoader spin={isLoginLoading} />
                   Login
                 </Button>
               </div>
