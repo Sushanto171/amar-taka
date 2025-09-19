@@ -9,14 +9,16 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import UpdateProfile from "@/components/UpdateProfile";
 import { DashboardSkeleton } from "@/features/dashboard/components/DashboardSkeleton";
 import AuditLogList from "@/features/dashboard/components/LogsList";
 import { useGetLogsQuery } from "@/redux/features/auditLogs/auditLogs.api";
 import { useGetMeQuery } from "@/redux/features/user/user.api";
 import { ShieldCheck, ShieldX } from "lucide-react";
 
+import UpdateProfile from "@/components/UpdateProfile";
+import Divider from "@/features/admin/components/Divider";
 import { Link } from "react-router";
+import { SecurityTab } from "./ChangePassword";
 
 export default function Profile() {
   const { data: user, isLoading } = useGetMeQuery(undefined);
@@ -45,15 +47,13 @@ export default function Profile() {
                 </p>
               </div>
             </div>
-            <div className="flex flex-col gap-2">
-              <Badge
-                variant={user.isSuspended ? "destructive" : "default"}
-                className="px-3 py-1 w-full"
-              >
-                {user.isSuspended ? "Inactive" : "Active"}
-              </Badge>
-              <UpdateProfile user={user} />
-            </div>
+
+            <Badge
+              variant={user.isSuspended ? "destructive" : "default"}
+              className="px-3 py-1 "
+            >
+              {user.isSuspended ? "Inactive" : "Active"}
+            </Badge>
           </CardHeader>
 
           {/* Tabs */}
@@ -70,10 +70,14 @@ export default function Profile() {
               <TabsContent value="overview" className="space-y-6 pt-4">
                 {/* Personal Info */}
                 <div>
-                  <h3 className="text-md font-semibold mb-3">
-                    Personal Information
-                  </h3>
-                  <div className="space-y-2 text-sm">
+                  <div className="flex justify-between items-center mb-3">
+                    <h3 className="text-md font-semibold">
+                      Personal Information
+                    </h3>
+                    <UpdateProfile user={user} />
+                  </div>
+                  <Divider />
+                  <div className="space-y-2 text-sm mt-6">
                     <div className="flex justify-between">
                       <span className="text-muted-foreground">Full Name</span>
                       <span>{user.name}</span>
@@ -112,7 +116,8 @@ export default function Profile() {
                   <h3 className="text-md font-semibold mb-3">
                     Account Information
                   </h3>
-                  <div className="space-y-2 text-sm">
+                  <Divider />
+                  <div className="space-y-2 text-sm mt-6">
                     <div className="flex justify-between">
                       <span className="text-muted-foreground">
                         Failed Attempts
@@ -169,14 +174,10 @@ export default function Profile() {
               </TabsContent>
 
               {/* Security */}
-              <TabsContent value="security">
-                <p className="text-sm text-muted-foreground">
-                  Security settings and login activity will appear here.
-                </p>
-              </TabsContent>
+              <SecurityTab />
 
               {/* Settings */}
-              <TabsContent value="settings">
+              <TabsContent value="settings" className="min-h-[calc(100vh-270px)]">
                 <p className="text-sm text-muted-foreground">
                   Account settings will appear here.
                 </p>

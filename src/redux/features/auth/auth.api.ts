@@ -1,4 +1,6 @@
 import { baseApi } from "@/redux/baseApi";
+import { IChangePassword } from "@/types/ChangePass.types";
+import { IResponse } from "@/types/global.types";
 
 export const authApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -30,6 +32,24 @@ export const authApi = baseApi.injectEndpoints({
         data: userData,
       }),
     }),
+    changePassword: builder.mutation<IResponse<string>, IChangePassword>({
+      query: (data) => ({
+        url: "/auth/change-password",
+        method: "POST",
+        data,
+      }),
+    }),
+    changePasswordOtpVerify: builder.mutation<
+      IResponse<string>,
+      { otp: string }
+    >({
+      query: (data) => ({
+        url: "/auth/change-password-otp-verify",
+        method: "POST",
+        data,
+      }),
+      invalidatesTags: ["USER"],
+    }),
   }),
 });
 
@@ -38,4 +58,6 @@ export const {
   useSendOTPMutation,
   useVerifyOTPMutation,
   useLogoutMutation,
+  useChangePasswordMutation,
+  useChangePasswordOtpVerifyMutation,
 } = authApi;
