@@ -19,6 +19,7 @@ import {
 import { Input } from "@/components/ui/input";
 
 import ButtonLoader from "@/components/ButtonLoader";
+import { bdPhoneRegex } from "@/constant/phoneRegex";
 import { cn } from "@/lib/utils";
 import { useGetMeQuery } from "@/redux/features/user/user.api";
 import { useState } from "react";
@@ -29,9 +30,6 @@ import { z } from "zod";
 import { useLoginMutation } from "../../../redux/features/auth/auth.api";
 import { zodResolver } from "./../../../../node_modules/@hookform/resolvers/zod/src/zod";
 import PasswordFiled from "./PasswordFiled";
-
-// Bangladesh phone regex: +8801XXXXXXXXX, 8801XXXXXXXXX, 01XXXXXXXXX
-const bdPhoneRegex = /^(?:\+8801|8801|01)[3-9]\d{8}$/;
 
 const formSchema = z.object({
   phone: z
@@ -52,6 +50,7 @@ export function LoginForm({
   ...props
 }: React.ComponentProps<"div">) {
   const [execute, setExecute] = useState(false);
+
   const navigate = useNavigate();
   const [login, { isLoading: isLoginLoading }] = useLoginMutation();
   const form = useForm<z.infer<typeof formSchema>>({
@@ -76,6 +75,7 @@ export function LoginForm({
       }
     }
   };
+
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
@@ -103,12 +103,23 @@ export function LoginForm({
                     </FormItem>
                   )}
                 />
+
                 <FormField
                   control={form.control}
                   name="password"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Password</FormLabel>
+                      <FormLabel className="flex">
+                        <span>Password</span>
+                        <Link
+                          to={`/forget-password?phone=${form.getValues(
+                            "phone"
+                          )}`}
+                          className="ml-auto text-sm underline-offset-4 hover:underline"
+                        >
+                          Forgot your password?
+                        </Link>
+                      </FormLabel>
                       <FormControl>
                         <PasswordFiled field={field} />
                       </FormControl>

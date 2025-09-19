@@ -8,6 +8,7 @@ import LoadingSpinner from "@/components/Loading";
 import { AdminSidebarItems } from "@/features/admin/components/AdminSidebarItems";
 import UserByTransactions from "@/features/admin/page/UserByTransactions";
 import { AgentSidebarItems } from "@/features/agent/components/AgentSidebarItems";
+import ForgetPassword from "@/features/auth/page/ForgetPassword";
 import { UserSidebarItems } from "@/features/user/components/UserSidebarItem";
 import { withAuth } from "@/utils/withAuth";
 import { lazy, Suspense } from "react";
@@ -21,8 +22,8 @@ import App from "../App";
 const About = lazy(() => import("../../features/public/pages/About"));
 const Service = lazy(() => import("../../features/public/pages/Service"));
 const FAQ = lazy(() => import("@/features/public/pages/FAQ"));
-const Contact = lazy(()=>import("@/features/public/pages/Contact"))
-const Features = lazy(()=>import("@/features/public/pages/Features"))
+const Contact = lazy(() => import("@/features/public/pages/Contact"));
+const Features = lazy(() => import("@/features/public/pages/Features"));
 export const router = createBrowserRouter([
   {
     Component: App,
@@ -89,6 +90,10 @@ export const router = createBrowserRouter([
   {
     Component: UnAuthorized,
     path: "/unauthorized",
+  },
+  {
+    Component: ForgetPassword,
+    path: "/forget-password",
   },
   {
     Component: withAuth(DashboardLayout, "ADMIN"),

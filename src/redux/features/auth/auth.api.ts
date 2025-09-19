@@ -1,5 +1,5 @@
 import { baseApi } from "@/redux/baseApi";
-import { IChangePassword } from "@/types/ChangePass.types";
+import { IChangePassword, IForgetPassword } from "@/types/ChangePass.types";
 import { IResponse } from "@/types/global.types";
 
 export const authApi = baseApi.injectEndpoints({
@@ -50,6 +50,26 @@ export const authApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["USER"],
     }),
+    getForgetPasswordOtp: builder.mutation<
+      IResponse<string>,
+      { phone: string }
+    >({
+      query: (data) => ({
+        url: "/auth/forget-password",
+        method: "POST",
+        data,
+      }),
+    }),
+    verifyResetPasswordOtp: builder.mutation<
+      IResponse<string>,
+      IForgetPassword
+    >({
+      query: (data) => ({
+        url: "/auth/reset-password",
+        method: "POST",
+        data,
+      }),
+    }),
   }),
 });
 
@@ -60,4 +80,6 @@ export const {
   useLogoutMutation,
   useChangePasswordMutation,
   useChangePasswordOtpVerifyMutation,
+  useGetForgetPasswordOtpMutation,
+  useVerifyResetPasswordOtpMutation,
 } = authApi;

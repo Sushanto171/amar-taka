@@ -1,5 +1,6 @@
 import Activities from "@/features/dashboard/commonPages/Activities";
 import Analytics from "@/features/dashboard/commonPages/Analytics";
+import Profile from "@/features/dashboard/commonPages/Profile";
 import Transactions from "@/features/dashboard/commonPages/Transactions";
 import type { ISidebarItems } from "@/types/global.types";
 import Agents from "../page/Agents";
@@ -47,6 +48,11 @@ export const AdminSidebarItems: ISidebarItems[] = [
         title: "Activities",
         url: "/admin/activities",
         Component: Activities,
+      },
+      {
+        title: "Profile",
+        url: "/admin/profile",
+        Component: Profile,
       },
       {
         title: "System Settings",

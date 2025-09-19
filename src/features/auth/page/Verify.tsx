@@ -94,6 +94,7 @@ export default function Verify() {
       console.log("verification Error:", error);
     }
   };
+  
   return (
     <div className="min-h-screen grid place-content-center ">
       {confirmed ? (
