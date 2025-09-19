@@ -6,6 +6,7 @@ import { StatCard } from "@/features/admin/components/StatCard";
 import TransactionStats from "@/features/admin/components/TransactionStats";
 import { useGetSingleAgentStatsQuery } from "@/redux/features/stats/stats.api";
 import { convertTaka } from "@/utils/convertTaka";
+import AgentAnalyticsSkeleton from "./AgentAnalyticsSkeleton";
 
 const tnxChildren = (
   <>
@@ -18,18 +19,18 @@ export default function AgentAnalytics() {
   const { data, isLoading } = useGetSingleAgentStatsQuery(undefined);
   return (
     <div className="p-6 space-y-6">
-      {isLoading && <div>........</div>}
+      {isLoading && <AgentAnalyticsSkeleton />}
       {/* Summary */}
       {!isLoading && data && (
         <>
           {/* Wallet Stats */}
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
             <StatCard
-              title="Wallet Balance"
+              title="Balance"
               value={`৳${convertTaka(data?.totalAmount || 0)}`}
             />
             <StatCard
-              title="Wallet Revenue"
+              title="Revenue"
               value={`৳${convertTaka(data?.revenue || 0)}`}
             />
             <StatCard

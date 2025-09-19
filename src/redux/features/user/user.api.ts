@@ -1,4 +1,4 @@
-import type { IUser } from "@/features/user/types/user.types";
+import type { IUpdateUser, IUser } from "@/features/user/types/user.types";
 import { baseApi } from "@/redux/baseApi";
 import type { IResponse } from "@/types/global.types";
 
@@ -36,6 +36,14 @@ export const userApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["USER"],
     }),
+    updateUser: builder.mutation<IResponse<string>, IUpdateUser>({
+      query: (updateData) => ({
+        url: `/user/${updateData._id}`,
+        method: "PATCH",
+        data: updateData,
+      }),
+      invalidatesTags: ["USER"],
+    }),
   }),
 });
 
@@ -44,4 +52,5 @@ export const {
   useGetMeQuery,
   useGetAllUserQuery,
   useTakeActionMutation,
+  useUpdateUserMutation,
 } = userApi;

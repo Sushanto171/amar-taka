@@ -4,7 +4,7 @@ export interface IUser {
   _id: string;
   name: string;
   phone: string;
-  email: string;
+  email?: string;
   role: TRole;
   failedLoginAttempts: number;
   lockUntil: string;
@@ -15,4 +15,11 @@ export interface IUser {
   updatedAt: string;
   wallet: string;
   agent?: string;
+}
+
+export interface IUpdateUser {
+  _id: string;
+  name: string;
+  phone: string;
+  email?: string | undefined;
 }

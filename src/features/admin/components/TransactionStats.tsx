@@ -54,6 +54,9 @@ export default function TransactionStats({
                   <text
                     x={x}
                     y={y}
+                    fill={COLORS.find(
+                      (_, i) => transactionPieData[i].name === name
+                    )}
                     textAnchor={x > cx ? "start" : "end"}
                     dominantBaseline="central"
                     fontSize={10}
