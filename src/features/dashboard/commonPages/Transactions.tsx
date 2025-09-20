@@ -1,4 +1,5 @@
 import Paginate from "@/components/Pagination";
+import SearchInput from "@/components/SearchInput";
 import { Card } from "@/components/ui/card";
 import { DashboardSkeleton } from "@/features/dashboard/components/DashboardSkeleton";
 import {
@@ -13,7 +14,7 @@ import TransactionLists from "../components/TransactionLists";
 
 export default function Transactions() {
   const [type, setType] = useState<TransactionType | null>(null);
-
+  const [searchTerm, setSearchTerm] = useState<string | number>("");
   const [searchParams] = useSearchParams("");
   const page = searchParams.get("page");
   const { pathname } = useLocation();
@@ -24,6 +25,7 @@ export default function Transactions() {
       {
         type,
         page,
+        searchTerm,
       },
       { skip: root !== "admin" }
     );
@@ -42,7 +44,10 @@ export default function Transactions() {
 
   return (
     <Card className="p-6 shadow-md border rounded-xl">
-      <h2 className="text-xl font-semibold mb-4">📊 Transactions</h2>
+      <div className="flex justify-between">
+        <h2 className="text-xl font-semibold mb-4">📊 Transactions</h2>
+        {root === "admin" && <SearchInput onSearch={setSearchTerm} />}
+      </div>
 
       <div className="overflow-x-auto rounded-md border">
         {(isLoading || isAllTaxLoading) && (

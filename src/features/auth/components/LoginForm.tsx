@@ -73,6 +73,7 @@ export function LoginForm({
       if (error.status === 400 && error.data.message === "User is't verified") {
         navigate("/verify", { state: data.phone });
       }
+      form.resetField("password");
     }
   };
 
