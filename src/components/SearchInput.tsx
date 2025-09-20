@@ -15,6 +15,14 @@ export default function SearchInput({
   const [query, setQuery] = useState("");
   const [debouncedQuery, setDebouncedQuery] = useState<string | number>("");
   const [focused, setFocused] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 640);
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   // Debounce logic (1s delay)
   useEffect(() => {
@@ -42,9 +50,9 @@ export default function SearchInput({
 
   return (
     <motion.div
-      className="relative flex items-center"
+      className="relative flex items-center w-full sm:w-auto"
       initial={{ width: "16rem" }} // ~w-56
-      animate={{ width: focused ? "60%" : "16rem" }}
+      animate={{ width: focused ? (isMobile ? "100%" : "60%") : "16rem" }}
       transition={{ duration: 0.3, ease: "easeInOut" }}
     >
       {/* Input field */}

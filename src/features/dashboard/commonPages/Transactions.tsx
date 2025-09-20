@@ -44,7 +44,7 @@ export default function Transactions() {
 
   return (
     <Card className="p-6 shadow-md border rounded-xl">
-      <div className="flex justify-between">
+      <div className="md:flex justify-between items-center">
         <h2 className="text-xl font-semibold mb-4">📊 Transactions</h2>
         {root === "admin" && <SearchInput onSearch={setSearchTerm} />}
       </div>
