@@ -14,27 +14,27 @@ export const AdminSidebarItems: ISidebarItems[] = [
     url: "#",
     items: [
       {
-        title: "Analytics",
+        title: <span id="dashboard-route">Analytics</span>,
         url: "/admin/analytics",
         Component: Analytics,
       },
       {
-        title: "Users",
+        title: <span id="users-route">Users</span>,
         url: "/admin/users",
         Component: Users,
       },
       {
-        title: "Agents",
+        title: <span id="agents-route">Agents</span>,
         url: "/admin/agents",
         Component: Agents,
       },
       {
-        title: "Transactions",
+        title: <span id="transactions-route">Transactions</span>,
         url: "/admin/transactions",
         Component: Transactions,
       },
       {
-        title: "Audit Logs",
+        title: <span id="auditLogs-route">Audit Logs</span>,
         url: "/admin/audit-logs",
         Component: AuditLogs,
       },
@@ -45,17 +45,17 @@ export const AdminSidebarItems: ISidebarItems[] = [
     url: "#",
     items: [
       {
-        title: "Activities",
+        title: <span id="activities-route">Activities</span>,
         url: "/admin/activities",
         Component: Activities,
       },
       {
-        title: "Profile",
+        title: <span id="profile-route">Profile</span>,
         url: "/admin/profile",
         Component: Profile,
       },
       {
-        title: "System Settings",
+        title: <span id="systemSettings-route">System Settings</span>,
         url: "/admin/system-settings",
         Component: SystemSettings,
       },

@@ -1,7 +1,6 @@
 import { driver } from "driver.js";
-import "driver.js/dist/driver.css";
 import { useEffect } from "react";
-
+import "../styles/customDriver.css";
 export default function ThemeTour() {
   useEffect(() => {
     const driverObj = driver({
@@ -11,6 +10,7 @@ export default function ThemeTour() {
       onDestroyed: () => {
         localStorage.setItem("Theme-toggle-completed", "true");
       },
+      popoverClass: "customDriverTheme",
       steps: [
         {
           element: "#theme-toggle",

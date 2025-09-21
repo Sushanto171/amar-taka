@@ -1,0 +1,28 @@
+/* -------- Driver.js Overlay & Popover -------- */
+.driver-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* light overlay */
+  z-index: 999999;
+  transition: background-color 0.3s ease;
+}
+
+.dark .driver-overlay {
+  background-color: rgba(15, 23, 42, 0.5); /* dark overlay */
+}
+
+/* Popover */
+.driver-popover {
+  all: unset;
+  box-sizing: border-box;
+  position: fixed;
+  max-width: 320px;
+  padding: 1rem;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow, 0 8px 20px rgba(0, 0, 0, 0.1));
+  font-family: var(--font-sans, "Inter", sans-serif);
+  background-color: var(--popover); /* shadcn popover bg */
+  color: var(--popover-foreground); /* shadcn popover fg */
+  transition: all 0.3s ease;
+  z-index: 1000000;
+}

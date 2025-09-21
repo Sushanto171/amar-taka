@@ -13,6 +13,7 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
+import AdminSidebarTour from "@/features/driver/tours/AdminSidebarTour";
 import { Outlet, useLocation } from "react-router";
 
 export default function DashboardLayout() {
@@ -20,6 +21,7 @@ export default function DashboardLayout() {
   const menus = pathname.split("/");
   return (
     <SidebarProvider>
+      <AdminSidebarTour />
       <AppSidebar />
       <SidebarInset className="overflow-auto">
         <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">

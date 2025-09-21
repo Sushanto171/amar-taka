@@ -1,4 +1,4 @@
-import type { ComponentType } from "react";
+import type { ComponentType, ReactElement } from "react";
 
 export interface IResponse<T> {
   success: boolean;
@@ -10,7 +10,7 @@ export interface IResponse<T> {
     limit: number;
     total: number;
     totalPages: number;
-}
+  };
 }
 
 export type TRole = "ADMIN" | "AGENT" | "USER";
@@ -19,9 +19,8 @@ export interface ISidebarItems {
   title: string;
   url: string;
   items: {
-    title: string;
+    title: string | ReactElement;
     url: string;
     Component: ComponentType;
   }[];
 }
-

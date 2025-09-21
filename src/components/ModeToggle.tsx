@@ -1,5 +1,4 @@
 import { Moon, Sun } from "lucide-react";
-
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -7,6 +6,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import ThemeTour from "@/features/driver/tours/ThemeTour";
 import { useTheme } from "@/hooks/useTheme";
 
 export function ModeToggle() {
@@ -14,6 +14,7 @@ export function ModeToggle() {
 
   return (
     <DropdownMenu>
+      <ThemeTour />
       <DropdownMenuTrigger asChild>
         <Button id="theme-toggle" variant="outline" size="icon">
           <Sun className="h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />

@@ -101,7 +101,7 @@ export default function Analytics() {
       </div>
 
       {/* Users & Agents Stats */}
-      <div className="grid gap-6 md:grid-cols-3">
+      <div id="dashboard-route" className="grid gap-6 md:grid-cols-3">
         {userLoading && <ChartSkeleton children={userChildren} />}
         {userStats && (
           <UserStats userStats={userStats} children={userChildren} />

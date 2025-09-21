@@ -15,7 +15,6 @@ import {
 } from "@/components/ui/popover";
 import { role } from "@/constant/role";
 import Logout from "@/features/auth/components/Logout";
-import ThemeTour from "@/features/driver/ThemeTour";
 import { useGetMeQuery } from "@/redux/features/user/user.api";
 import React from "react";
 
@@ -162,7 +161,6 @@ export default function Navbar() {
         {/* Right side */}
         <div className="flex items-center gap-2">
           <ModeToggle />
-          <ThemeTour />
           {!isLoading && data ? (
             <Logout width={""} />
           ) : (
