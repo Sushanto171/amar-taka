@@ -12,18 +12,17 @@ export const UserSidebarItems: ISidebarItems[] = [
     url: "#",
     items: [
       {
-        title: "Wallet",
+        title: <span id="wallet-route">Wallet</span>,
         url: "/user/my-wallet",
         Component: Wallet,
       },
       {
-        title: "Transactions",
+        title: <span id="transactions-route">Transactions</span>,
         url: "/user/transactions",
         Component: Transactions,
       },
-
       {
-        title: "Bill Pay",
+        title: <span id="billPay-route">Bill Pay</span>,
         url: "/user/bill-pay",
         Component: BillPay,
       },
@@ -34,17 +33,17 @@ export const UserSidebarItems: ISidebarItems[] = [
     url: "#",
     items: [
       {
-        title: "Profile",
+        title: <span id="profile-route">Profile</span>,
         url: "/user/profile",
         Component: Profile,
       },
       {
-        title: "Activities",
+        title: <span id="activities-route">Activities</span>,
         url: "/user/activities",
         Component: Activities,
       },
       {
-        title: "Apply For Agent",
+        title: <span id="apply-agent-route">Apply For Agent</span>,
         url: "/user/apply-for-agent",
         Component: ApplyForAgent,
       },

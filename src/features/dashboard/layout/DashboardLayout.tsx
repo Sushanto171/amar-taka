@@ -13,15 +13,21 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
+import { role } from "@/constant/role";
 import AdminSidebarTour from "@/features/driver/tours/AdminSidebarTour";
+import UserSidebarTour from "@/features/driver/tours/UserSidebarTour";
+import { useGetMeQuery } from "@/redux/features/user/user.api";
 import { Outlet, useLocation } from "react-router";
 
 export default function DashboardLayout() {
+  const { data: me } = useGetMeQuery(undefined);
   const { pathname } = useLocation();
   const menus = pathname.split("/");
   return (
     <SidebarProvider>
-      <AdminSidebarTour />
+      {me && me.role === role.admin && <AdminSidebarTour />}
+      {me && me.role === role.user && <UserSidebarTour />}
+
       <AppSidebar />
       <SidebarInset className="overflow-auto">
         <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">

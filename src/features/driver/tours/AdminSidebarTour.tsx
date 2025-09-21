@@ -6,8 +6,7 @@ export default function AdminSidebarTour() {
     const driverTour = driver({
       animate: true,
       showProgress: true,
-      showButtons: ["next", "close"],
-
+      showButtons: ["next", "previous", "close"],
       popoverClass: "driver-popover customDriverTheme",
       onDestroyed: () => {
         localStorage.setItem("adminSidebarTourCompleted", "true");
