@@ -1,5 +1,6 @@
 "use client";
 
+import { tourKey } from "@/constant/tourKey";
 import { driver } from "driver.js";
 import "driver.js/dist/driver.css";
 import { useEffect } from "react";
@@ -13,7 +14,7 @@ export default function UserSidebarTour() {
 
       popoverClass: "driver-popover customDriverTheme",
       onDestroyed: () => {
-        localStorage.setItem("userSidebarTourCompleted", "true");
+        localStorage.setItem(tourKey.user, "true");
       },
       steps: [
         {

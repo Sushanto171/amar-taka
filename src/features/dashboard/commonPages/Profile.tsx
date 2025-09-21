@@ -17,6 +17,9 @@ import { ShieldCheck, ShieldX } from "lucide-react";
 
 import UpdateProfile from "@/components/UpdateProfile";
 import Divider from "@/features/admin/components/Divider";
+import RestartTour from "@/features/driver/components/RestartTour";
+import ProfileTour from "@/features/driver/tours/ProfileTour";
+import { getTourKey } from "@/utils/getTourKey";
 import { Link } from "react-router";
 import { SecurityTab } from "./ChangePassword";
 
@@ -26,10 +29,12 @@ export default function Profile() {
     { actor: user?._id },
     { skip: !user?._id }
   );
+  const tourKey = getTourKey(user!.role);
   return (
     <>
       {!isLoading && user && (
         <Card className="w-full shadow-lg rounded-xl">
+          <ProfileTour />
           {/* Header */}
           <CardHeader className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-3 sm:space-y-0">
             <div className="flex items-center space-x-3">
@@ -60,10 +65,18 @@ export default function Profile() {
           <CardContent>
             <Tabs defaultValue="overview" className="w-full">
               <TabsList className="grid w-full grid-cols-4">
-                <TabsTrigger value="overview">Overview</TabsTrigger>
-                <TabsTrigger value="transactions">Transactions</TabsTrigger>
-                <TabsTrigger value="security">Security</TabsTrigger>
-                <TabsTrigger value="settings">Settings</TabsTrigger>
+                <TabsTrigger value="overview" id="overview-tab">
+                  Overview
+                </TabsTrigger>
+                <TabsTrigger value="transactions" id="transactions-tab">
+                  Transactions
+                </TabsTrigger>
+                <TabsTrigger value="security" id="security-tab">
+                  Security
+                </TabsTrigger>
+                <TabsTrigger value="settings" id="settings-tab">
+                  Settings
+                </TabsTrigger>
               </TabsList>
 
               {/* Overview */}
@@ -177,10 +190,11 @@ export default function Profile() {
               <SecurityTab />
 
               {/* Settings */}
-              <TabsContent value="settings" className="min-h-[calc(100vh-270px)]">
-                <p className="text-sm text-muted-foreground">
-                  Account settings will appear here.
-                </p>
+              <TabsContent
+                value="settings"
+                className="min-h-[calc(100vh-270px)]"
+              >
+                <RestartTour tourKey={tourKey} />
               </TabsContent>
             </Tabs>
           </CardContent>

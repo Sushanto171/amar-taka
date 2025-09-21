@@ -1,3 +1,4 @@
+import { tourKey } from "@/constant/tourKey";
 import { driver } from "driver.js";
 import { useEffect } from "react";
 
@@ -9,7 +10,7 @@ export default function AdminSidebarTour() {
       showButtons: ["next", "previous", "close"],
       popoverClass: "driver-popover customDriverTheme",
       onDestroyed: () => {
-        localStorage.setItem("adminSidebarTourCompleted", "true");
+        localStorage.setItem(tourKey.admin, "true");
       },
       steps: [
         {

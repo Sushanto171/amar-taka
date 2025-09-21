@@ -1,6 +1,7 @@
 import { driver } from "driver.js";
 import { useEffect } from "react";
 import "../styles/customDriver.css";
+import { tourKey } from "@/constant/tourKey";
 export default function ThemeTour() {
   useEffect(() => {
     const driverObj = driver({
@@ -8,7 +9,7 @@ export default function ThemeTour() {
       showProgress: false,
       showButtons: ["next", "close"],
       onDestroyed: () => {
-        localStorage.setItem("Theme-toggle-completed", "true");
+        localStorage.setItem(tourKey.theme, "true");
       },
       popoverClass: "customDriverTheme",
       steps: [
