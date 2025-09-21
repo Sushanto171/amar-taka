@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/sidebar";
 import { role } from "@/constant/role";
 import AdminSidebarTour from "@/features/driver/tours/AdminSidebarTour";
+import AgentSidebarTour from "@/features/driver/tours/AgentSidebarTour";
 import UserSidebarTour from "@/features/driver/tours/UserSidebarTour";
 import { useGetMeQuery } from "@/redux/features/user/user.api";
 import { Outlet, useLocation } from "react-router";
@@ -26,6 +27,7 @@ export default function DashboardLayout() {
   return (
     <SidebarProvider>
       {me && me.role === role.admin && <AdminSidebarTour />}
+      {me && me.role === role.agent && <AgentSidebarTour />}
       {me && me.role === role.user && <UserSidebarTour />}
 
       <AppSidebar />

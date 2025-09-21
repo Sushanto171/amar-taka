@@ -16,23 +16,22 @@ export const AgentSidebarItems: ISidebarItems[] = [
     url: "#",
     items: [
       {
-        title: "Analytics",
+        title: <span id="agent-analytics-route">Analytics</span>,
         url: "/agent/analytics",
         Component: AgentAnalytics,
       },
       {
-        title: "Wallet",
+        title: <span id="agent-wallet-route">Wallet</span>,
         url: "/agent/my-wallet",
         Component: Wallet,
       },
       {
-        title: "Transactions",
+        title: <span id="agent-transactions-route">Transactions</span>,
         url: "/agent/transactions",
         Component: Transactions,
       },
-
       {
-        title: "Commission",
+        title: <span id="agent-commission-route">Commission</span>,
         url: "/agent/commission",
         Component: Commission,
       },
@@ -43,12 +42,12 @@ export const AgentSidebarItems: ISidebarItems[] = [
     url: "#",
     items: [
       {
-        title: "Profile",
+        title: <span id="agent-profile-route">Profile</span>,
         url: "/agent/profile",
         Component: Profile,
       },
       {
-        title: "Activities",
+        title: <span id="agent-activities-route">Activities</span>,
         url: "/agent/activities",
         Component: Activities,
       },
