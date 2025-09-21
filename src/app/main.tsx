@@ -1,4 +1,5 @@
 import { store } from "@/redux/store.ts";
+import "driver.js/dist/driver.css";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { Provider as ReduxProvider } from "react-redux";
@@ -8,7 +9,6 @@ import "../index.css";
 import { ToastProvider } from "./providers/CustomToastProvider.tsx";
 import { ThemeProvider } from "./providers/ThemeProvider.tsx";
 import { router } from "./routes/index.tsx";
-
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
