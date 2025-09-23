@@ -123,7 +123,7 @@ export default function Navbar() {
           {/* Main nav */}
           <div className="flex items-center gap-6">
             <Link to="/" className="text-primary hover:text-primary/90">
-              <Logo />
+              <Logo width={40} />
             </Link>
             {/* Navigation menu */}
             <NavigationMenu className="h-full *:h-full max-md:hidden">

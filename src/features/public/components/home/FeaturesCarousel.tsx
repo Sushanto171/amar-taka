@@ -74,7 +74,9 @@ export function FeaturesCarousel() {
                   }`}
                 >
                   <CardContent className="flex h-full items-center justify-center">
-                    <h3 className="text-xl font-semibold">{feature.title}</h3>
+                    <h3 className="text-xl font-semibold text-center">
+                      {feature.title}
+                    </h3>
                   </CardContent>
                 </Card>
               </CarouselItem>
