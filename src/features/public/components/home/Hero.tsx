@@ -2,8 +2,13 @@ import nightHero from "@/assets/images/crypto.png";
 import { Button } from "@/components/ui/button";
 
 import { motion } from "framer-motion";
+import { Link } from "react-router";
 
 export default function Hero() {
+  const handleLearnMore = () => {
+    const section = document.getElementById("services");
+    section?.scrollIntoView({ behavior: "smooth" });
+  };
   return (
     <section className="relative w-full flex items-center bg-gradient-to-b from-secondary/40 to-background">
       <div className="container px-4 mx-auto grid gap-8 md:grid-cols-2 md:items-center">
@@ -20,9 +25,10 @@ export default function Hero() {
 
           <div className="flex flex-wrap gap-4">
             <Button size="lg" className="rounded-2xl px-8 shadow-lg">
-              Get Started
+              <Link to="/register">Register Now</Link>
             </Button>
             <Button
+              onClick={handleLearnMore}
               size="lg"
               variant="outline"
               className="rounded-2xl px-8 shadow-lg"

@@ -5,6 +5,7 @@ import Verify from "@/features/auth/page/Verify";
 import { generateRoute } from "@/utils/generateRoute";
 
 import LoadingSpinner from "@/components/Loading";
+import PageWrapper from "@/components/PageWrapper";
 import { AdminSidebarItems } from "@/features/admin/components/AdminSidebarItems";
 import UserByTransactions from "@/features/admin/page/UserByTransactions";
 import { AgentSidebarItems } from "@/features/agent/components/AgentSidebarItems";
@@ -38,7 +39,9 @@ export const router = createBrowserRouter([
       {
         Component: () => (
           <Suspense fallback={<LoadingSpinner />}>
-            <About />
+            <PageWrapper>
+              <About />
+            </PageWrapper>
           </Suspense>
         ),
         path: "/about",
@@ -46,7 +49,9 @@ export const router = createBrowserRouter([
       {
         Component: () => (
           <Suspense fallback={<LoadingSpinner />}>
-            <Service />
+            <PageWrapper>
+              <Service />
+            </PageWrapper>
           </Suspense>
         ),
         path: "/service",
@@ -54,7 +59,9 @@ export const router = createBrowserRouter([
       {
         Component: () => (
           <Suspense fallback={<LoadingSpinner />}>
-            <Features />
+            <PageWrapper>
+              <Features />
+            </PageWrapper>
           </Suspense>
         ),
         path: "/features",
@@ -62,7 +69,9 @@ export const router = createBrowserRouter([
       {
         Component: () => (
           <Suspense fallback={<LoadingSpinner />}>
-            <Contact />
+            <PageWrapper>
+              <Contact />
+            </PageWrapper>
           </Suspense>
         ),
         path: "/contact",
@@ -70,7 +79,9 @@ export const router = createBrowserRouter([
       {
         Component: () => (
           <Suspense fallback={<LoadingSpinner />}>
-            <FAQ />
+            <PageWrapper>
+              <FAQ />
+            </PageWrapper>
           </Suspense>
         ),
         path: "/faq",

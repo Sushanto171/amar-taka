@@ -1,11 +1,15 @@
+"use client";
+
 import { Badge } from "@/components/ui/badge";
+import { motion } from "framer-motion";
+import { useState } from "react";
 
 export interface FaqItem {
   question: string;
   answer: string;
 }
 
-export interface Faq5Props {
+export interface FaqProps {
   badge?: string;
   heading?: string;
   description?: string;
@@ -14,56 +18,79 @@ export interface Faq5Props {
 
 const defaultFaqs: FaqItem[] = [
   {
-    question: "What is a FAQ and why is it important?",
+    question: "What is Amar Taka and how does it work?",
     answer:
-      "FAQ stands for Frequently Asked Questions. It is a list that provides answers to common questions people may have about a specific product, service, or topic.",
+      "Amar Taka is a Mobile Financial Service (MFS) platform that allows you to send money, pay bills, recharge mobile phones, and manage your digital wallet securely from your mobile device.",
   },
   {
-    question: "Why should I use a FAQ on my website or app?",
+    question: "How can I send money using Amar Taka?",
     answer:
-      "Utilizing a FAQ section on your website or app is a practical way to offer instant assistance to your users or customers. Instead of waiting for customer support responses, they can find quick answers to commonly asked questions. ",
+      "To send money, simply log in to your Amar Taka account, enter the recipient's mobile number, the amount, and confirm the transaction. The money will be transferred instantly.",
   },
   {
-    question: "How do I effectively create a FAQ section?",
+    question: "Where can I cash out my money?",
     answer:
-      "Creating a FAQ section starts with gathering the most frequent questions you receive from your users or customers. Once you have a list, you need to write clear, detailed, and helpful answers to each question.",
+      "You can cash out at thousands of Amar Taka agents across Bangladesh. Use the app to locate the nearest agent and withdraw money quickly and securely.",
   },
   {
-    question: "What are the benefits of having a well-maintained FAQ section?",
+    question: "Is my money safe with Amar Taka?",
     answer:
-      "There are numerous advantages to maintaining a robust FAQ section. Firstly, it provides immediate answers to common queries, which improves the user experience.",
+      "Yes! Amar Taka uses advanced encryption, two-factor authentication, and real-time fraud monitoring to keep your funds completely safe.",
+  },
+  {
+    question: "Can I pay my bills using Amar Taka?",
+    answer:
+      "Absolutely. You can pay utility bills, recharge your mobile, and even purchase online products directly from your Amar Taka wallet anytime, anywhere.",
   },
 ];
 
 export default function Faq({
   badge = "FAQ",
-  heading = "Common Questions & Answers",
-  description = "Find out all the essential details about our platform and how it can serve your needs.",
+  heading = "Frequently Asked Questions",
+  description = "Everything you need to know about using Amar Taka Mobile Financial Services.",
   faqs = defaultFaqs,
-}: Faq5Props) {
+}: FaqProps) {
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+  const toggle = (index: number) => {
+    setOpenIndex(openIndex === index ? null : index);
+  };
+
   return (
-    <section className="py-32">
-      <div className="container">
+    <section className="py-24 bg-background">
+      <div className="container mx-auto px-4">
         <div className="text-center">
-          <Badge className="text-xs font-medium">{badge}</Badge>
-          <h1 className="mt-4 text-4xl font-semibold">{heading}</h1>
+          <Badge className="text-xs font-medium bg-primary/10 text-primary">
+            {badge}
+          </Badge>
+          <h1 className="mt-4 text-4xl font-semibold text-primary">
+            {heading}
+          </h1>
           <p className="mt-6 font-medium text-muted-foreground">
             {description}
           </p>
         </div>
-        <div className="mx-auto mt-14 max-w-xl">
+
+        <div className="mx-auto mt-14 max-w-3xl space-y-4">
           {faqs.map((faq, index) => (
-            <div key={index} className="mb-8 flex gap-4">
-              <span className="flex size-6 shrink-0 items-center justify-center rounded-sm bg-secondary font-mono text-xs text-primary">
-                {index + 1}
-              </span>
-              <div>
-                <div className="mb-2 flex items-center justify-between">
-                  <h3 className="font-medium">{faq.question}</h3>
-                </div>
-                <p className="text-sm text-muted-foreground">{faq.answer}</p>
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: index * 0.1 }}
+              className="border border-border rounded-xl bg-muted p-6 cursor-pointer"
+              onClick={() => toggle(index)}
+            >
+              <div className="flex justify-between items-center">
+                <h3 className="font-medium text-lg">{faq.question}</h3>
+                <span className="text-primary font-bold">
+                  {openIndex === index ? "-" : "+"}
+                </span>
               </div>
-            </div>
+              {openIndex === index && (
+                <p className="mt-4 text-muted-foreground">{faq.answer}</p>
+              )}
+            </motion.div>
           ))}
         </div>
       </div>

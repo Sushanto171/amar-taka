@@ -1,39 +1,38 @@
-"use client";
-
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { motion } from "framer-motion";
-import { Code, Cog, PenTool, Shrub } from "lucide-react";
+
+import { CreditCard, Send, Smartphone, Wallet } from "lucide-react";
 
 const services = [
   {
-    icon: <Cog className="h-6 w-6 text-primary" />,
-    title: "Product Strategy",
-    description: "Strategic planning to meet user needs and business goals.",
-    items: ["Market Research", "User Personas", "Competitive Analysis"],
+    icon: <Send className="h-6 w-6 text-primary" />,
+    title: "Send Money",
+    description: "Fast and secure money transfers anytime, anywhere.",
+    items: ["P2P Transfer", "Bank Transfer", "QR Code Payment"],
   },
   {
-    icon: <PenTool className="h-6 w-6 text-primary" />,
-    title: "Design",
-    description: "Beautiful, user-centered designs for all platforms.",
-    items: ["UI/UX Design", "Prototyping", "Interaction Design"],
+    icon: <Wallet className="h-6 w-6 text-primary" />,
+    title: "Cash Out",
+    description: "Withdraw your money with ease through agents or ATMs.",
+    items: ["Agent Cash Out", "ATM Withdrawal", "Linked Bank Account"],
   },
   {
-    icon: <Code className="h-6 w-6 text-primary" />,
-    title: "Web Development",
-    description: "Modern web applications with best practices.",
-    items: ["Frontend Dev", "Backend Dev", "API Integration"],
+    icon: <CreditCard className="h-6 w-6 text-primary" />,
+    title: "Bill & Payments",
+    description: "Pay bills and recharge services in just a few taps.",
+    items: ["Utility Bills", "Mobile Recharge", "Online Payments"],
   },
   {
-    icon: <Shrub className="h-6 w-6 text-primary" />,
-    title: "Marketing",
-    description: "Data-driven strategies to launch and scale efficiently.",
-    items: ["SEO Strategy", "Analytics & Data", "A/B Testing"],
+    icon: <Smartphone className="h-6 w-6 text-primary" />,
+    title: "Digital Lifestyle",
+    description: "Enjoy lifestyle services with digital convenience.",
+    items: ["Merchant Payment", "Subscription Services", "E-commerce Checkout"],
   },
 ];
 
 export default function Service() {
   return (
-    <section className="py-32 container mx-auto px-4">
+    <section className="pt-24 container mx-auto px-4">
       <div className="">
         {/* Section Header */}
         <div className="text-center mb-16">
