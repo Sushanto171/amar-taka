@@ -55,7 +55,7 @@ export function LoginForm({
   const [login, { isLoading: isLoginLoading }] = useLoginMutation();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: { phone: "01791407583", password: "123456" },
+    defaultValues: { phone: "", password: "" },
   });
   const { isLoading } = useGetMeQuery(undefined, { skip: !execute });
 

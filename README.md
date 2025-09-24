@@ -40,6 +40,19 @@ It includes **multi-role support** (User, Agent, Admin) with secure transactions
 
 ---
 
+
+## 🔐 Demo Credentials
+
+Use these test accounts to explore the system:
+
+| Role   | Phone        | Password |
+|--------|-------------|----------|
+| Admin  | 01791407583 | 123456   |
+| User   | 01791407574 | 123456   |
+| Agent  | 01791407573 | 123456   |
+
+---
+
 ## ⚙️ Technology Stack
 
 ### Frontend
