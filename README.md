@@ -131,8 +131,3 @@ npm run dev
 ## 👨‍💻 Author
 
 Developed by **[Sushanto Kumar](https://github.com/Sushanto171)** 🚀
-
-```
-
-
-```
