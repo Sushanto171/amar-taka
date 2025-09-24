@@ -43,7 +43,7 @@ export default function Navbar() {
     return <LoadingSpinner />;
   }
   return (
-    <header className="sticky top-0 backdrop-blur-xl border border-b z-50">
+    <header className="sticky top-0 backdrop-blur-xl border-b z-50">
       <div className="container mx-auto px-4 flex h-20 justify-between gap-4">
         {/* Left side */}
         <div className="flex gap-2">
