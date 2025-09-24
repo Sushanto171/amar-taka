@@ -5,7 +5,7 @@ export default function AboutSection() {
   return (
     <section
       id="about"
-      className="bg-cover bg-center bg-no-repeat bg-fixed"
+      className="bg-cover bg-center mt-16 bg-no-repeat bg-fixed"
       style={{ backgroundImage: `url(${bg})` }}
     >
       <div className="container mx-auto px-4 text-center bg-accent/80  p-8 md:p-12">
