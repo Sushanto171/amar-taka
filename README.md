@@ -1,69 +1,138 @@
-# React + TypeScript + Vite
+# Amar Taka 💰
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+_A Modern Digital Wallet & Financial Service Platform (User, Agent & Admin Dashboard)_
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 📌 Project Overview
 
-## Expanding the ESLint configuration
+**Amar Taka** is a full-stack digital wallet system designed to simplify financial services.  
+It includes **multi-role support** (User, Agent, Admin) with secure transactions, analytics, and role-based dashboards.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### 🔑 Key Features
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+#### 👤 User
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+- Register & manage wallet
+- Send money to another user
+- Cash-out via agent
+- Cash-in via agent
+- Apply to become an agent
+- View activity & transaction history
+- Update profile & password
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+#### 🧑‍💼 Agent
+
+- Cash-in to user wallets
+- Cash-out from user wallets
+- View transaction analytics
+- Track activities
+- Update profile & password
+
+#### 👨‍💻 Admin
+
+- Change system variables (fees, limits, etc.)
+- Take actions against users/agents
+- View system-wide analytics
+- Access all transactions & logs
+- Monitor activities
+- Update profile & password
+
+---
+
+## ⚙️ Technology Stack
+
+### Frontend
+
+- **React 19**
+- **React Router 7**
+- **Redux Toolkit**
+- **TailwindCSS + shadcn/ui**
+- **Framer Motion** (animations)
+- **Recharts** (data visualization)
+- **Axios** (API requests)
+- **Zod** (validation)
+
+### Other Tools
+
+- **Driver.js** (guided tours)
+- **React Hook Form** (form handling)
+- **Sonner** (toast notifications)
+- **TypeScript**
+
+---
+
+## 🚀 Setup Instructions
+
+### 1️⃣ Clone Repositories
+
+````bash
+# Frontend
+git clone https://github.com/Sushanto171/amar-taka.git
+
+
+### 2️⃣ Install Dependencies
+
+```bash
+cd amar-taka
+npm install
+
+````
+
+### 3️⃣ Environment Variables
+
+Create a **.env** file in frontend with required values:
+
+**.env Example**
+
+```env
+VITE_API_URL=http://localhost:3000/api
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 4️⃣ Run the App
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+```bash
+# Start backend
+npm run dev
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# Start frontend
+npm run dev
+```
+
+---
+
+## 🌍 Live URLs
+
+- **Frontend:** [Amar Taka Live](https://github.com/Sushanto171/amar-taka)
+- **Backend:** [Amar Taka API](https://github.com/Sushanto171/backend-amar-taka)
+
+---
+
+## 📦 Dependencies (Main)
+
+- `react`, `react-router`, `redux-toolkit`
+- `tailwindcss`, `shadcn/ui`, `framer-motion`
+- `axios`, `zod`, `react-hook-form`
+- `recharts`, `sonner`, `driver.js`
+
+(Full list available in `package.json`)
+
+---
+
+## 📝 Notes
+
+- This project implements **JWT authentication with refresh tokens** to keep users logged in securely.
+- Role-based dashboards ensure **different features for User, Agent, and Admin**.
+- Fully responsive UI with **modern animations and charts**.
+- Backend ensures **transaction safety with Mongoose transactions**.
+
+---
+
+## 👨‍💻 Author
+
+Developed by **[Sushanto Kumar](https://github.com/Sushanto171)** 🚀
+
+```
+
+
 ```
