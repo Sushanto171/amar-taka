@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import ButtonLoader from "@/components/ButtonLoader";
 import { authApi, useLogoutMutation } from "@/redux/features/auth/auth.api";
 import { useDispatch } from "react-redux";
@@ -13,8 +14,8 @@ export default function Logout({ width }: { width: "full" | "" }) {
       const res = await logout(null).unwrap();
       dispatch(authApi.util.resetApiState());
       toast.success(res.message);
-    } catch (error) {
-      console.log(error);
+    } catch (error:any) {
+      toast.error(error.data.message);
     }
   };
   return (

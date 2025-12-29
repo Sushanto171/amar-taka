@@ -106,7 +106,7 @@ export default function ForgetPassword() {
       setStep("otp");
     } catch (error: any) {
       toast.error(error.data.message);
-      console.log(error);
+     
     }
   };
 

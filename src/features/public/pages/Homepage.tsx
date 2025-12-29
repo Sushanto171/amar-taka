@@ -1,12 +1,13 @@
 import PageWrapper from "@/components/PageWrapper";
 import ScrollToTop from "@/utils/ScrollToTop";
-import AboutSection from "../components/home/AboutHome";
-import Blog from "../components/home/Blog";
-import CTA from "../components/home/CallToActionSection";
-import { FeaturesCarousel } from "../components/home/FeaturesCarousel";
+import { BlogsSection } from "../components/home/BlogSection";
+import { FeaturesSection } from "../components/home/FeaturesSection";
 import Hero from "../components/home/Hero";
-import Services from "../components/home/Service";
-import FaqSection from "../components/home/FaqSection";
+import { HighlightsSection } from "../components/home/HighlightsSection";
+import { OffersSection } from "../components/home/OffersSection";
+import { ServicesSectionTabs } from "../components/home/ServiceSection";
+import StatsSection from "../components/home/StatsSection";
+import { TestimonialsSection } from "../components/home/TestimonialsSection";
 
 export default function Homepage() {
   return (
@@ -14,13 +15,14 @@ export default function Homepage() {
       <PageWrapper>
         <ScrollToTop />
         <Hero />
-        <div className="container mx-auto space-y-6">
-          <FeaturesCarousel />
-          <Services />
-          <Blog />
-          <AboutSection />
-          <FaqSection />
-          <CTA />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <StatsSection />
+          <FeaturesSection />
+          <ServicesSectionTabs />
+          <HighlightsSection />
+          <OffersSection />
+          <BlogsSection />
+          <TestimonialsSection />
         </div>
       </PageWrapper>
     </>

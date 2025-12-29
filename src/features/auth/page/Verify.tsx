@@ -91,7 +91,7 @@ export default function Verify() {
       }
     } catch (error: any) {
       toast.error(error.data.message, { id: toastId });
-      console.log("verification Error:", error);
+      
     }
   };
   

@@ -58,7 +58,6 @@ export function RegisterForm({
   });
 
   const submitHandler = async (data: z.infer<typeof formSchema>) => {
-    console.log(data);
     try {
       const res = await register(data).unwrap();
       toast.success(res.message);
@@ -66,7 +65,7 @@ export function RegisterForm({
         navigate("/verify", { state: data.phone });
       }
     } catch (error: any) {
-      console.log(error);
+  
       toast.error(error.data.message);
     }
   };

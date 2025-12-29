@@ -44,7 +44,7 @@ export default function Navbar() {
   }
   return (
     <header className="sticky top-0 backdrop-blur-xl border-b z-50">
-      <div className="container mx-auto px-4 flex h-20 justify-between gap-4">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex h-20 justify-between gap-4">
         {/* Left side */}
         <div className="flex gap-2">
           <div className="flex items-center md:hidden">

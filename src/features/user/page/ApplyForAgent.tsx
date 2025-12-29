@@ -10,7 +10,7 @@ export default function ApplyForAgent() {
     { id: data?.agent as string },
     { skip: !(data && data.agent) }
   );
-  console.log(agentData);
+
   return (
     <>
       {!data?.agent && (
