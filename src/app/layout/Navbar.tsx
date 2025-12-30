@@ -165,10 +165,10 @@ export default function Navbar() {
             <Logout width={""} />
           ) : (
             <>
-              <Button asChild variant="ghost" size="sm" className="text-sm">
+              <Button asChild variant="outline" size="sm" className="text-sm bg-transparent!">
                 <Link to="/login">login</Link>
               </Button>
-              <Button asChild size="sm" className="text-sm">
+              <Button asChild size="sm" className="text-sm text-background!">
                 <Link to="/register">Register</Link>
               </Button>
             </>

@@ -82,7 +82,7 @@ export function ServicesSectionTabs() {
               {personalBanking.map(({ icon: Icon, title, color }, idx) => (
                 <Card
                   key={idx}
-                  className="min-w-[180px] hover:border-primary hover:shadow-lg hover:shadow-primary/10 transition-all"
+                  className="sm:min-w-[180px] flex-1 shrink-0 hover:border-primary hover:shadow-lg hover:shadow-primary/10 transition-all"
                 >
                   <CardContent className=" text-center">
                     <div

@@ -3,7 +3,8 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Download, TrendingUp } from "lucide-react";
+import { ArrowRight, TrendingUp } from "lucide-react";
+import { Link } from "react-router";
 
 export default function Hero() {
   return (
@@ -40,13 +41,23 @@ export default function Hero() {
 
             {/* CTA Buttons */}
             <div className="flex flex-wrap gap-4 justify-center lg:justify-start pt-4">
-              <Button className="flex rounded-full text-background! items-center gap-2 h-12 px-8! bg-primary text-background-dark shadow-lg shadow-primary/20 hover:bg-primary-hover">
-                <Download className="w-5 h-5" />
-                Get App
-              </Button>
-              <Button variant="outline" className="flex rounded-full items-center gap-2 h-12 px-6 text-base font-bold">
-                Learn More
-              </Button>
+
+              <Link to="/login">
+                <Button className="flex rounded-full text-background! items-center gap-2 h-12 px-8! bg-primary text-background-dark shadow-lg shadow-primary/20 hover:bg-primary-hover">
+                  <ArrowRight className="w-5 h-5" />
+                  Get App
+                </Button>
+              </Link>
+              <Link to="#howItWork"
+                onClick={() => {
+                  const element = document.getElementById("howItWork");
+                  if (element) element.scrollIntoView({ behavior: "smooth" });
+                }}
+              >
+                <Button variant="outline" className="flex rounded-full items-center gap-2 h-12 px-6 text-base font-bold">
+                  Learn More
+                </Button>
+              </Link>
             </div>
           </div>
 
