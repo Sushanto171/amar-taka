@@ -44,19 +44,19 @@ export function UserActionModal({
   };
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog  open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent>
+      <DialogContent className="border-none">
         <DialogHeader>
           <DialogTitle>Take Actions</DialogTitle>
           <DialogDescription className="sr-only" />
         </DialogHeader>
-        <Select onValueChange={(value) => setValue(value)}>
+        <Select  onValueChange={(value) => setValue(value)}>
           <SelectTrigger>
             <SelectValue placeholder="Choose Options" />
           </SelectTrigger>
-          <SelectContent>
-            <SelectGroup>
+          <SelectContent className="border-none">
+            <SelectGroup className="border-none">
               <SelectLabel></SelectLabel>
               {values.map((item, i) => (
                 <SelectItem key={i} value={item}>
@@ -70,7 +70,7 @@ export function UserActionModal({
           <DialogClose asChild>
             <Button variant="outline">Cancel</Button>
           </DialogClose>
-          <Button disabled={!value || disable} onClick={() => handleChange()}>
+          <Button disabled={!value || disable} className={`text-background ${disable || !value? "cursor-pointer!":""}`} onClick={() => handleChange()}>
             Save
           </Button>
         </DialogFooter>

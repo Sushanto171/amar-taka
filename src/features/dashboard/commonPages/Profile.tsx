@@ -55,7 +55,7 @@ export default function Profile() {
 
             <Badge
               variant={user.isSuspended ? "destructive" : "default"}
-              className="px-3 py-1 "
+              className={`px-3 py-1 rounded-full font-bold! ${!user.isSuspended? "text-background!":""} `}
             >
               {user.isSuspended ? "Inactive" : "Active"}
             </Badge>
@@ -65,16 +65,16 @@ export default function Profile() {
           <CardContent>
             <Tabs defaultValue="overview" className="w-full">
               <TabsList className="grid w-full grid-cols-4">
-                <TabsTrigger value="overview" id="overview-tab">
+                <TabsTrigger className="" value="overview" id="overview-tab">
                   Overview
                 </TabsTrigger>
-                <TabsTrigger value="transactions" id="transactions-tab">
-                  Transactions
+                <TabsTrigger className="" value="activities" id="activities-tab">
+                  Activities
                 </TabsTrigger>
-                <TabsTrigger value="security" id="security-tab">
+                <TabsTrigger className="" value="security" id="security-tab">
                   Security
                 </TabsTrigger>
-                <TabsTrigger value="settings" id="settings-tab">
+                <TabsTrigger className="" value="settings" id="settings-tab">
                   Settings
                 </TabsTrigger>
               </TabsList>
@@ -156,7 +156,7 @@ export default function Profile() {
               </TabsContent>
 
               {/* Transactions */}
-              <TabsContent value="transactions">
+              <TabsContent value="activities">
                 <Card>
                   <CardHeader>
                     <CardTitle className="text-xl">Recent Activities</CardTitle>

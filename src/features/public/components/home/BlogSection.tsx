@@ -30,11 +30,17 @@ const blogs = [
 
 export function BlogsSection() {
   return (
-    <section className="">
-      <div className="">
-        <h2 className="text-3xl font-bold text-center mb-12">
-          Financial Insights
-        </h2>
+    <section className="py-16">
+      <div>
+        <div className="mb-12">
+          <h2 className="text-4xl md:text-5xl font-bold text-center">
+            Financial <span className="text-primary"> Insights
+            </span>
+          </h2>
+          <p className="text-center text-muted-foreground max-w-2xl mx-auto">
+            Stay ahead with expert analysis, market trends, and actionable tips to make smarter financial decisions.
+          </p>
+        </div>
 
         <div className="grid gap-8 md:grid-cols-3">
           {blogs.map((blog) => (

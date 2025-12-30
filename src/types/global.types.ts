@@ -1,4 +1,4 @@
-import type { ComponentType, ReactElement } from "react";
+import type { ComponentType, ReactElement, ReactNode } from "react";
 
 export interface IResponse<T> {
   success: boolean;
@@ -21,6 +21,7 @@ export interface ISidebarItems {
   items: {
     title: string | ReactElement;
     url: string;
+    icon: ReactNode,
     Component: ComponentType;
   }[];
 }

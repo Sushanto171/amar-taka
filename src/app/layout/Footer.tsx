@@ -38,7 +38,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="bg-[#28392e] text-white border-t border-white/5 relative overflow-hidden">
+    <footer className="bg-[#28392e] mt-12 text-white border-t border-white/5 relative overflow-hidden">
       {/* Decorative Gradient */}
       <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary/50 to-transparent opacity-50"></div>
 
@@ -147,13 +147,13 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="flex flex-col md:flex-row justify-between items-center gap-6 border-t border-white/10 pt-8 text-[#a0a0a0] text-sm">
+        <div className=" text-center md:flex-row justify-between items-center gap-6 border-t border-white/10 pt-8 text-[#a0a0a0] text-sm">
           <p>© {new Date().getFullYear()} Amar Taka. All rights reserved.</p>
-          <div className="flex flex-wrap justify-center gap-8">
+          {/* <div className="flex flex-wrap justify-center gap-8">
             {["Privacy Policy", "Terms of Service", "Cookie Settings"].map((item) => (
               <a key={item} href="#" className="hover:text-primary transition-colors">{item}</a>
             ))}
-          </div>
+          </div> */}
         </div>
       </div>
     </footer>

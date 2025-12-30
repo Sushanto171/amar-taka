@@ -1,8 +1,8 @@
 "use client";
 
+import { StatCard } from "@/components/StatCard";
 import { CardDescription, CardTitle } from "@/components/ui/card";
 import { Last7DaysTransactionsChart } from "@/features/admin/components/Last7DaysTnx";
-import { StatCard } from "@/features/admin/components/StatCard";
 import TransactionStats from "@/features/admin/components/TransactionStats";
 import { useGetSingleAgentStatsQuery } from "@/redux/features/stats/stats.api";
 import { convertTaka } from "@/utils/convertTaka";

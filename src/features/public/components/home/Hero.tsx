@@ -5,6 +5,9 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ArrowRight, TrendingUp } from "lucide-react";
 import { Link } from "react-router";
+import HeroProgressBar from "./HeroProgessBar";
+import CountUp from "react-countup";
+import { motion } from 'framer-motion';
 
 export default function Hero() {
   return (
@@ -19,7 +22,7 @@ export default function Hero() {
             {/* Badge */}
             <Badge className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold w-fit mx-auto lg:mx-0">
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"/>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
               </span>
               V 2.0 Now Live
@@ -27,7 +30,7 @@ export default function Hero() {
 
             {/* Heading */}
             <h1 className="text-5xl font-sans md:text-6xl lg:text-7xl font-black tracking-tight leading-[1.1]">
-              Your Money, <br />
+              Your Money <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-emerald-400">
                 Your Rules
               </span>
@@ -43,9 +46,9 @@ export default function Hero() {
             <div className="flex flex-wrap gap-4 justify-center lg:justify-start pt-4">
 
               <Link to="/login">
-                <Button className="flex rounded-full text-background! items-center gap-2 h-12 px-8! bg-primary text-background-dark shadow-lg shadow-primary/20 hover:bg-primary-hover">
+                <Button className="flex rounded-full text-background! items-center gap-2 h-12 px-8! bg-primary text-background-dark shadow-lg shadow-primary/20 hover:bg-primary-hover font-md">
                   <ArrowRight className="w-5 h-5" />
-                  Get App
+                  Get Start
                 </Button>
               </Link>
               <Link to="#howItWork"
@@ -75,24 +78,41 @@ export default function Hero() {
               <div className="absolute inset-0 bg-black/20 dark:bg-black/40"></div>
 
               {/* Floating Card */}
-              <Card className="absolute bottom-8 left-8 right-8 p-6 transform translate-y-4 hover:translate-y-0 transition-transform duration-500 glass-panel border border-white/10 shadow-lg">
-                <CardContent>
-                  <div className="flex justify-between items-center mb-4">
-                    <div className="flex flex-col">
-                      <span className="text-xs text-gray-300 uppercase tracking-wider">
-                        Total Balance
-                      </span>
-                      <span className="text-2xl font-bold text-white">$24,500.00</span>
-                    </div>
-                    <div className="size-10 rounded-full bg-primary/20 flex items-center justify-center text-primary">
-                      <TrendingUp className="w-5 h-5" />
-                    </div>
-                  </div>
-                  <div className="w-full bg-white/10 rounded-full h-1.5 overflow-hidden">
-                    <div className="bg-primary h-full w-[70%]"></div>
-                  </div>
-                </CardContent>
-              </Card>
+                <Card className="absolute bottom-8 left-8 right-8 p-6 transform translate-y-4 hover:translate-y-0 transition-transform duration-500 glass-panel border border-white/10 shadow-lg">
+      <CardContent>
+        <div className="flex justify-between items-center mb-4">
+          <div className="flex flex-col">
+            <span className="text-xs  uppercase tracking-wider">
+              Total Balance
+            </span>
+            {/* Animated Balance */}
+            <span className="text-2xl font-bold ">
+              $
+              <CountUp
+                end={24500}
+                duration={2.5}
+                separator=","
+                decimals={2}
+                decimal="."
+              />
+            </span>
+          </div>
+
+          {/* Animated Trending Icon */}
+          <motion.div
+            className="size-10 rounded-full bg-primary/20 flex items-center justify-center text-primary"
+            animate={{ y: [0, -5, 0] }}
+            transition={{ repeat: Infinity, duration: 1, ease: "easeInOut" }}
+          >
+            <TrendingUp className="w-5 h-5" />
+          </motion.div>
+        </div>
+
+        {/* Animated Progress Bar */}
+        <HeroProgressBar />
+      </CardContent>
+    </Card>
+
             </div>
           </div>
         </div>

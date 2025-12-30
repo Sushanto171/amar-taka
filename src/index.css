@@ -6,31 +6,65 @@
 /* Custom dark variant for Tailwind */
 @custom-variant dark (&:is(.dark *));
 
-/* Tailwind theme mapping */
+/* Tailwind theme mapping with shadcn/ui integration */
 @theme inline {
+  /* Radii */
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
 
+  /* Core Colors */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--surface);
   --color-card-foreground: var(--foreground);
   --color-border: var(--border);
 
+  /* Primary */
   --color-primary: var(--primary);
   --color-primary-hover: var(--primary-hover);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
 
+  /* UI Elements */
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+
+  /* Sidebar */
   --color-sidebar: var(--sidebar);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar-border: var(--sidebar-border);
+
+  /* Navbar */
+  --color-navbar: var(--navbar);
+  --color-navbar-foreground: var(--navbar-foreground);
+
+  /* Charts */
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  /* Input & ring */
+  --color-input: var(--input);
+  --color-ring: var(--ring);
 }
 
 /* Root theme variables (Light Mode) */
 :root {
   --radius: 0.65rem;
   --font-sans: "Manrope", "Noto Sans", sans-serif;
+
   /* Primary */
   --primary: #13ec5b;
   --primary-hover: #0ecb4b;
@@ -50,8 +84,25 @@
   --sidebar-foreground: #102216;
   --sidebar-border: #e5e7eb;
 
-  /* Default font */
-  --font-sans: "Manrope", "Noto Sans", sans-serif;
+  /* Popovers / Cards / UI Containers */
+  --popover: #ffffff;
+  --popover-foreground: #102216;
+  --card: #ffffff;
+  --card-foreground: #102216;
+
+  /* Accent / Muted / Secondary */
+  --accent: #13ec5b;
+  --accent-foreground: #ffffff;
+  --destructive: #f44336;
+  --destructive-foreground: #ffffff;
+  --muted: #f3f3f3;
+  --muted-foreground: #555555;
+  --secondary: #e5e5e5;
+  --secondary-foreground: #333333;
+
+  /* Navbar */
+  --navbar: #f6f8f6;
+  --navbar-foreground: #102216;
 }
 
 /* Dark theme overrides */
@@ -59,7 +110,7 @@
   --background: #102216;
   --surface: #1c2e22;
   --foreground: #f6f8f6;
-  --border: #28392e;
+  --border: #122b1ac6;
 
   --primary: #13ec5b;
   --primary-hover: #0ecb4b;
@@ -67,6 +118,23 @@
   --sidebar: #1c2e22;
   --sidebar-foreground: #f6f8f6;
   --sidebar-border: #28392e;
+
+  --popover: #1c2e22;
+  --popover-foreground: #f6f8f6;
+  --card: #1c2e22;
+  --card-foreground: #f6f8f6;
+
+  --accent: #1a752e;
+  --accent-foreground: #ffffff;
+  --destructive: #f44336;
+  --destructive-foreground: #ffffff;
+  --muted: #2c3e3c;
+  --muted-foreground: #c0c0c0;
+  --secondary: #2c3e3c;
+  --secondary-foreground: #c0c0c0;
+
+  --navbar: #1c2e22;
+  --navbar-foreground: #f6f8f6;
 }
 
 /* Base styles */

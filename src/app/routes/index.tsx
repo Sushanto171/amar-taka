@@ -12,6 +12,7 @@ import { AgentSidebarItems } from "@/features/agent/components/AgentSidebarItems
 import ForgetPassword from "@/features/auth/page/ForgetPassword";
 import ErrorPage from "@/features/public/pages/ErrorPage";
 import { UserSidebarItems } from "@/features/user/components/UserSidebarItem";
+import GuestGuard from "@/lib/GeustGuard";
 import { withAuth } from "@/utils/withAuth";
 import { lazy, Suspense } from "react";
 import { createBrowserRouter, Navigate } from "react-router";
@@ -89,11 +90,11 @@ export const router = createBrowserRouter([
     ],
   },
   {
-    Component: Login,
+    element: <GuestGuard><Login /></GuestGuard>,
     path: "/login",
   },
   {
-    Component: Register,
+    element: <GuestGuard><Register /></GuestGuard>,
     path: "/register",
   },
   {

@@ -8,6 +8,7 @@ import { DashboardSkeleton } from "@/features/dashboard/components/DashboardSkel
 import TransactionLists from "@/features/dashboard/components/TransactionLists";
 import type { ITransaction, TransactionType } from "@/types/transaction.types";
 import { useState } from "react";
+
 export default function UserByTransactions() {
   const [type, setType] = useState<TransactionType | null>(null);
 

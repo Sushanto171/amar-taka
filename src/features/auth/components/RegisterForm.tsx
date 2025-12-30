@@ -62,83 +62,113 @@ export function RegisterForm({
       const res = await register(data).unwrap();
       toast.success(res.message);
       if (res.success) {
-        navigate("/verify", { state: data.phone });
+        navigate("/verify", { state: {phone: data.phone, password: data.password},  });
       }
     } catch (error: any) {
   
       toast.error(error.data.message);
     }
   };
-  return (
+ return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
-      <Card>
-        <CardHeader className="text-center">
-          <CardTitle className="text-xl">Registration Now Free</CardTitle>
-          <CardDescription>Register with your phone number</CardDescription>
+      <Card className="border border-white/10 bg-[#111813]/80 backdrop-blur-xl shadow-xl">
+        <CardHeader className="text-center space-y-1">
+          <CardTitle className="text-2xl font-bold text-white">
+            Registration is Free
+          </CardTitle>
+          <CardDescription className="text-[#9db9a6]">
+            Create your account using your phone number
+          </CardDescription>
         </CardHeader>
+
         <CardContent>
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(submitHandler)}>
-              <div className="grid gap-6">
-                <FormField
-                  control={form.control}
-                  name="name"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Name</FormLabel>
-                      <FormControl>
-                        <Input placeholder="John Doe" {...field} />
-                      </FormControl>
-                      <FormDescription className="sr-only">
-                        This is your Name Field.
-                      </FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="phone"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Phone</FormLabel>
-                      <FormControl>
-                        <Input placeholder="+8801XXXXXXXXX" {...field} />
-                      </FormControl>
-                      <FormDescription className="sr-only">
-                        This is your Phone Field.
-                      </FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="password"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Password</FormLabel>
-                      <FormControl>
-                        <PasswordFiled field={field} />
-                      </FormControl>
-                      <FormDescription className="sr-only">
-                        This is your Password Field.
-                      </FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <Button type="submit" className="w-full ">
-                  <ButtonLoader spin={isLoading} />
-                  Register Now
-                </Button>
-              </div>
-              <div className="text-center text-sm mt-6">
+            <form
+              onSubmit={form.handleSubmit(submitHandler)}
+              className="space-y-6"
+            >
+              {/* Name */}
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-white">Full Name</FormLabel>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        placeholder="John Doe"
+                        className="h-12 bg-[#1c271f] border-[#3b5443] text-white placeholder:text-[#9db9a6]"
+                      />
+                    </FormControl>
+                    <FormDescription className="sr-only">
+                      Your full legal name
+                    </FormDescription>
+                    <FormMessage className="text-red-500"  />
+                  </FormItem>
+                )}
+              />
+
+              {/* Phone */}
+              <FormField
+                control={form.control}
+                name="phone"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-white">Phone Number</FormLabel>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        placeholder="+8801XXXXXXXXX"
+                        className="h-12 bg-[#1c271f] border-[#3b5443] text-white placeholder:text-[#9db9a6]"
+                      />
+                    </FormControl>
+                    <FormDescription className="sr-only">
+                      Your verified phone number
+                    </FormDescription>
+                    <FormMessage className="text-red-500" />
+                  </FormItem>
+                )}
+              />
+
+              {/* Password */}
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-white">Password</FormLabel>
+                    <FormControl>
+                      <PasswordFiled field={field} />
+                    </FormControl>
+                    <FormDescription className="sr-only">
+                      Choose a strong password
+                    </FormDescription>
+                    <FormMessage className="text-red-500"  />
+                  </FormItem>
+                )}
+              />
+
+              {/* Submit */}
+              <Button
+                type="submit"
+                disabled={isLoading}
+                className="w-full h-12 text-base font-bold bg-primary text-[#111813] hover:bg-[#0fd650] transition-all"
+              >
+                <ButtonLoader spin={isLoading} />
+                Create Account
+              </Button>
+
+              {/* Footer */}
+              <p className="text-center text-sm text-[#9db9a6]">
                 Already have an account?{" "}
-                <Link to="/login" className="underline underline-offset-4">
-                  Login
+                <Link
+                  to="/login"
+                  className="text-primary font-semibold hover:underline"
+                >
+                  Log in
                 </Link>
-              </div>
+              </p>
             </form>
           </Form>
         </CardContent>

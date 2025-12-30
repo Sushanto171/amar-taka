@@ -1,12 +1,14 @@
+import { Shield, Users as UsersIcon, UserCheck, CreditCard, FileText, Activity, Settings, User } from "lucide-react";
+
 import Activities from "@/features/dashboard/commonPages/Activities";
 import Analytics from "@/features/dashboard/commonPages/Analytics";
 import Profile from "@/features/dashboard/commonPages/Profile";
 import Transactions from "@/features/dashboard/commonPages/Transactions";
-import type { ISidebarItems } from "@/types/global.types";
 import Agents from "../page/Agents";
 import AuditLogs from "../page/AuditLogs";
 import SystemSettings from "../page/SystemSettings";
 import Users from "../page/Users";
+import type { ISidebarItems } from "@/types/global.types";
 
 export const AdminSidebarItems: ISidebarItems[] = [
   {
@@ -14,27 +16,32 @@ export const AdminSidebarItems: ISidebarItems[] = [
     url: "#",
     items: [
       {
-        title: <span id="dashboard-route">Analytics</span>,
+        title: "Analytics",
+        icon: <Shield className="w-5 h-5 mr-2" />,
         url: "/admin/analytics",
         Component: Analytics,
       },
       {
-        title: <span id="users-route">Users</span>,
+        title: "Users",
+        icon: <UsersIcon className="w-5 h-5 mr-2" />,
         url: "/admin/users",
         Component: Users,
       },
       {
-        title: <span id="agents-route">Agents</span>,
+        title: "Agents",
+        icon: <UserCheck className="w-5 h-5 mr-2" />,
         url: "/admin/agents",
         Component: Agents,
       },
       {
-        title: <span id="transactions-route">Transactions</span>,
+        title: "Transactions",
+        icon: <CreditCard className="w-5 h-5 mr-2" />,
         url: "/admin/transactions",
         Component: Transactions,
       },
       {
-        title: <span id="auditLogs-route">Audit Logs</span>,
+        title: "Audit Logs",
+        icon: <FileText className="w-5 h-5 mr-2" />,
         url: "/admin/audit-logs",
         Component: AuditLogs,
       },
@@ -45,20 +52,29 @@ export const AdminSidebarItems: ISidebarItems[] = [
     url: "#",
     items: [
       {
-        title: <span id="activities-route">Activities</span>,
+        title: "Activities",
+        icon: <Activity className="w-5 h-5 mr-2" />,
         url: "/admin/activities",
         Component: Activities,
       },
       {
-        title: <span id="profile-route">Profile</span>,
+        title: "Profile",
+        icon: <User className="w-5 h-5 mr-2" />,
         url: "/admin/profile",
         Component: Profile,
       },
       {
-        title: <span id="systemSettings-route">System Settings</span>,
+        title: "System Settings",
+        icon: <Settings className="w-5 h-5 mr-2" />,
         url: "/admin/system-settings",
         Component: SystemSettings,
       },
     ],
   },
 ];
+
+/**
+ * Helper function to determine active route
+ * Usage: isActiveRoute("/admin/analytics", currentPathname)
+ */
+export const isActiveRoute = (route: string, currentPath: string) => route === currentPath;

@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { toast } from "sonner";
 import { Button } from "../../../components/ui/button";
 
-export default function Logout({ width }: { width: "full" | "" }) {
+export default function Logout({ width }: { width?: "full" | "" }) {
   const dispatch = useDispatch();
 
   const [logout, { isLoading }] = useLogoutMutation();
@@ -24,7 +24,7 @@ export default function Logout({ width }: { width: "full" | "" }) {
         onClick={handleLogout}
         variant="outline"
         size="sm"
-        className={`w-${width} text-sm`}
+        className={`w-${width} text-sm border border-destructive! text-destructive bg-destructive/20 hover:text-destructive hover:bg-destructive/30`}
       >
         <ButtonLoader spin={isLoading} />
         Logout

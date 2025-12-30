@@ -19,7 +19,11 @@ import { format } from "date-fns";
 import { Link, useSearchParams } from "react-router";
 import AgentDetailsModal from "./AgentDetailsModal";
 import AgentStatusUpdateModal from "./AgentStatusUpdateModal";
+
+
 export default function AgentsList() {
+
+  
   const [searchParams] = useSearchParams("");
   const page = searchParams.get("page");
   const { data, isLoading } = useGetAllAgentsQuery({ kycStatus: "VERIFIED" });
@@ -89,7 +93,7 @@ export default function AgentsList() {
                 <TableCell>
                   <Badge
                     variant={
-                      agent.status === "ACTIVE" ? "default" : "destructive"
+                      agent.status === "ACTIVE" ? "secondary" : "destructive"
                     }
                   >
                     {agent.status}
@@ -99,7 +103,7 @@ export default function AgentsList() {
                 <TableCell>
                   <Badge
                     variant={
-                      agent.kycStatus === "VERIFIED" ? "default" : "destructive"
+                      agent.kycStatus === "VERIFIED" ? "secondary" : "destructive"
                     }
                   >
                     {agent.kycStatus}

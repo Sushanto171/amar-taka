@@ -29,10 +29,13 @@ export function FeaturesSection() {
     <section className="py-20 relative">
       <div className="">
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Experience the Future of Finance
+          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+            Experience the 
+            <span className="text-primary"> {" "}
+               Future of Finance
+              </span>
           </h2>
-          <p className="text-slate-600 dark:text-gray-300 text-lg">
+          <p className="text-slate-600 dark:text-gray-300 text-md leading-relaxed">
             We built Amar Taka to be the fastest, safest, and most reliable digital wallet for your daily needs.
           </p>
         </div>

@@ -171,7 +171,7 @@ export default function Users() {
                       >
                         <Button
                           size="icon"
-                          className="hover:bg-primary"
+                          className="hover:bg-destructive"
                           variant="secondary"
                           onClick={() => setId(user._id)}
                         >
@@ -188,7 +188,7 @@ export default function Users() {
                         <Button
                           size="sm"
                           variant="secondary"
-                          className="hover:bg-primary"
+                          className="hover:bg-primary hover:text-background"
                           onClick={() => setId(user._id)}
                         >
                           Suspend
@@ -197,7 +197,7 @@ export default function Users() {
                       <Button
                         size="sm"
                         variant="secondary"
-                        className="hover:bg-primary"
+                        className="hover:bg-primary hover:text-background"
                       >
                         <Link to={`/admin/users/transactions/${user.phone}`}>
                           Transactions
@@ -206,7 +206,7 @@ export default function Users() {
                       <Button
                         size="sm"
                         variant="secondary"
-                        className="hover:bg-primary"
+                        className="hover:bg-primary hover:text-background"
                       >
                         <Link
                           to={`/admin/audit-logs?id=${user._id}&name=${user.name}`}

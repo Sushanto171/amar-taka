@@ -65,7 +65,7 @@ export default function TransactionLists({ transactions, onChange }: IProps) {
                   <Badge
                     variant={
                       tx.status === "SUCCESS"
-                        ? "default"
+                        ? "secondary"
                         : tx.status === "PENDING"
                         ? "secondary"
                         : "destructive"

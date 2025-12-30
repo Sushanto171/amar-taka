@@ -1,6 +1,7 @@
 import type { TRole } from "@/types/global.types";
 
 export interface IUser {
+  photo?: string;
   _id: string;
   name: string;
   phone: string;

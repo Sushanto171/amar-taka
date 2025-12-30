@@ -1,3 +1,4 @@
+import { StatCard } from "@/components/StatCard";
 import {
   Card,
   CardContent,
@@ -10,10 +11,10 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
+import AdminDashboardSkeleton from "@/features/admin/components/AdminDashboardSkelton";
 import AgentStats from "@/features/admin/components/AgentStats";
 import { ChartSkeleton } from "@/features/admin/components/ChartSkeleton";
 import { Last7DaysTransactionsChart } from "@/features/admin/components/Last7DaysTnx";
-import { StatCard } from "@/features/admin/components/StatCard";
 import TransactionStats from "@/features/admin/components/TransactionStats";
 import UserStats from "@/features/admin/components/UserStats";
 import {
@@ -22,8 +23,9 @@ import {
   useGetTransactionStatsQuery,
   useGetUserStatsQuery,
 } from "@/redux/features/stats/stats.api";
-import { convertTaka } from "@/utils/convertTaka";
+import { Activity, CreditCard, DollarSign, TrendingUp } from "lucide-react";
 import { Bar, BarChart, CartesianGrid, XAxis } from "recharts";
+
 
 const userChildren = (
   <>
@@ -53,7 +55,8 @@ export default function Analytics() {
     useGetAgentStatsQuery(undefined);
   const { data: transactionStats, isLoading: tnxLoading } =
     useGetTransactionStatsQuery(undefined);
-  const { data: systemStats } = useGetSystemStatsQuery(undefined);
+
+    const {data: systemStats, isLoading} = useGetSystemStatsQuery(undefined)
 
   const newUsersData = [
     { name: "Last 1 Days", users: userStats?.newUserInLast1Days },
@@ -78,43 +81,58 @@ export default function Analytics() {
     })
   );
 
+  if (userLoading || agentLoading || tnxLoading || isLoading) {
+    return <AdminDashboardSkeleton />
+  }
+
   return (
     <div className="p-6 space-y-6">
       {/* System Stats */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <StatCard
           title="System Balance"
-          value={`৳${convertTaka(systemStats?.amount || 0)}`}
+          value={systemStats?.amount || 12000}
+          color="destructive"
+          isCurrency
+          icon={<DollarSign size={20} />}
         />
         <StatCard
           title="System Revenue"
-          value={`৳${convertTaka(systemStats?.revenue || 0)}`}
+          value={systemStats?.revenue||85000}
+          color="accent"
+          isCurrency
+          icon={<TrendingUp size={20} />}
         />
         <StatCard
           title="Total Transactions"
-          value={transactionStats?.totalTransaction || 0}
+          value={transactionStats?.totalTransaction ||5000}
+          color="primary"
+          icon={<CreditCard size={20} />}
         />
         <StatCard
-          title="New Transactions (30 Days)"
-          value={transactionStats?.newTransactionInLast30Days || 0}
+          title="Active Users"
+          value={userStats?.total||1200}
+          color="secondary"
+          icon={<Activity size={20} />}
         />
       </div>
+
 
       {/* Users & Agents Stats */}
       <div id="dashboard-route" className="grid gap-6 md:grid-cols-3">
         {userLoading && <ChartSkeleton children={userChildren} />}
         {userStats && (
-          <UserStats userStats={userStats} children={userChildren} />
+          <UserStats userStats={userStats} />
         )}
         {agentLoading && <ChartSkeleton children={agentChildren} />}
         {agentStats && (
-          <AgentStats agentStats={agentStats} children={agentChildren} />
+          <AgentStats agentStats={agentStats} />
         )}
         {tnxLoading && <ChartSkeleton children={tnxChildren} />}
         {transactionStats && (
           <TransactionStats
             transactionStats={transactionStats}
-            children={tnxChildren}
+
           />
         )}
       </div>

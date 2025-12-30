@@ -3,7 +3,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 const offers = [
   {
@@ -41,13 +41,15 @@ export function OffersSection() {
       <div className="relative z-10 ">
         {/* Header */}
         <div className="flex flex-col md:flex-row justify-between items-center mb-12 gap-4">
-          <h2 className="text-3xl font-bold">Exclusive Offers</h2>
-
+          <div>
+            <h2 className="text-4xl md:text-5xl font-bold">Exclusive <span className="text-primary"> {" "}Offers</span></h2>
+            <p className="text-muted-foreground">
+              Unlock tailored financial solutions designed to maximize value and simplify your money management.
+            </p>
+          </div>
           <div className="flex gap-2">
-            <Button variant="outline" size="icon">
-              <ArrowLeft className="size-4" />
-            </Button>
-            <Button size="icon">
+            <Button variant="link">
+              View All
               <ArrowRight className="size-4" />
             </Button>
           </div>

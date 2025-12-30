@@ -59,7 +59,7 @@ export default function AuditLogList({
                 <Badge
                   variant={
                     log.status === "SUCCESS"
-                      ? "default"
+                      ? "secondary"
                       : log.status === "FAILED"
                       ? "destructive"
                       : "secondary"

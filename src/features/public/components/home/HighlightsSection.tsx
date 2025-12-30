@@ -1,9 +1,10 @@
 "use client";
 
-import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 import { CheckCircle, ShieldCheck } from "lucide-react";
+import { Link } from "react-router";
 
 export function HighlightsSection() {
   return (
@@ -68,9 +69,11 @@ export function HighlightsSection() {
             </ul>
 
             <div className="pt-4">
-              <Button size="lg" className="font-bold text-background!">
-                Start Sending
-              </Button>
+              <Link to="/login">
+                <Button size="lg" className="font-bold text-background!">
+                  Start Sending
+                </Button>
+              </Link>
             </div>
           </div>
         </div>

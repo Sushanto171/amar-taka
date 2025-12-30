@@ -1,5 +1,5 @@
-import { Card, CardContent } from "@/components/ui/card"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Card, CardContent } from "@/components/ui/card"
 import { Star } from "lucide-react"
 
 const testimonials = [
@@ -32,10 +32,16 @@ const testimonials = [
 export function TestimonialsSection() {
   return (
     <section className="py-20 bg-muted/40">
-      <div className="">
-        <h2 className="text-3xl font-bold text-center mb-12">
-          Loved by Millions
-        </h2>
+      <div >
+        <div className="mb-12">
+          <h2 className="text-4xl md:text-5xl font-bold text-center">
+            Loved By <span className="text-primary">Millions</span>
+          </h2>
+          <p className="text-center text-muted-foreground max-w-2xl mx-auto">
+            Trusted by users worldwide for seamless, secure, and smart financial management that empowers your everyday decisions.
+          </p>
+        </div>
+
 
         <div className="grid gap-6 md:grid-cols-3">
           {testimonials.map((t) => (

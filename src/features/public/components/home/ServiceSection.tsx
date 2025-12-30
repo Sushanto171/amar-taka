@@ -48,8 +48,10 @@ export function ServicesSectionTabs() {
       <div className="">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-14">
-          <h2 className="text-4xl font-bold mb-3">
-            Banking Built for Every Use Case
+          <h2 className="text-4xl md:text-5xl font-bold mb-3">
+            Banking Built for <span className="text-primary"> {" "}
+               Every Use Case
+              </span>
           </h2>
           <p className="text-muted-foreground">
             Whether you’re managing personal finances or running a business,

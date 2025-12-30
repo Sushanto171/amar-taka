@@ -55,19 +55,20 @@ export default function Verify() {
     defaultValues: { otp: "" },
   });
   const { showToast } = useToast();
-
+  // return
   useEffect(() => {
-    if (!state) {
-      navigate("/");
+    if (!state || !state?.phone) {
+      navigate("/", { replace: true });
     }
   }, [navigate, state]);
-
+  
+  
   const handleConfirmed = async () => {
     const toasterId = toast.loading("Sending OTP");
     showToast("Use Default OPT: 123456");
     try {
       form.reset();
-      const result = await sendOtp({ phone: state }).unwrap();
+      const result = await sendOtp({ phone: state.phone }).unwrap();
       if (result.success) {
         setConfirmed(true);
         setSeconds(120);
@@ -82,19 +83,19 @@ export default function Verify() {
     const toastId = toast.loading("Verifying OTP");
     try {
       const result = await verifyOtp({
-        phone: state,
+        phone: state?.phone,
         otp: otp.otp,
       }).unwrap();
       if (result.success) {
         toast.success(result.message, { id: toastId });
-        navigate("/login");
+        navigate("/login", { state });
       }
     } catch (error: any) {
       toast.error(error.data.message, { id: toastId });
-      
+
     }
   };
-  
+
   return (
     <div className="min-h-screen grid place-content-center ">
       {confirmed ? (
@@ -111,7 +112,7 @@ export default function Verify() {
             </div>
             <CardDescription>
               Enter the 6‑digit code sent to{" "}
-              <span className="font-medium text-foreground">{state}</span>
+              <span className="font-medium text-foreground">{state.phone}</span>
             </CardDescription>
           </CardHeader>
 
@@ -131,12 +132,12 @@ export default function Verify() {
                       <FormControl>
                         <InputOTP maxLength={6} {...field}>
                           <InputOTPGroup className="flex gap-2 w-full">
-                            <InputOTPSlot className="rounded-lg" index={0} />
-                            <InputOTPSlot className="rounded-lg" index={1} />
-                            <InputOTPSlot className="rounded-lg" index={2} />
-                            <InputOTPSlot className="rounded-lg" index={3} />
-                            <InputOTPSlot className="rounded-lg" index={4} />
-                            <InputOTPSlot className="rounded-lg" index={5} />
+                            <InputOTPSlot className="rounded-lg border border-primary" index={0} />
+                            <InputOTPSlot className="rounded-lg border border-primary" index={1} />
+                            <InputOTPSlot className="rounded-lg border border-primary" index={2} />
+                            <InputOTPSlot className="rounded-lg border border-primary" index={3} />
+                            <InputOTPSlot className="rounded-lg border border-primary" index={4} />
+                            <InputOTPSlot className="rounded-lg border border-primary" index={5} />
                           </InputOTPGroup>
                         </InputOTP>
                       </FormControl>
@@ -163,8 +164,8 @@ export default function Verify() {
             </div>
 
             <div className="grid gap-2">
-              <Button className="cursor-pointer" form="otp-verify">
-                Verify
+              <Button className="cursor-pointer text-background!" form="otp-verify">
+                Verify Now
               </Button>
               <Button
                 variant="outline"
@@ -192,13 +193,13 @@ export default function Verify() {
             </div>
             <CardDescription>
               We will send you an OTP at : <br />
-              <span className="font-medium text-foreground">{state}</span>
+              <span className="font-medium text-foreground">{state?.phone}</span>
             </CardDescription>
           </CardHeader>
           <CardFooter className="justify-center text-xs text-muted-foreground">
             <Button
               onClick={handleConfirmed}
-              className="h-11 w-full rounded-2xl cursor-pointer"
+              className="h-11 w-full rounded-2xl text-background! cursor-pointer"
             >
               Send OTP
             </Button>
