@@ -29,7 +29,8 @@ import { Menu, Wallet } from "lucide-react";
 import { useState } from "react";
 import { Link, useLocation } from "react-router";
 
-// Mega menu items for Service
+/* ----------------------------- Navigation Data ----------------------------- */
+
 const serviceMenuItems = [
   { href: "/service", label: "Our Services" },
   { href: "/service/#sendMoney", label: "Send Money" },
@@ -40,15 +41,21 @@ const serviceMenuItems = [
 
 const navigationLinks = [
   { href: "/", label: "Home", role: "PUBLIC" },
-  { href: "/about", label: "About", role: "PUBLIC" },
-  { href: "/service", label: "Service", role: "PUBLIC", megaMenu: serviceMenuItems },
-  { href: "/contact", label: "Contact", role: "PUBLIC" },
-  { href: "/features", label: "Features", role: "PUBLIC" },
-  { href: "/faq", label: "FAQ", role: "PUBLIC" },
+  { href: "/user", label: "Dashboard", role: role.user },
   { href: "/admin", label: "Dashboard", role: role.admin },
   { href: "/agent", label: "Dashboard", role: role.agent },
-  { href: "/user", label: "Dashboard", role: role.user },
+  { href: "/about", label: "About", role: "PUBLIC" },
+  {
+    href: "/service",
+    label: "Service",
+    role: "PUBLIC",
+    megaMenu: serviceMenuItems,
+  },
+  { href: "/features", label: "Features", role: "PUBLIC" },
+  { href: "/faq", label: "FAQ", role: "PUBLIC" },
 ];
+
+/* -------------------------------------------------------------------------- */
 
 export default function Navbar() {
   const { pathname } = useLocation();
@@ -58,22 +65,29 @@ export default function Navbar() {
   if (isLoading) return <LoadingSpinner />;
 
   return (
-    <header className="sticky top-0 backdrop-blur-xl border-b z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex h-20 justify-between items-center">
-        {/* Left: Logo + Desktop Menu */}
-        <div className="flex items-center gap-6">
-          <Link to="/" className="text-primary hover:text-primary/90">
+    <header className="sticky top-0 z-50 backdrop-blur-xl border-b bg-background/80">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-3 h-20 items-center">
+        {/* ------------------------------------------------------------------ */}
+        {/* Left: Logo                                                         */}
+        {/* ------------------------------------------------------------------ */}
+        <div className="flex items-center">
+          <Link to="/" className="text-primary hover:text-primary/90 flex items-center gap-2">
             <Wallet className="w-6 h-6" />
+            <h3 className="text-xl font-bold  text-foreground">Amar Taka</h3>
           </Link>
+        </div>
 
-          {/* Desktop Navigation */}
-          <NavigationMenu className="h-full hidden md:flex">
-            <NavigationMenuList className="h-full flex gap-4 items-center">
+        {/* ------------------------------------------------------------------ */}
+        {/* Center: Navigation (md+)                                            */}
+        {/* ------------------------------------------------------------------ */}
+        <div className="hidden md:flex justify-center">
+          <NavigationMenu>
+            <NavigationMenuList className="flex gap-4 items-center">
               {navigationLinks.map((link) => {
-                const isActive = link.href === pathname;
+                const isActive = pathname === link.href;
 
-                // Mega menu
-                if (link.megaMenu) {
+                /* ------------------------- Mega Menu ------------------------ */
+                if (link.megaMenu && link.role === "PUBLIC") {
                   return (
                     <Popover
                       key={link.href}
@@ -86,29 +100,29 @@ export default function Navbar() {
                           size="sm"
                           onMouseEnter={() => setHovered(true)}
                           onMouseLeave={() => setHovered(false)}
-                          className={`font-medium ${isActive ? "text-primary" : "text-muted-foreground"
-                            } hover:text-primary transition-colors`}
+                          className={`font-medium ${isActive
+                            ? "text-primary"
+                            : "text-muted-foreground"
+                            }`}
                         >
                           {link.label}
                         </Button>
                       </PopoverTrigger>
+
                       <PopoverContent
-                        className="w-64 bg-background-dark p-0 rounded-lg shadow-lg"
+                        align="start"
+                        className="w-64 p-0"
                         onMouseEnter={() => setHovered(true)}
                         onMouseLeave={() => setHovered(false)}
-                        align="start"
                       >
-                        <Card className="bg-background border-none shadow-none">
+                        <Card className="border-none shadow-none">
                           <CardContent className="p-4">
                             <ul className="flex flex-col gap-2">
                               {link.megaMenu.map((item) => (
                                 <li key={item.href}>
                                   <Link
                                     to={item.href}
-                                    className={`block py-2 px-3 rounded transition-all hover:bg-primary/10 hover:text-primary ${pathname === item.href
-                                      ? "text-primary"
-                                      : ""
-                                      }`}
+                                    className="block px-3 py-2 rounded-md hover:bg-primary/10 transition"
                                   >
                                     {item.label}
                                   </Link>
@@ -122,14 +136,14 @@ export default function Navbar() {
                   );
                 }
 
-                // Regular links
+                /* ------------------------ Regular Link ----------------------- */
                 if (link.role === "PUBLIC" || link.role === data?.role) {
                   return (
                     <NavigationMenuItem key={link.href}>
                       <NavigationMenuLink asChild active={isActive}>
                         <Link
                           to={link.href}
-                          className={`py-1.5 px-2 font-medium rounded transition-colors ${isActive
+                          className={`px-2 py-1.5 font-medium transition-colors ${isActive
                             ? "text-primary"
                             : "text-muted-foreground hover:text-primary"
                             }`}
@@ -147,69 +161,67 @@ export default function Navbar() {
           </NavigationMenu>
         </div>
 
-        {/* Right: Mode toggle + Auth */}
-        <div className="hidden md:flex items-center gap-2">
+        {/* ------------------------------------------------------------------ */}
+        {/* Right: Actions (md+)                                                */}
+        {/* ------------------------------------------------------------------ */}
+        <div className="hidden md:flex justify-end items-center gap-2">
           <ModeToggle />
           {data ? (
-            <Logout width={""} />
+            <Logout width="" />
           ) : (
             <>
-              <Button asChild variant="outline" size="sm" className="bg-transparent">
+              <Button asChild variant="outline" size="sm">
                 <Link to="/login">Login</Link>
               </Button>
-              <Button asChild size="sm" className="text-background!">
+              <Button asChild size="sm">
                 <Link to="/register">Register</Link>
               </Button>
             </>
           )}
         </div>
 
-        {/* Mobile Menu */}
-        <div className="flex md:hidden items-center gap-2 ">
+        {/* ------------------------------------------------------------------ */}
+        {/* Mobile Menu                                                        */}
+        {/* ------------------------------------------------------------------ */}
+        <div className="flex md:hidden justify-end items-center gap-2 col-span-2">
           <ModeToggle />
-          <Sheet >
+          <Sheet>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon">
                 <Menu />
               </Button>
             </SheetTrigger>
-            <SheetContent side="bottom" className="h-full p-6 md:hidden">
+
+            <SheetContent side="bottom" className="h-full p-6">
               <SheetHeader>
                 <SheetTitle>Menu</SheetTitle>
               </SheetHeader>
-              <nav className="flex flex-col gap-4 mt-4 h-screen overflow-auto">
+
+              <nav className="mt-6 flex flex-col gap-4 overflow-auto">
                 {navigationLinks.map((link) => {
                   if (link.role === "PUBLIC" || link.role === data?.role) {
                     if (link.megaMenu) {
                       return (
                         <div key={link.href} className="flex flex-col gap-2">
                           <span className="font-medium">{link.label}</span>
-                          <ul className="pl-2 flex flex-col gap-2">
-                            {link.megaMenu.map((item) => (
-                              <li key={item.href}>
-                                <Link
-                                  to={item.href}
-                                  className={`block py-2 px-3 rounded transition-colors ${pathname === item.href
-                                    ? "text-primary"
-                                    : "text-muted-foreground hover:text-primary"
-                                    }`}
-                                >
-                                  {item.label}
-                                </Link>
-                              </li>
-                            ))}
-                          </ul>
+                          {link.megaMenu.map((item) => (
+                            <Link
+                              key={item.href}
+                              to={item.href}
+                              className="pl-3 text-muted-foreground hover:text-primary"
+                            >
+                              {item.label}
+                            </Link>
+                          ))}
                         </div>
                       );
                     }
+
                     return (
                       <Link
                         key={link.href}
                         to={link.href}
-                        className={`block py-2 px-3 rounded transition-colors ${pathname === link.href
-                          ? "text-primary"
-                          : "text-muted-foreground hover:text-primary"
-                          }`}
+                        className="font-medium text-muted-foreground hover:text-primary"
                       >
                         {link.label}
                       </Link>
@@ -219,9 +231,10 @@ export default function Navbar() {
                 })}
               </nav>
 
-              {/* Auth Buttons */}
               <div className="mt-6 flex flex-col gap-2">
-                {!data ? (
+                {data ? (
+                  <Logout width="" />
+                ) : (
                   <>
                     <Button asChild variant="outline" size="sm">
                       <Link to="/login">Login</Link>
@@ -230,8 +243,6 @@ export default function Navbar() {
                       <Link to="/register">Register</Link>
                     </Button>
                   </>
-                ) : (
-                  <Logout width={""} />
                 )}
               </div>
             </SheetContent>

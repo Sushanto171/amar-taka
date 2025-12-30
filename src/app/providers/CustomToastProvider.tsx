@@ -34,7 +34,7 @@ export const ToastProvider = ({ children }: { children: ReactNode }) => {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: 80 }}
               transition={{ duration: 0.35, ease: "easeOut" }}
-              className="relative flex items-center gap-3 bg-gray-900 text-white p-3 rounded-xl shadow-lg overflow-hidden"
+              className="relative flex items-center gap-3 bg-gray-900  p-3 rounded-xl shadow-lg overflow-hidden"
             >
               {/* Icon */}
               <div className="flex items-center justify-center h-8 w-8 rounded-full bg-yellow-500">

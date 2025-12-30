@@ -1,9 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { ArrowRightIcon, MoveLeft } from "lucide-react";
+import { ArrowRightIcon, Download, MoveLeft } from "lucide-react";
 import React, { useEffect, useState } from "react";
 
 import ButtonLoader from "@/components/ButtonLoader";
+import QuickActionButton from "@/components/QuickActionButton";
 import SearchPhone from "@/components/SearchPhone";
 import { Summary } from "@/components/Summary";
 import { Button } from "@/components/ui/button";
@@ -11,8 +12,7 @@ import {
   Dialog,
   DialogClose,
   DialogContent,
-  DialogFooter,
-  DialogTrigger,
+  DialogFooter
 } from "@/components/ui/dialog";
 import {
   Form,
@@ -114,18 +114,17 @@ export default function CashInModal() {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        <Button
-          onClick={() => [
-            setSearchParams({ action: "cash-in" }),
-            setOpen(true),
-          ]}
-          variant="secondary"
-          className="flex-1 hover:bg-primary"
-        >
-          Cash In
-        </Button>
-      </DialogTrigger>
+
+      <QuickActionButton
+        title="Cash In"
+        description="Add funds via agent or bank transfer."
+        icon={Download}
+        action="cash-in"
+        setOpen={setOpen}
+        setSearchParams={setSearchParams}
+      />
+
+
       <DialogContent className="gap-0 p-0 [&>button:last-child]:text-white">
         <div className="p-2">
           <DialogTitle className="text-center font-semibold text-lg mt-2">
@@ -159,7 +158,7 @@ export default function CashInModal() {
                               onChange={field}
                             />
                           </FormControl>
-                          <FormMessage />
+                          <FormMessage className="text-red-400" />
                         </FormItem>
                       )}
                     />
@@ -178,7 +177,7 @@ export default function CashInModal() {
                         <FormDescription className="sr-only">
                           This is your public display name.
                         </FormDescription>
-                        <FormMessage />
+                        <FormMessage className="text-red-400" />
                       </FormItem>
                     )}
                   />
@@ -196,7 +195,7 @@ export default function CashInModal() {
                         <FormDescription className="sr-only">
                           This is your public display name.
                         </FormDescription>
-                        <FormMessage />
+                        <FormMessage className="text-red-400" />
                       </FormItem>
                     )}
                   />
@@ -218,7 +217,7 @@ export default function CashInModal() {
                         <FormDescription className="sr-only">
                           This is your public display name.
                         </FormDescription>
-                        <FormMessage />
+                        <FormMessage className="text-red-400" />
                       </FormItem>
                     )}
                   />
@@ -264,7 +263,7 @@ export default function CashInModal() {
               )}
               {step < totalSteps ? (
                 <Button
-                  className="group"
+                  className="group text-background!"
                   type="button"
                   disabled={
                     !form.formState.dirtyFields.phone ||
@@ -287,7 +286,7 @@ export default function CashInModal() {
                       !form.formState.dirtyFields.password || cashInLoading
                     }
                     variant={cashInLoading ? "destructive" : "default"}
-                    className="disabled:cursor-not-allowed"
+                    className={cn("disabled:cursor-not-allowed text-background!", !form.formState.dirtyFields.password || cashInLoading? "bg-muted cursor-not-allowed!":"")}
                     form="cashInForm"
                     type="submit"
                   >

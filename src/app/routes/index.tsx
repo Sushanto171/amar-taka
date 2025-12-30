@@ -130,7 +130,7 @@ export const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Navigate to="/agent/analytics" />,
+        element: <Navigate to="/agent/my-wallet" />,
       },
       ...generateRoute(AgentSidebarItems),
     ],

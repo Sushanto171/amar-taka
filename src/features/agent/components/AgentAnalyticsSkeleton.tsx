@@ -1,40 +1,16 @@
+import { StatCard } from "@/components/StatCard";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Calendar, CreditCard, DollarSign, TrendingUp } from "lucide-react";
 
 export default function AgentAnalyticsSkeleton() {
   return (
     <div className="p-6 space-y-6">
+      {/* Top Stats Cards */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        {/* Balance */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Balance</CardTitle>
-          </CardHeader>
-          <CardContent className="text-2xl font-bold">৳0.00</CardContent>
-        </Card>
-
-        {/* Revenue */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Revenue</CardTitle>
-          </CardHeader>
-          <CardContent className="text-2xl font-bold">৳0.00</CardContent>
-        </Card>
-
-        {/* Total Transactions */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Total Transactions</CardTitle>
-          </CardHeader>
-          <CardContent className="text-2xl font-bold">0</CardContent>
-        </Card>
-
-        {/* New Transactions (30 Days) */}
-        <Card>
-          <CardHeader>
-            <CardTitle>New Transactions (30 Days)</CardTitle>
-          </CardHeader>
-          <CardContent className="text-2xl font-bold">0</CardContent>
-        </Card>
+        <StatCard title="Balance" value={0} isCurrency color="destructive" icon={<DollarSign />} />
+        <StatCard title="Revenue" value={0} isCurrency color="accent" icon={<TrendingUp />} />
+        <StatCard title="Total Transactions" value={0} color="primary" icon={<CreditCard />} />
+        <StatCard title="Tnx (30days)" value={0} color="secondary" icon={<Calendar />} />
       </div>
 
       <div className="md:grid md:grid-cols-3 gap-5">

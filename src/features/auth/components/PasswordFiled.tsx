@@ -19,7 +19,7 @@ export default function PasswordFiled<T extends FieldValues>({
         placeholder="●●●●●●"
         minLength={6}
         maxLength={6}
-        className="h-12 bg-[#1c271f] border-[#3b5443] text-white placeholder:text-[#9db9a6]"
+        className="h-10 dark:bg-[#1c271f] border-[#3b5443]! dark:text-white placeholder:text-[#9db9a6]"
         {...field}
       />
       <Button

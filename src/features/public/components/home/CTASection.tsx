@@ -21,7 +21,7 @@ export default function CTASection() {
 
         {/* Content */}
         <div className="relative z-10 flex flex-col items-center gap-6">
-          <h2 className="text-3xl md:text-5xl font-black text-white leading-tight max-w-2xl">
+          <h2 className="text-3xl md:text-5xl font-black  leading-tight max-w-2xl">
             Ready to simplify your finances?
           </h2>
           <p className="text-[#9db9a6] text-lg max-w-xl">

@@ -1,9 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { ArrowRightIcon, MoveLeft } from "lucide-react";
+import { ArrowRightIcon, MoveLeft, Send } from "lucide-react";
 import React, { useEffect, useState } from "react";
 
 import ButtonLoader from "@/components/ButtonLoader";
+import QuickActionButton from "@/components/QuickActionButton";
 import SearchPhone from "@/components/SearchPhone";
 import { Summary } from "@/components/Summary";
 import { Button } from "@/components/ui/button";
@@ -11,8 +12,7 @@ import {
   Dialog,
   DialogClose,
   DialogContent,
-  DialogFooter,
-  DialogTrigger,
+  DialogFooter
 } from "@/components/ui/dialog";
 import {
   Form,
@@ -112,18 +112,15 @@ export default function SendMoneyModal() {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        <Button
-          onClick={() => [
-            setSearchParams({ action: "send-money" }),
-            setOpen(true),
-          ]}
-          variant="secondary"
-          className="flex-1 hover:bg-primary"
-        >
-          Send Money
-        </Button>
-      </DialogTrigger>
+      <QuickActionButton
+        title="Send Money"
+        description="Transfer money to another wallet instantly."
+        icon={Send}
+        action="send-money"
+        setOpen={setOpen}
+        setSearchParams={setSearchParams}
+      />
+
       <DialogContent className="gap-0 p-0 [&>button:last-child]:text-white">
         <div className="p-2">
           <DialogTitle className="text-center font-semibold text-lg mt-2">
@@ -261,7 +258,7 @@ export default function SendMoneyModal() {
               )}
               {step < totalSteps ? (
                 <Button
-                  className="group"
+                  className="group text-background!"
                   type="button"
                   disabled={
                     !form.formState.dirtyFields.phone ||
@@ -285,8 +282,7 @@ export default function SendMoneyModal() {
                       tnxLoading
                     }
                     variant={sendMoneyLoading ? "destructive" : "default"}
-                    className="disabled:cursor-not-allowed"
-                    form="sendMoneyForm"
+                    className={cn("disabled:cursor-not-allowed text-background!", !form.formState.dirtyFields.password || sendMoneyLoading ? "bg-muted cursor-not-allowed!" : "")} form="sendMoneyForm"
                     type="submit"
                   >
                     <ButtonLoader spin={sendMoneyLoading || tnxLoading} />

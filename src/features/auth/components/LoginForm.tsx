@@ -181,8 +181,7 @@ export function LoginForm({ className }: { className?: string }) {
                     <FormLabel>Phone</FormLabel>
                     <FormControl>
                       <Input
-                        className="h-12 bg-[#1c271f] border-[#3b5443] text-white placeholder:text-[#9db9a6]"
-                        placeholder="+8801XXXXXXXXX"
+                        className="h-10 dark:bg-[#1c271f] border-[#3b5443]! dark:text-white placeholder:text-[#9db9a6]" placeholder="+8801XXXXXXXXX"
                         {...field}
                       />
                     </FormControl>

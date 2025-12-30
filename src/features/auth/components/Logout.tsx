@@ -24,7 +24,7 @@ export default function Logout({ width }: { width?: "full" | "" }) {
         onClick={handleLogout}
         variant="outline"
         size="sm"
-        className={`w-${width} text-sm border border-destructive! text-destructive bg-destructive/20 hover:text-destructive hover:bg-destructive/30`}
+        className={`w-${width} text-sm border border-primary! text-primary bg-primary/20! hover:text-primary hover:bg-primary/30!`}
       >
         <ButtonLoader spin={isLoading} />
         Logout

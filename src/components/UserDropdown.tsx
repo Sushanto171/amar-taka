@@ -25,7 +25,7 @@ export default function UserDropdown({ user }: UserDropdownProps) {
           <span className="animate-ping w-8 h-8 top-1 left-1 absolute inset-0 inline-flex rounded-full bg-primary opacity-40" />
 
           {/* Actual button / avatar */}
-          <button className="relative w-full h-full cursor-pointer rounded-full border-2 border-primary/10 overflow-hidden flex items-center justify-center bg-background text-foreground">
+          <button className="relative w-full h-full cursor-pointer rounded-full border-2 border-primary/70 overflow-hidden flex items-center justify-center bg-background text-foreground">
             {user?.photo ? (
               <img
                 src={user.photo}
@@ -58,15 +58,15 @@ export default function UserDropdown({ user }: UserDropdownProps) {
 
 
         <DropdownMenuSeparator />
-        <Link to="profile">
-          <DropdownMenuItem>
+        <Link to="profile" className="cursor-pointer!">
+          <DropdownMenuItem className="cursor-pointer">
             <User className="mr-2 h-4 w-4" />
             Profile
           </DropdownMenuItem>
         </Link>
 
-        <Link to="/">
-          <DropdownMenuItem>
+        <Link to="/" className="cursor-pointer!">
+          <DropdownMenuItem className="cursor-pointer">
             <Home className="mr-2 h-4 w-4" />
             Home
           </DropdownMenuItem>

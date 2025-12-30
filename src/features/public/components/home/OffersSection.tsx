@@ -34,7 +34,7 @@ const offers = [
 
 export function OffersSection() {
   return (
-    <section className="py-20 border-y bg-gradient-to-r from-muted to-muted/50 relative overflow-hidden">
+    <section className="py-20 border-y  relative overflow-hidden">
       {/* Subtle texture */}
       <div className="absolute inset-0 opacity-5 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]" />
 

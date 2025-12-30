@@ -62,21 +62,21 @@ export function RegisterForm({
       const res = await register(data).unwrap();
       toast.success(res.message);
       if (res.success) {
-        navigate("/verify", { state: {phone: data.phone, password: data.password},  });
+        navigate("/verify", { state: { phone: data.phone, password: data.password }, });
       }
     } catch (error: any) {
-  
+
       toast.error(error.data.message);
     }
   };
- return (
+  return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
-      <Card className="border border-white/10 bg-[#111813]/80 backdrop-blur-xl shadow-xl">
+      <Card className="border border-white/10 backdrop-blur-xl shadow-xl">
         <CardHeader className="text-center space-y-1">
-          <CardTitle className="text-2xl font-bold text-white">
+          <CardTitle className="text-2xl font-">
             Registration is Free
           </CardTitle>
-          <CardDescription className="text-[#9db9a6]">
+          <CardDescription className="">
             Create your account using your phone number
           </CardDescription>
         </CardHeader>
@@ -93,18 +93,18 @@ export function RegisterForm({
                 name="name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-white">Full Name</FormLabel>
+                    <FormLabel className="">Full Name</FormLabel>
                     <FormControl>
                       <Input
                         {...field}
                         placeholder="John Doe"
-                        className="h-12 bg-[#1c271f] border-[#3b5443] text-white placeholder:text-[#9db9a6]"
+                        className="h-10 dark:bg-[#1c271f] border-[#3b5443]! dark:text-white placeholder:text-[#9db9a6]"
                       />
                     </FormControl>
                     <FormDescription className="sr-only">
                       Your full legal name
                     </FormDescription>
-                    <FormMessage className="text-red-500"  />
+                    <FormMessage className="text-red-500" />
                   </FormItem>
                 )}
               />
@@ -115,12 +115,12 @@ export function RegisterForm({
                 name="phone"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-white">Phone Number</FormLabel>
+                    <FormLabel className="">Phone Number</FormLabel>
                     <FormControl>
                       <Input
                         {...field}
                         placeholder="+8801XXXXXXXXX"
-                        className="h-12 bg-[#1c271f] border-[#3b5443] text-white placeholder:text-[#9db9a6]"
+                        className="h-10 dark:bg-[#1c271f] border-[#3b5443]! dark:text-white placeholder:text-[#9db9a6]"
                       />
                     </FormControl>
                     <FormDescription className="sr-only">
@@ -137,14 +137,14 @@ export function RegisterForm({
                 name="password"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-white">Password</FormLabel>
+                    <FormLabel className="">Password</FormLabel>
                     <FormControl>
                       <PasswordFiled field={field} />
                     </FormControl>
                     <FormDescription className="sr-only">
                       Choose a strong password
                     </FormDescription>
-                    <FormMessage className="text-red-500"  />
+                    <FormMessage className="text-red-500" />
                   </FormItem>
                 )}
               />

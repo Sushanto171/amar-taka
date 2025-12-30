@@ -2,6 +2,7 @@
 
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { cn } from "@/lib/utils";
 import {
   BarChart3,
   CreditCard,
@@ -14,7 +15,6 @@ import {
   Store,
   Vault,
 } from "lucide-react";
-import { cn } from "@/lib/utils";
 
 type ServiceItem = {
   icon: React.ElementType;
@@ -44,14 +44,14 @@ const merchantSolutions: ServiceItem[] = [
 
 export function ServicesSectionTabs() {
   return (
-    <section className="py-24 border-y bg-muted/30">
+    <section className="py-24 border-y">
       <div className="">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-14">
           <h2 className="text-4xl md:text-5xl font-bold mb-3">
             Banking Built for <span className="text-primary"> {" "}
-               Every Use Case
-              </span>
+              Every Use Case
+            </span>
           </h2>
           <p className="text-muted-foreground">
             Whether you’re managing personal finances or running a business,
@@ -62,16 +62,28 @@ export function ServicesSectionTabs() {
         {/* Tabs */}
         <Tabs defaultValue="personal" className="w-full">
           <div className="flex justify-center mb-12">
-            <TabsList className="bg-transparent border-b border-border rounded-none gap-8">
+            <TabsList className="relative flex justify-center gap-1 rounded-full border bg-background p-1.5 shadow-lg">
               <TabsTrigger
                 value="personal"
-                className="text-sm cursor-pointer font-bold uppercase rounded-none data-[state=active]:border-b-2 data-[state=active]:border-b-primary"
+                className="
+        relative cursor-pointer rounded-full px-6 py-2.5 font-bold
+        text-muted-foreground
+        data-[state=active]:bg-primary
+        data-[state=active]:text-background!
+        transition-all
+      "
               >
                 Personal Banking
               </TabsTrigger>
               <TabsTrigger
                 value="merchant"
-                className="text-sm cursor-pointer font-bold uppercase rounded-none data-[state=active]:border-b-2 data-[state=active]:border-b-primary"
+                className="
+        relative cursor-pointer rounded-full px-6 py-2.5 font-bold
+        text-muted-foreground
+        data-[state=active]:bg-primary
+        data-[state=active]:text-background!
+        transition-all
+      "
               >
                 Merchant Solutions
               </TabsTrigger>

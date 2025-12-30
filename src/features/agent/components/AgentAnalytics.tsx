@@ -1,19 +1,13 @@
 "use client";
 
 import { StatCard } from "@/components/StatCard";
-import { CardDescription, CardTitle } from "@/components/ui/card";
 import { Last7DaysTransactionsChart } from "@/features/admin/components/Last7DaysTnx";
 import TransactionStats from "@/features/admin/components/TransactionStats";
 import { useGetSingleAgentStatsQuery } from "@/redux/features/stats/stats.api";
-import { convertTaka } from "@/utils/convertTaka";
+import { Calendar, CreditCard, DollarSign, TrendingUp } from "lucide-react";
 import AgentAnalyticsSkeleton from "./AgentAnalyticsSkeleton";
 
-const tnxChildren = (
-  <>
-    <CardTitle>Transaction Statistics</CardTitle>
-    <CardDescription>Cash In / Cash Out / Send Money</CardDescription>
-  </>
-);
+
 
 export default function AgentAnalytics() {
   const { data, isLoading } = useGetSingleAgentStatsQuery(undefined);
@@ -27,26 +21,35 @@ export default function AgentAnalytics() {
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
             <StatCard
               title="Balance"
-              value={`৳${convertTaka(data?.totalAmount || 0)}`}
+              value={data?.totalAmount || 12000}
+              color="destructive"
+              isCurrency
+              icon={<DollarSign size={20} />}
             />
             <StatCard
               title="Revenue"
-              value={`৳${convertTaka(data?.revenue || 0)}`}
+              value={data?.revenue || 100}
+              color="accent"
+              isCurrency
+              icon={<TrendingUp size={20} />}
             />
             <StatCard
               title="Total Transactions"
-              value={data.totalTransaction || 0}
+              value={data?.totalTransaction || 5000}
+              color="primary"
+              icon={<CreditCard size={20} />}
             />
             <StatCard
-              title="New Transactions (30 Days)"
+              title="Tnx (30 Days)"
               value={data?.newTransactionInLast30Days || 0}
+              color="secondary"
+              icon={<Calendar size={20} />}
             />
           </div>
 
           <div className="md:grid md:grid-cols-3 gap-5">
             <TransactionStats
               transactionStats={data || []}
-              children={tnxChildren}
             />
             <div className="col-span-2 mt-4 md:mt-0">
               <Last7DaysTransactionsChart
